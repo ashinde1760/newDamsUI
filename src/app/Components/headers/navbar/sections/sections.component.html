@@ -1,0 +1,133 @@
+<div class="container">
+    <div style="margin: 20px 00px">
+        <p-card style="position: relative;">
+            <div>
+                <div style="float: right">
+                    <i
+                        *ngIf="bookmark"
+                        (click)="bookmarkSection()"
+                        class="pi pi-bookmark"
+                        style="cursor: pointer;"
+                    ></i>
+
+                    <i
+                        *ngIf="bookmark1"
+                        (click)="bookmarkSection1()"
+                        class="pi pi-bookmark-fill"
+                        style="cursor: pointer;"
+                    ></i>
+                    &nbsp;
+
+                    <i (click)="editSetionDialog()" class="pi pi-pencil" style="cursor: pointer;"></i>
+                </div>
+
+                <h3 class="section">{{ section }}:</h3>
+                <p class="secDesc">{{ secDesc }}</p>
+            </div>
+
+            <div style="float: right"></div>
+
+            <hr />
+            <div class="updateSection">
+                <button pRipple pButton label="Approve Section"></button> &nbsp;
+                <button pRipple pButton label="Submit"></button>
+            </div>
+        </p-card>
+    </div>
+
+
+    <p-dialog [(visible)]="sectionDialog" [style]="{ width: '50%' }" styleClass="p-fluid">
+        
+        <h3>Update Section</h3>
+        <hr>
+        <ng-template pTemplate="content">
+
+        <h5>Section:</h5>{{section}}
+        <h5>Description:</h5>
+        <textarea pInputText value={{secDesc}}></textarea>
+        </ng-template>
+
+
+        <ng-template pTemplate="footer">
+            <button
+                style="margin-top: 5px"
+                pButton
+                pRipple
+                label="Cancel"
+                icon="pi pi-times"
+                class="p-button-text"
+            ></button>
+            <button
+                style="margin-top: 5px"
+                pButton
+                pRipple
+                label="Update"
+                icon="pi pi-check"
+                class="p-button-text"
+            ></button>
+        </ng-template>
+    </p-dialog>
+
+
+
+
+    <div>
+        <p-tabView>
+            <p-tabPanel header="Keywords">
+                <p-table
+                    class="css-serial"
+                    [value]="keywords"
+                    responsiveLayout="scroll"
+                >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Sr. No</th>
+                            <th>Keyword</th>
+                            <th>Frequency</th>
+                            <th>Boost</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-keyword>
+                        <tr>
+                            <td></td>
+                            <td
+                                class="keyword"
+                            >
+                                {{ keyword.keyword }}
+                            </td>
+                            <td class="keyword">{{ keyword.frequency }}</td>
+                            <td></td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabPanel>
+            <p-tabPanel header="Entity">
+                <p-table
+                    class="css-serial"
+                    [value]="entities"
+                    responsiveLayout="scroll"
+                >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Sr. No</th>
+                            <th>Entity</th>
+                            <th>Type</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-entities>
+                        <tr>
+                            <td></td>
+                            <td
+                                class="entity"
+                            >
+                                {{ entities.entity }}
+                            </td>
+                            <td class="entity">{{ entities.type }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabPanel>
+        </p-tabView>
+        </div>
+        </div>
+        

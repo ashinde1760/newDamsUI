@@ -1,0 +1,56 @@
+<div class="container">
+  <p-toolbar
+    style="width: 100%"
+    styleClass="toolbar"
+   >
+    <div class="p-toolbar-group-left">
+      <i
+        class="pi pi-bars"
+        style="
+          float: left;
+          padding: 1rem;
+          font-size: 2rem;
+          cursor: pointer;
+          color: white;
+        "
+        (click)="sideBar()"
+      ></i>
+    </div>
+
+
+
+    <h1 style="text-align: center; justify-content: center" class="title1">
+      Digital Accounting Manual System
+    </h1>
+    <div class="p-toolbar-group-right">
+      <span>Welcome User</span>
+      <img src="assets\Images\user.png" alt="profile" />
+    </div>
+  </p-toolbar>
+
+
+
+  
+  <div class="leftpanel">
+    <div *ngIf="sidebar" class="nav-pane">
+      <div >
+        <ul class="listItem">
+          <li class="item">
+            <i class="pi pi-home"></i> <a routerLink="/home"> Dashboard</a>
+          </li>
+          <li class="item">
+            <i class="pi pi-book"></i
+            ><a routerLink="/docManagement"> Document Management</a>
+          </li>
+          <li class="item"><i class="pi pi-sign-out"></i><a> Logout</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pages">
+      <router-outlet></router-outlet>
+    </div>
+
+
+  </div>
+</div>
