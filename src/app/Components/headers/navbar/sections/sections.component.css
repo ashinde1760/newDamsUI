@@ -35,3 +35,17 @@
     flex-wrap: wrap;
     text-align: center;
 }
+
+::ng-deep .toolbar1{
+    background-color: aqua;
+}
+
+.primaryButton, .inputSwitch{
+    font-family: Helvetica;
+    font-size: 16px;
+    height: 2em;
+}
+
+::ng-deep .keywordTable th{
+    height: 1px;
+}

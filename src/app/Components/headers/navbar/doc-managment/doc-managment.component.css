@@ -42,3 +42,24 @@
         margin: 4px;
     }
   }
+
+  ::ng-deep .primaryButton{
+    color: white;
+    font-family: Helvetica;
+    font-size: 16px;
+    height: 2em;
+
+}
+
+
+::ng-deep .primaryButton:hover{
+    background-color: #d04a02;
+}
+
+::ng-deep .inputSearch{
+    background-color: white;
+    color: black;
+    font-family: Helvetica;
+    font-size: 16px;
+    height: 2em;
+}

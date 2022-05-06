@@ -15,15 +15,17 @@
         "
         (click)="sideBar()"
       ></i>
+
+      <img style="width: 100px;" src="assets\Images\outline_logo2.png" alt="Logo">
     </div>
 
 
 
-    <h1 style="text-align: center; justify-content: center" class="title1">
+    <h1 style="text-align: center; justify-content: center;" class="title1">
       Digital Accounting Manual System
     </h1>
     <div class="p-toolbar-group-right">
-      <span>Welcome User</span>
+      <span style="font-size: larger;">Welcome {{user}}</span>
       <img src="assets\Images\user.png" alt="profile" />
     </div>
   </p-toolbar>
@@ -42,7 +44,7 @@
             <i class="pi pi-book"></i
             ><a routerLink="/docManagement"> Document Management</a>
           </li>
-          <li class="item"><i class="pi pi-sign-out"></i><a> Logout</a></li>
+          <li class="item"><i class="pi pi-sign-out"></i><a (click)="logout()"> Logout</a></li>
         </ul>
       </div>
     </div>

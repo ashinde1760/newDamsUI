@@ -54,3 +54,13 @@ a{
     text-decoration: underline;
     cursor: pointer;
 }
+
+::ng-deep th{
+    height: 70px;
+}
+
+.primaryButton, .inputSwitch{
+    font-family: Helvetica;
+    font-size: 16px;
+    height: 2em;
+}

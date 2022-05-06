@@ -16,13 +16,15 @@
                         <th>Version</th>
                         <th>Action</th>
                         <th>Download</th>
+                        <th></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-version>
                     <tr>
                         <td (click)="onClickVesrion(version.version)" style="cursor: pointer;"><a>{{version.version}}</a></td>
-                        <td><p-inputSwitch></p-inputSwitch></td>
+                        <td><p-inputSwitch class="inputSwitch"></p-inputSwitch></td>
                         <td><i style="cursor: pointer;" class="pi pi-download"></i></td>
+                        <td><button class="primaryButton" pButton label="Approve" icon="pi pi-check"></button></td>
                         <!-- <td><p-selectButton [options]="stateOptions" [(ngModel)]="version.status" optionLabel="label" optionValue="value"></p-selectButton></td> -->
                         
                     </tr>

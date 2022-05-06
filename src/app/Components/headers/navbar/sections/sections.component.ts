@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DocumentUploadService } from 'src/app/Services/document-upload.service';
+import { Keyword } from './model/keyword';
 
 @Component({
   selector: 'app-sections',
@@ -18,9 +19,14 @@ export class SectionsComponent implements OnInit {
   sectionVersions:any=[];
   selectedVersion!:string;
   bookmark:boolean=true;
-
+  addKeywordDialog:boolean=false;
   sectionDialog:boolean=false;
 
+
+  newKeyword!:Keyword;
+
+
+  keywordData:any;
 
   bookmark1:boolean=false;
 
@@ -41,10 +47,19 @@ export class SectionsComponent implements OnInit {
     this.docService.getKeywords(this.section).subscribe(
       (data:any)=>{
         console.log(data);
+
         this.secDesc=data[0].description;
-        this.keywords=data[0].keywords;
-        this.entities=data[0].entities;
-        this.sectionVersions=data[0].versions;
+        this.keywords=data;
+      },
+      (error)=>{
+        alert("something went wrong, please try again later...!!")
+      }
+    )
+
+    this.docService.getEntities(this.section).subscribe(
+      (data:any)=>{
+
+        this.entities=data;
       },
       (error)=>{
         alert("something went wrong, please try again later...!!")
@@ -63,9 +78,19 @@ export class SectionsComponent implements OnInit {
   }
 
 
-  bookmarkSection(){
+  bookmarkSection(section:string,desc:string){
+    alert(section)
     this.bookmark=false;
     this.bookmark1=true;
+
+    this.docService.addBookmark(section,desc).subscribe(
+      (data)=>{
+        console.log(data);
+      },
+      (error)=>{
+        alert("something went wrong, please try again later");
+      }
+    )
   }
 
   bookmarkSection1(){
@@ -77,4 +102,47 @@ export class SectionsComponent implements OnInit {
     this.sectionDialog=true;
   }
 
+  deleteKeyword(keyword:string,section:string)
+  {
+    this.docService.deleteKeyword(keyword,section).subscribe(
+      (data)=>{
+        console.log(data);
+        
+        this.ngOnInit();
+      },
+      (error)=>{
+        alert("something went wrong...")
+      }
+    )
+  }
+
+
+  addKeyword(){
+    this.newKeyword={};
+    this.addKeywordDialog=true;
+  }
+
+
+  cancleDialog(){
+    if(this.addKeywordDialog===true)
+    {
+      this.addKeywordDialog=false;
+    }
+    else if(this.sectionDialog===true)
+    {
+      this.sectionDialog=false;
+    }
+  }
+
+
+  addNewKeyword(){
+    this.docService.addKeyword(this.newKeyword,this.section).subscribe(
+      (data)=>{
+        console.log(data, "added successfully");
+      },
+      (error)=>{
+        alert("something went wrong...")
+      }
+    )
+  }
 }

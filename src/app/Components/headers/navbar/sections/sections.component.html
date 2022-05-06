@@ -1,11 +1,19 @@
 <div class="container">
+    <p-toolbar>
+        <div class="updateSection" >
+            <!-- <button pRipple pButton label="Approve Section" class="p-button-sm" icon="pi pi-thumbs-up"></button> &nbsp; -->
+            <button  pRipple pButton label="Submit" class="p-button-sm primaryButton" icon="pi pi-check"></button>
+            <button style="float: right;" pRipple pButton label="Raise Query" class="p-button-sm p-button-raised primaryButton" icon="pi pi-exclamation-triangle"></button> &nbsp;
+        </div>
+
+    </p-toolbar>
     <div style="margin: 20px 00px">
         <p-card style="position: relative;">
             <div>
                 <div style="float: right">
                     <i
                         *ngIf="bookmark"
-                        (click)="bookmarkSection()"
+                        (click)="bookmarkSection(section,secDesc)"
                         class="pi pi-bookmark"
                         style="cursor: pointer;"
                     ></i>
@@ -18,7 +26,7 @@
                     ></i>
                     &nbsp;
 
-                    <i (click)="editSetionDialog()" class="pi pi-pencil" style="cursor: pointer;"></i>
+                    <!-- <i (click)="editSetionDialog()" class="pi pi-pencil" style="cursor: pointer;"></i> -->
                 </div>
 
                 <h3 class="section">{{ section }}:</h3>
@@ -27,11 +35,8 @@
 
             <div style="float: right"></div>
 
-            <hr />
-            <div class="updateSection">
-                <button pRipple pButton label="Approve Section"></button> &nbsp;
-                <button pRipple pButton label="Submit"></button>
-            </div>
+           
+           
         </p-card>
     </div>
 
@@ -55,7 +60,7 @@
                 pRipple
                 label="Cancel"
                 icon="pi pi-times"
-                class="p-button-text"
+                class="p-button-text primaryButton"
             ></button>
             <button
                 style="margin-top: 5px"
@@ -63,18 +68,21 @@
                 pRipple
                 label="Update"
                 icon="pi pi-check"
-                class="p-button-text"
+                class="p-button-text primaryButton"
             ></button>
         </ng-template>
     </p-dialog>
 
-
+<p-toolbar>
+    <button pButton label="Add Keyword" (click)="addKeyword()" icon="pi pi-plus" class="primaryButton"></button>
+</p-toolbar>
 
 
     <div>
         <p-tabView>
             <p-tabPanel header="Keywords">
                 <p-table
+                    styleClass="keywordTable"
                     class="css-serial"
                     [value]="keywords"
                     responsiveLayout="scroll"
@@ -85,6 +93,7 @@
                             <th>Keyword</th>
                             <th>Frequency</th>
                             <th>Boost</th>
+                            <th>Action</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-keyword>
@@ -97,6 +106,9 @@
                             </td>
                             <td class="keyword">{{ keyword.frequency }}</td>
                             <td></td>
+                            <td>
+                                <button  pButton icon="pi pi-trash" class="p-button-sm primaryButton" (click)="deleteKeyword(keyword.keyword,section)"></button>
+                            </td>
                         </tr>
                     </ng-template>
                 </p-table>
@@ -129,5 +141,51 @@
             </p-tabPanel>
         </p-tabView>
         </div>
+
+
+        <p-dialog [(visible)]="addKeywordDialog" [style]="{ width: '50%' }" styleClass="p-fluid">
+        
+            <h3>Add Keyword</h3>
+            <hr>
+            <ng-template pTemplate="content">
+    
+                <div class="p-field">
+                    <label>Keyword:</label>
+                    <input pInputText placeholder="Keyword" type="text" [(ngModel)]="newKeyword.keyword">
+                </div>
+
+                <div class="p-field">
+                    <label>Frequency:</label>
+                    <input pInputText placeholder="frequency" [(ngModel)]="newKeyword.frequency">
+                </div>
+            </ng-template>
+    
+    
+            <ng-template pTemplate="footer">
+                <button
+                    style="margin-top: 5px"
+                    pButton
+                    pRipple
+                    label="Cancel"
+                    icon="pi pi-times"
+                    class="p-button-text primaryButton"
+                    (click)="cancleDialog()"
+                ></button>
+                <button
+                    style="margin-top: 5px"
+                    pButton
+                    pRipple
+                    label="Add"
+                    icon="pi pi-check"
+                    class="p-button-text primaryButton"
+                    (click)="addNewKeyword()"
+                ></button>
+            </ng-template>
+        </p-dialog>
+    
+
+
+
+
         </div>
         
