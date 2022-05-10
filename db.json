@@ -229,316 +229,284 @@
   ],
   "keywords": [
     {
+      "id": 1,
       "section": "Audit Execution",
       "description": "In this section we are going to do actual Audit",
       "keyword": "login",
       "frequency": "4",
-      "entity": "auditor",
-      "type": "Person"
+      "bookmark": true
     },
     {
+      "id": 2,
       "section": "Audit Execution",
       "description": "In this section we are going to do actual Audit",
       "keyword": "dashboard",
-      "frequency": "3",
-      "entity": "PM",
-      "type": "Person"
+      "frequency": "3"
     },
     {
+      "id": 3,
       "section": "Audit Execution",
       "description": "In this section we are going to do actual Audit",
       "keyword": "PM",
-      "frequency": "5",
-      "entity": "USA",
-      "type": "Country"
+      "frequency": "5"
     },
     {
+      "id": 4,
       "section": "Audit Execution",
       "description": "In this section we are going to do actual Audit",
       "keyword": "assigned Projects",
-      "frequency": "2",
-      "entity": "Risk",
-      "type": "issue"
+      "frequency": "2"
     },
     {
+      "id": 5,
       "section": "Audit Execution",
       "description": "In this section we are going to do actual Audit",
       "keyword": "risk",
-      "frequency": "7",
-      "entity": "data request",
-      "type": "section"
+      "frequency": "7"
     },
     {
+      "id": 6,
       "section": "Audit Execution",
       "description": "In this section we are going to do actual Audit",
       "keyword": "control",
-      "frequency": "6",
-      "entity": "bulk upload",
-      "type": "functionality"
+      "frequency": "6"
     },
     {
+      "id": 7,
       "section": "Audit Planning",
       "description": "In this section we are going to make a plan for each and every audit with start and end date",
       "keyword": "PM",
       "frequency": "3",
-      "entity": "auditor",
-      "type": "Person"
+      "bookmark": false
     },
     {
+      "id": 8,
       "section": "Audit Planning",
       "description": "In this section we are going to make a plan for each and every audit with start and end date",
       "keyword": "Partner",
-      "frequency": "1",
-      "entity": "PM",
-      "type": "Person"
+      "frequency": "1"
     },
     {
+      "id": 9,
       "section": "Audit Planning",
       "description": "In this section we are going to make a plan for each and every audit with start and end date",
       "keyword": "entity",
-      "frequency": "5",
-      "entity": "USA",
-      "type": "Country"
+      "frequency": "5"
     },
     {
+      "id": 10,
       "section": "Audit Planning",
       "description": "In this section we are going to make a plan for each and every audit with start and end date",
       "keyword": "location",
-      "frequency": "4",
-      "entity": "Risk",
-      "type": "issue"
+      "frequency": "4"
     },
     {
+      "id": 11,
       "section": "Audit Planning",
       "description": "In this section we are going to make a plan for each and every audit with start and end date",
       "keyword": "department",
-      "frequency": "6",
-      "entity": "data request",
-      "type": "section"
+      "frequency": "6"
     },
     {
+      "id": 12,
       "section": "Audit Planning",
       "description": "In this section we are going to make a plan for each and every audit with start and end date",
       "keyword": "processes",
-      "frequency": "2",
-      "entity": "bulk upload",
-      "type": "functionality"
+      "frequency": "2"
     },
     {
+      "id": 13,
       "section": "Authentication",
       "description": "Purpose of this is to make all the API's authenticated according to roles",
       "keyword": "login",
       "frequency": "1",
-      "entity": "auditor",
-      "type": "Person"
+      "bookmark": false
     },
     {
+      "id": 14,
       "section": "Authentication",
       "description": "Purpose of this is to make all the API's authenticated according to roles",
       "keyword": "analyst admin",
-      "frequency": "3",
-      "entity": "PM",
-      "type": "Person"
+      "frequency": "3"
     },
     {
+      "id": 15,
       "section": "Authentication",
       "description": "Purpose of this is to make all the API's authenticated according to roles",
       "keyword": "master admin",
-      "frequency": "6",
-      "entity": "USA",
-      "type": "Country"
+      "frequency": "6"
     },
     {
+      "id": 16,
       "section": "Authentication",
       "description": "Purpose of this is to make all the API's authenticated according to roles",
       "keyword": "clients",
-      "frequency": "4",
-      "entity": "Risk",
-      "type": "issue"
+      "frequency": "4"
     },
     {
+      "id": 17,
       "section": "Client Active Directory Integration",
       "description": "This tool shall be integrated with an active directory and will also have SSO enabled",
       "keyword": "login",
       "frequency": "2",
-      "entity": "auditor",
-      "type": "Person"
+      "bookmark": true
     },
     {
+      "id": 18,
       "section": "Client Active Directory Integration",
       "description": "This tool shall be integrated with an active directory and will also have SSO enabled",
       "keyword": "client",
-      "frequency": "1",
-      "entity": "PM",
-      "type": "Person"
+      "frequency": "1"
     },
     {
+      "id": 19,
       "section": "Client Active Directory Integration",
       "description": "This tool shall be integrated with an active directory and will also have SSO enabled",
       "keyword": "integration",
-      "frequency": "3",
-      "entity": "USA",
-      "type": "Country"
+      "frequency": "3"
     },
     {
+      "id": 20,
       "section": "Client Active Directory Integration",
       "description": "This tool shall be integrated with an active directory and will also have SSO enabled",
       "keyword": "project code",
-      "frequency": "2",
-      "entity": "Risk",
-      "type": "issue"
+      "frequency": "2"
     },
     {
+      "id": 21,
       "section": "Client Active Directory Integration",
       "description": "This tool shall be integrated with an active directory and will also have SSO enabled",
       "keyword": "task code",
-      "frequency": "1",
-      "entity": "data request",
-      "type": "section"
+      "frequency": "1"
     },
     {
+      "id": 22,
       "section": "Client Master",
       "description": "In this section we are going to see that how we are managing the client master data",
       "keyword": "client creation",
       "frequency": "3",
-      "entity": "auditor",
-      "type": "Person"
+      "bookmark": true
     },
     {
+      "id": 23,
       "section": "Client Master",
       "description": "In this section we are going to see that how we are managing the client master data",
       "keyword": "client specific",
-      "frequency": "1",
-      "entity": "PM",
-      "type": "Person"
+      "frequency": "1"
     },
     {
+      "id": 24,
       "section": "Client Master",
       "description": "In this section we are going to see that how we are managing the client master data",
       "keyword": "client basic",
-      "frequency": "2",
-      "entity": "USA",
-      "type": "Country"
+      "frequency": "2"
     },
     {
+      "id": 25,
       "section": "Client Master",
       "description": "In this section we are going to see that how we are managing the client master data",
       "keyword": "letter of engagement",
-      "frequency": "5",
-      "entity": "Risk",
-      "type": "issue"
+      "frequency": "5"
     },
     {
+      "id": 26,
       "section": "Client Master",
       "description": "In this section we are going to see that how we are managing the client master data",
       "keyword": "auditor domain",
-      "frequency": "4",
-      "entity": "data request",
-      "type": "section"
+      "frequency": "4"
     },
     {
+      "id": 27,
       "section": "Client Master",
       "description": "In this section we are going to see that how we are managing the client master data",
       "keyword": "orgaization structure",
-      "frequency": "6",
-      "entity": "bulk upload",
-      "type": "functionality"
+      "frequency": "6"
     },
     {
+      "id": 28,
       "section": "Follow-up",
       "description": "This section allows auditee to agree/disagree with the auditor comments and raise conflict to the auditor’s conclusion. It will allow escalations to get triggered and customized as per client setup definition.",
       "keyword": "IAhead",
       "frequency": "3",
-      "entity": "auditor",
-      "type": "Person"
+      "bookmark": true
     },
     {
+      "id": 29,
       "section": "Follow-up",
       "description": "This section allows auditee to agree/disagree with the auditor comments and raise conflict to the auditor’s conclusion. It will allow escalations to get triggered and customized as per client setup definition.",
       "keyword": "project manager",
-      "frequency": "4",
-      "entity": "PM",
-      "type": "Person"
+      "frequency": "4"
     },
     {
+      "id": 30,
       "section": "Follow-up",
       "description": "This section allows auditee to agree/disagree with the auditor comments and raise conflict to the auditor’s conclusion. It will allow escalations to get triggered and customized as per client setup definition.",
       "keyword": "audit executive",
-      "frequency": "1",
-      "entity": "USA",
-      "type": "Country"
+      "frequency": "1"
     },
     {
+      "id": 31,
       "section": "Follow-up",
       "description": "This section allows auditee to agree/disagree with the auditor comments and raise conflict to the auditor’s conclusion. It will allow escalations to get triggered and customized as per client setup definition.",
       "keyword": "issue triggered",
-      "frequency": "2",
-      "entity": "Risk",
-      "type": "issue"
+      "frequency": "2"
     },
     {
+      "id": 32,
       "section": "Follow-up",
       "description": "This section allows auditee to agree/disagree with the auditor comments and raise conflict to the auditor’s conclusion. It will allow escalations to get triggered and customized as per client setup definition.",
       "keyword": "issue closed",
-      "frequency": "6",
-      "entity": "data request",
-      "type": "section"
+      "frequency": "6"
     },
     {
+      "id": 33,
       "section": "Follow-up",
       "description": "This section allows auditee to agree/disagree with the auditor comments and raise conflict to the auditor’s conclusion. It will allow escalations to get triggered and customized as per client setup definition.",
       "keyword": "issue tracked",
-      "frequency": "7",
-      "entity": "bulk upload",
-      "type": "functionality"
+      "frequency": "7"
     },
     {
+      "id": 34,
       "section": "Product Master",
       "description": "In this section we are going to manage all product data and will perform CRUD operation on it",
       "keyword": "admin",
       "frequency": "2",
-      "entity": "auditor",
-      "type": "Person"
+      "bookmark": true
     },
     {
+      "id": 35,
       "section": "Product Master",
       "description": "In this section we are going to manage all product data and will perform CRUD operation on it",
       "keyword": "individual product",
-      "frequency": "1",
-      "entity": "PM",
-      "type": "Person"
+      "frequency": "1"
     },
     {
+      "id": 36,
       "section": "Product Master",
       "description": "In this section we are going to manage all product data and will perform CRUD operation on it",
       "keyword": "upload",
-      "frequency": "5",
-      "entity": "USA",
-      "type": "Country"
+      "frequency": "5"
     },
     {
+      "id": 37,
       "section": "Product Master",
       "description": "In this section we are going to manage all product data and will perform CRUD operation on it",
       "keyword": "verify",
-      "frequency": "1",
-      "entity": "Risk",
-      "type": "issue"
+      "frequency": "1"
     },
     {
+      "id": 38,
       "section": "Product Master",
       "description": "In this section we are going to manage all product data and will perform CRUD operation on it",
       "keyword": "publish",
-      "frequency": "4",
-      "entity": "data request",
-      "type": "section"
+      "frequency": "4"
     },
     {
+      "id": 39,
       "section": "Product Master",
       "description": "In this section we are going to manage all product data and will perform CRUD operation on it",
       "keyword": "report",
-      "frequency": "2",
-      "entity": "bulk upload",
-      "type": "functionality"
+      "frequency": "2"
     }
   ],
   "entities": [
@@ -740,7 +708,10 @@
   ],
   "bookmarks": [
     {
-      "id": 1
+      "section": "Follow-up",
+      "desc": "This section allows auditee to agree/disagree with the auditor comments and raise conflict to the auditor’s conclusion. It will allow escalations to get triggered and customized as per client setup definition.",
+      "id": 1,
+      "bookmark": true
     }
   ]
 }

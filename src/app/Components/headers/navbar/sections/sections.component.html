@@ -13,15 +13,15 @@
                 <div style="float: right">
                     <i
                         *ngIf="bookmark"
-                        (click)="bookmarkSection(section,secDesc)"
-                        class="pi pi-bookmark"
+                        (click)="bookmarkSection(section)"
+                        class="pi pi-bookmark-fill"
                         style="cursor: pointer;"
                     ></i>
 
                     <i
-                        *ngIf="bookmark1"
-                        (click)="bookmarkSection1()"
-                        class="pi pi-bookmark-fill"
+                        *ngIf="!bookmark"
+                        (click)="bookmarkSection(section)"
+                        class="pi pi-bookmark"
                         style="cursor: pointer;"
                     ></i>
                     &nbsp;
@@ -40,6 +40,7 @@
         </p-card>
     </div>
 
+<!-- this is for editing section but currently we are not using it  -->
 
     <p-dialog [(visible)]="sectionDialog" [style]="{ width: '50%' }" styleClass="p-fluid">
         
@@ -77,6 +78,7 @@
     <button pButton label="Add Keyword" (click)="addKeyword()" icon="pi pi-plus" class="primaryButton"></button>
 </p-toolbar>
 
+<!-- this is for showing keywords and entities -->
 
     <div>
         <p-tabView>
@@ -107,7 +109,7 @@
                             <td class="keyword">{{ keyword.frequency }}</td>
                             <td></td>
                             <td>
-                                <button  pButton icon="pi pi-trash" class="p-button-sm primaryButton" (click)="deleteKeyword(keyword.keyword,section)"></button>
+                                <button  pButton icon="pi pi-trash" class="p-button-sm primaryButton" (click)="deleteKeyword(keyword.id,section)"></button>
                             </td>
                         </tr>
                     </ng-template>
@@ -142,6 +144,9 @@
         </p-tabView>
         </div>
 
+
+
+        <!-- For adding a new keyword -->
 
         <p-dialog [(visible)]="addKeywordDialog" [style]="{ width: '50%' }" styleClass="p-fluid">
         

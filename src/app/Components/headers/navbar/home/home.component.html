@@ -1,1 +1,13 @@
-<p>home works!</p>
+<div class="container">
+    <div>
+        <p-card styleClass="outerCard">
+            <h1>Bookmarked Sections:</h1>
+            <div *ngFor="let data of bookmarks">
+                <p-card pRipple styleClass="innerCard">
+                    <h3 class="Section: "> {{data.section}}</h3>
+                    <b class="subTitle"> </b><i><label>{{data.description}}</label></i><br><br>
+                </p-card>
+            </div>
+        </p-card>
+    </div>
+</div>

@@ -36,10 +36,7 @@ export class DocumentUploadService {
   }
 
 
-  addKeyword(keywordData:Keyword,section:string)
-  {
-    return this.http.post(`${environment.url + "/keywords"}`,keywordData);
-  }
+  
 
   getKeywords(section:string)
   {
@@ -59,16 +56,36 @@ export class DocumentUploadService {
   }
 
 
-  deleteKeyword(keyword:string,section:string)
+  deleteKeyword(id:number,section:string)
   {
-    alert(keyword +" where "+ section + " will be deleted")
-    //return this.http.delete<any>(`${environment.url+"/keywords"}?section=${section}&keyword=${keyword}`);
-    return this.http.delete<any>(`${environment.url}/keywords/${keyword}`);
+    alert(id +" & "+ section)
+    return this.http.delete<any>(`${environment.url}/keywords/${id}?section=${section}`);
   }
 
-  addBookmark(sec:string,desc:string)
+  addKeyword(keywordData:any)
   {
-    alert("akshay"+sec)
-    return this.http.post('http://localhost:3000/bookmarks',sec)
+    return this.http.post(`${environment.url + "/keywords"}`,keywordData);
+  }
+
+
+
+  getKeywordById(id:string)
+  {
+    return this.http.get(`${environment.url}/keywords/${id}`);
+  }
+
+  updateBookmark(id:string,data:any)
+  {
+    return this.http.put(`${environment.url}/keywords/${id}`,data);
+  }
+
+  getBookmarks()
+  {
+    return this.http.get(`${environment.url + "/keywords"}?bookmark=${true}`)
+  }
+
+  getBookmarksBySection(section:string)
+  {
+    return this.http.get(`${environment.url + "/bookmarks"}?section=${section}`)
   }
 }
