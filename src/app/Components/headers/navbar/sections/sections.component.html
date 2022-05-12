@@ -1,7 +1,6 @@
 <div class="container">
   <p-toolbar>
     <div class="updateSection">
-      <!-- <button pRipple pButton label="Approve Section" class="p-button-sm" icon="pi pi-thumbs-up"></button> &nbsp; -->
       <button
         pRipple
         pButton
@@ -10,6 +9,7 @@
         icon="pi pi-check"
         (click)="onSubmit()"
       ></button>
+      &nbsp;
       <button
         style="float: right"
         pRipple
@@ -19,10 +19,10 @@
         icon="pi pi-exclamation-triangle"
         (click)="raiseQuery()"
       ></button>
-      &nbsp;
     </div>
-  </p-toolbar>
-  <div style="margin: 20px 00px">
+</p-toolbar>
+
+<div style="margin: 20px 00px">
     <p-card style="position: relative">
       <div>
         <div style="float: right">
@@ -33,7 +33,6 @@
             style="cursor: pointer"
           ></i>
 
-
           <i
             *ngIf="!bookmark"
             (click)="bookmarkSection(section)"
@@ -41,8 +40,6 @@
             style="cursor: pointer"
           ></i>
           &nbsp;
-
-          <!-- <i (click)="editSetionDialog()" class="pi pi-pencil" style="cursor: pointer;"></i> -->
         </div>
 
         <h3 class="section">{{ section }}:</h3>
@@ -89,6 +86,8 @@
     </ng-template>
   </p-dialog>
 
+
+
   <p-toolbar>
     <button
       pButton
@@ -100,7 +99,6 @@
   </p-toolbar>
 
   <!-- this is for showing keywords and entities -->
-
   <div>
     <p-tabView>
       <p-tabPanel header="Keywords">
@@ -122,10 +120,10 @@
           <ng-template pTemplate="body" let-keyword>
             <tr>
               <td></td>
-              <td class="keyword">
+              <td class="keyword" (click)="onClickKeyword(keyword.keyword)">
                 {{ keyword.keyword }}
               </td>
-              <td class="keyword">{{ keyword.frequency }}</td>
+              <td>{{ keyword.frequency }}</td>
               <td></td>
               <td>
                 <button
@@ -161,16 +159,9 @@
               </td>
               <td class="entity">{{ entities.type }}</td>
               <td>
-                <!-- <button
-                  pButton
-                  icon="pi pi-trash"
-                  class="p-button-sm primaryButton"
-                  (click)="deleteEntity(entities.id)"
-                ></button> -->
-
                 <button
                   pButton
-                  (click)="deleteEntity('bottom',entities.id)"
+                  (click)="deleteEntity('bottom', entities.id)"
                   icon="pi pi-trash"
                   class="p-button-sm primaryButton"
                 ></button>
@@ -189,9 +180,13 @@
     rejectButtonStyleClass="p-button-outlined"
   ></p-confirmDialog>
 
-  <p-toast></p-toast>
-  <!-- For adding a new keyword -->
 
+  <!-- to display success or error msg -->
+  <p-toast></p-toast>
+
+
+
+  <!-- For adding a new keyword -->
   <p-dialog
     [(visible)]="addKeywordDialog"
     [style]="{ width: '30%' }"
@@ -242,6 +237,10 @@
     </ng-template>
   </p-dialog>
 
+
+
+
+  <!-- this is to add reviewer -->
   <p-dialog
     [(visible)]="reviewerDialog"
     [style]="{ width: '30%' }"
@@ -283,6 +282,8 @@
     </ng-template>
   </p-dialog>
 
+
+  <!-- this is to raise query -->
   <p-dialog
     [(visible)]="raiseQueryDialog"
     [style]="{ width: '30%' }"
@@ -317,3 +318,31 @@
     </ng-template>
   </p-dialog>
 </div>
+
+
+<!-- this is to keyword mapping -->
+<p-dialog
+  [(visible)]="keywordDialog"
+  [style]="{ width: '30%' }"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div style="margin-bottom: 50px">
+      <h3>{{ keywordData.section }}</h3>
+      <span>{{ keywordData.description }}</span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <div>
+      <button
+        style="margin-top: 5px"
+        pButton
+        pRipple
+        label="Cancel"
+        icon="pi pi-times"
+        class="p-button-text primaryButton"
+        (click)="cancleDialog()"
+      ></button>
+    </div>
+  </ng-template>
+</p-dialog>

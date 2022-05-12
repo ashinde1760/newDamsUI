@@ -42,6 +42,8 @@ export class SectionsComponent implements OnInit {
   versionSelected: boolean = false;
   position!: string;
 
+  keywordDialog: boolean = false;
+
   constructor(
     private docService: DocumentUploadService,
     private confirmationService: ConfirmationService,
@@ -49,15 +51,13 @@ export class SectionsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // to get section and version from localhost
     this.version = JSON.parse(JSON.stringify(localStorage.getItem('version')));
     this.section = localStorage.getItem('section');
 
-    console.log(this.section);
-
+    // to get all the keyword by section
     this.docService.getKeywords(this.section).subscribe(
       (data: any) => {
-        console.log(data);
-
         this.secDesc = data[0].description;
         this.id = data[0].id;
         this.keywords = data;
@@ -68,6 +68,7 @@ export class SectionsComponent implements OnInit {
       }
     );
 
+    // to get all entities by section
     this.docService.getEntities(this.section).subscribe(
       (data: any) => {
         this.entities = data;
@@ -77,10 +78,9 @@ export class SectionsComponent implements OnInit {
       }
     );
 
+    // this is to fetch reviewers list
     this.docService.getReviwers().subscribe(
       (data: any) => {
-        console.log(data, 'all reviewers');
-
         this.reviewers = data;
       },
       (error) => {
@@ -89,14 +89,7 @@ export class SectionsComponent implements OnInit {
     );
   }
 
-  onClickSection(section: string) {
-    this.allKeywords = true;
-  }
-
-  onSelectVersion() {
-    this.versionSelected = true;
-  }
-
+  // this to make a section bookmark
   bookmarkSection(section: string) {
     this.bookmarkData = {};
 
@@ -125,6 +118,7 @@ export class SectionsComponent implements OnInit {
     }
   }
 
+  // this is to make a section bookmarked  and unbookmarked
   updateBookmark(id: string, data: Keyword) {
     this.docService.updateBookmark(id, data).subscribe(
       (data) => {
@@ -137,28 +131,8 @@ export class SectionsComponent implements OnInit {
     );
   }
 
-  bookmarkSection1() {
-    this.bookmark1 = false;
-    this.bookmark = true;
-  }
-
-  editSetionDialog() {
-    this.sectionDialog = true;
-  }
-
+  // this is to delete keyword
   deleteKeyword(position: string, id: number, section: string) {
-    // alert(id + ' will get deleted where section is ' + section);
-    // this.docService.deleteKeyword(id, section).subscribe(
-    //   (data) => {
-    //     console.log(data);
-
-    //     this.ngOnInit();
-    //   },
-    //   (error) => {
-    //     alert('something went wrong...');
-    //   }
-    // );
-
     this.position = position;
 
     this.confirmationService.confirm({
@@ -187,19 +161,8 @@ export class SectionsComponent implements OnInit {
     });
   }
 
-
-
-  deleteEntity(position:string,id: string) {
-    // this.docService.deleteEntity(id).subscribe(
-    //   (data: any) => {
-    //     alert('entity deleted successfully...');
-    //     this.ngOnInit();
-    //   },
-    //   (error) => {
-    //     alert('something went wrong while deleting entity');
-    //   }
-    // );
-
+  // this is to delete entity
+  deleteEntity(position: string, id: string) {
     this.position = position;
 
     this.confirmationService.confirm({
@@ -207,14 +170,13 @@ export class SectionsComponent implements OnInit {
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
-        this.docService.deleteEntity(id).subscribe(
-          (data) => {
-            this.messageService.add({
-              severity: 'info',
-              summary: 'Confirmed',
-              detail: 'Record deleted',
-            });
-            this.ngOnInit();
+        this.docService.deleteEntity(id).subscribe((data) => {
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Confirmed',
+            detail: 'Record deleted',
+          });
+          this.ngOnInit();
         });
       },
       reject: () => {
@@ -227,14 +189,15 @@ export class SectionsComponent implements OnInit {
 
       key: 'positionDialog',
     });
-
   }
 
+  // this will open dialog box to add keyword
   addKeyword() {
     this.newKeyword = {};
     this.addKeywordDialog = true;
   }
 
+  // to cancle a dialog box
   cancleDialog() {
     if (this.addKeywordDialog === true) {
       this.addKeywordDialog = false;
@@ -244,9 +207,12 @@ export class SectionsComponent implements OnInit {
       this.reviewerDialog = false;
     } else if (this.raiseQueryDialog === true) {
       this.raiseQueryDialog = false;
+    } else if (this.keywordDialog === true) {
+      this.keywordDialog = false;
     }
   }
 
+  // this is to add new keyword
   addNewKeyword() {
     this.addKeywordDialog = false;
     this.newKeyword.section = this.section;
@@ -262,13 +228,27 @@ export class SectionsComponent implements OnInit {
     );
   }
 
+  // this will open dialog box to add reviewer
   onSubmit() {
     this.reviewerDialog = true;
   }
 
+  // this will open dialog box to raise query
   raiseQuery() {
     this.raiseQueryDialog = true;
   }
 
-  
+  // this will shows a section in which that keyword is lying
+  onClickKeyword(keyword: string) {
+    this.keywordDialog = true;
+    this.docService.search(keyword).subscribe(
+      (data: any) => {
+        this.keywordData = data[0];
+        console.log(data);
+      },
+      (error: any) => {
+        alert('Keyword not found...');
+      }
+    );
+  }
 }

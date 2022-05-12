@@ -12,7 +12,7 @@ export class DocManagmentComponent implements OnInit {
   selectedFiles?: FileList;
   currentFile?: File;
   uploadDialog: boolean = false;
-
+  searchKeyword!:string;
   constructor(
     private docService: DocumentUploadService,
     private router: Router
@@ -74,5 +74,16 @@ export class DocManagmentComponent implements OnInit {
 
   onCancle() {
     this.uploadDialog = false;
+  }
+
+  search(){
+      this.docService.search(this.searchKeyword).subscribe(
+          (data:any)=>{
+            console.log(data);
+          },
+          (error:any)=>{
+              alert("something went wrong while searching keyword, please try again later...!!");
+          }
+      )
   }
 }

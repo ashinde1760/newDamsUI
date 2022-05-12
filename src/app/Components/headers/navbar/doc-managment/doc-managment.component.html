@@ -8,10 +8,10 @@
       icon="pi pi-plus"
     ></button>
 
-    <div style="float: right">
-      <input class="inputSearch" pInputText placeholder="Search here..." />
+    <div style="float: right; text-decoration: none">
+      <input class="inputSearch" pInputText placeholder="Search here..." [(ngModel)]="searchKeyword" />
       &nbsp;
-      <button pRipple pButton class="primaryButton" label="Search"></button>
+      <button pRipple pButton class="primaryButton" label="Search" (click)="search()"></button>
     </div>
   </p-toolbar>
   <p-card styleClass="outerCard">
@@ -46,7 +46,7 @@
       <input
         class="p-inputtext-sm"
         type="file"
-        accept="application/pdf"
+        multiple="multiple"
         pInputText
         id="dos"
         required

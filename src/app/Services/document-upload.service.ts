@@ -95,4 +95,10 @@ export class DocumentUploadService {
 
     return this.http.request(req);
   }
+
+
+  search(keyword:string)
+  {
+    return this.http.get(`${environment.url}/keywords?keyword=${keyword}`);
+  }
 }
