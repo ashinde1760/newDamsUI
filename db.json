@@ -380,26 +380,12 @@
       "frequency": "1"
     },
     {
-      "id": 22,
-      "section": "Client Master",
-      "description": "In this section we are going to see that how we are managing the client master data",
-      "keyword": "client creation",
-      "frequency": "3",
-      "bookmark": true
-    },
-    {
-      "id": 23,
-      "section": "Client Master",
-      "description": "In this section we are going to see that how we are managing the client master data",
-      "keyword": "client specific",
-      "frequency": "1"
-    },
-    {
       "id": 24,
       "section": "Client Master",
       "description": "In this section we are going to see that how we are managing the client master data",
       "keyword": "client basic",
-      "frequency": "2"
+      "frequency": "2",
+      "bookmark": false
     },
     {
       "id": 25,
@@ -507,211 +493,270 @@
       "description": "In this section we are going to manage all product data and will perform CRUD operation on it",
       "keyword": "report",
       "frequency": "2"
+    },
+    {
+      "keyword": "principle",
+      "frequency": "5",
+      "section": "Client Active Directory Integration",
+      "id": 40
     }
   ],
   "entities": [
     {
+      "id": 1,
       "section": "Audit Execution",
       "entity": "auditor",
       "type": "Person"
     },
     {
+      "id": 2,
       "section": "Audit Execution",
       "entity": "PM",
       "type": "Person"
     },
     {
+      "id": 3,
       "section": "Audit Execution",
       "entity": "USA",
       "type": "Country"
     },
     {
+      "id": 4,
       "section": "Audit Execution",
       "entity": "Risk",
       "type": "issue"
     },
     {
+      "id": 5,
       "section": "Audit Execution",
       "entity": "data request",
       "type": "section"
     },
     {
+      "id": 6,
       "section": "Audit Execution",
       "entity": "bulk upload",
       "type": "functionality"
     },
     {
+      "id": 7,
       "section": "Audit Planning",
       "entity": "auditor",
       "type": "Person"
     },
     {
+      "id": 8,
       "section": "Audit Planning",
       "entity": "PM",
       "type": "Person"
     },
     {
+      "id": 9,
       "section": "Audit Planning",
       "entity": "USA",
       "type": "Country"
     },
     {
+      "id": 10,
       "section": "Audit Planning",
       "entity": "Risk",
       "type": "issue"
     },
     {
+      "id": 11,
       "section": "Audit Planning",
       "entity": "data request",
       "type": "section"
     },
     {
+      "id": 12,
       "section": "Audit Planning",
       "entity": "bulk upload",
       "type": "functionality"
     },
     {
+      "id": 13,
       "section": "Authentication",
       "entity": "auditor",
       "type": "Person"
     },
     {
+      "id": 14,
       "section": "Authentication",
       "entity": "PM",
       "type": "Person"
     },
     {
+      "id": 15,
       "section": "Authentication",
       "entity": "USA",
       "type": "Country"
     },
     {
+      "id": 16,
       "section": "Authentication",
       "entity": "Risk",
       "type": "issue"
     },
     {
+      "id": 17,
       "section": "Client Active Directory Integration",
       "entity": "auditor",
       "type": "Person"
     },
     {
+      "id": 18,
       "section": "Client Active Directory Integration",
       "entity": "PM",
       "type": "Person"
     },
     {
+      "id": 19,
       "section": "Client Active Directory Integration",
       "entity": "USA",
       "type": "Country"
     },
     {
+      "id": 20,
       "section": "Client Active Directory Integration",
       "entity": "Risk",
       "type": "issue"
     },
     {
+      "id": 21,
       "section": "Client Active Directory Integration",
       "entity": "data request",
       "type": "section"
     },
     {
-      "section": "Client Master",
-      "entity": "auditor",
-      "type": "Person"
-    },
-    {
-      "section": "Client Master",
-      "entity": "PM",
-      "type": "Person"
-    },
-    {
+      "id": 24,
       "section": "Client Master",
       "entity": "USA",
       "type": "Country"
     },
     {
+      "id": 25,
       "section": "Client Master",
       "entity": "Risk",
       "type": "issue"
     },
     {
+      "id": 26,
       "section": "Client Master",
       "entity": "data request",
       "type": "section"
     },
     {
-      "section": "Client Master",
+      "id": 28,
+      "section": "Follow-up",
+      "entity": "auditor",
+      "type": "Person"
+    },
+    {
+      "id": 29,
+      "section": "Follow-up",
+      "entity": "PM",
+      "type": "Person"
+    },
+    {
+      "id": 30,
+      "section": "Follow-up",
+      "entity": "USA",
+      "type": "Country"
+    },
+    {
+      "id": 31,
+      "section": "Follow-up",
+      "entity": "Risk",
+      "type": "issue"
+    },
+    {
+      "id": 32,
+      "section": "Follow-up",
+      "entity": "data request",
+      "type": "section"
+    },
+    {
+      "id": 33,
+      "section": "Follow-up",
       "entity": "bulk upload",
       "type": "functionality"
     },
     {
-      "section": "Follow-up",
-      "entity": "auditor",
-      "type": "Person"
-    },
-    {
-      "section": "Follow-up",
-      "entity": "PM",
-      "type": "Person"
-    },
-    {
-      "section": "Follow-up",
-      "entity": "USA",
-      "type": "Country"
-    },
-    {
-      "section": "Follow-up",
-      "entity": "Risk",
-      "type": "issue"
-    },
-    {
-      "section": "Follow-up",
-      "entity": "data request",
-      "type": "section"
-    },
-    {
-      "section": "Follow-up",
-      "entity": "bulk upload",
-      "type": "functionality"
-    },
-    {
+      "id": 34,
       "section": "Product Master",
       "entity": "auditor",
       "type": "Person"
     },
     {
+      "id": 35,
       "section": "Product Master",
       "entity": "PM",
       "type": "Person"
     },
     {
+      "id": 36,
       "section": "Product Master",
       "entity": "USA",
       "type": "Country"
     },
     {
+      "id": 37,
       "section": "Product Master",
       "entity": "Risk",
       "type": "issue"
     },
     {
+      "id": 38,
       "section": "Product Master",
       "entity": "data request",
       "type": "section"
     },
     {
+      "id": 39,
       "section": "Product Master",
       "entity": "bulk upload",
       "type": "functionality"
     }
   ],
-  "bookmarks": [
+  "reviewer": [
     {
-      "section": "Follow-up",
-      "desc": "This section allows auditee to agree/disagree with the auditor comments and raise conflict to the auditor’s conclusion. It will allow escalations to get triggered and customized as per client setup definition.",
+      "name": "Akshay Shinde",
       "id": 1,
-      "bookmark": true
+      "email": "akshay.shinde@anemoitechnologies.com"
+    },
+    {
+      "name": "Shivraj Godle",
+      "id": 2,
+      "email": "shivraj.godle@anemoitechnologies.com"
+    },
+    {
+      "name": "Siddesh kadus",
+      "id": 3,
+      "email": "siddesh.kadus@anemoitechnologies.com"
+    },
+    {
+      "name": "Shubham Saykar",
+      "id": 4,
+      "email": "shubham.saykar@anemoitechnologies.com"
+    },
+    {
+      "name": "Priya Tiwari",
+      "id": 5,
+      "email": "priya.tiwari@anemoitechnologies.com"
+    },
+    {
+      "name": "Upendra Kale",
+      "id": 6,
+      "email": "upendra.kale@anemoitechnologies.com"
+    }
+  ],
+  "docs": [
+    {
+      "id": 1
+    },
+    {
+      "id": 2
     }
   ]
 }

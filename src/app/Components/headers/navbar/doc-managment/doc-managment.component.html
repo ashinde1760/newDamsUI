@@ -1,62 +1,79 @@
-
 <div class="container">
-<p-toolbar>
-    <button pButton class="p-button-sm primaryButton" (click)="onUpload()" label=" Upload Document" icon="pi pi-plus"></button>
-    <div style="float: right;">
-        <input class="inputSearch" pInputText placeholder="Search here..."> &nbsp; 
-        <button pRipple pButton class="primaryButton" label="Search" ></button>
+  <p-toolbar>
+    <button
+      pButton
+      class="p-button-sm primaryButton"
+      (click)="onUpload()"
+      label=" Upload Document"
+      icon="pi pi-plus"
+    ></button>
+
+    <div style="float: right">
+      <input class="inputSearch" pInputText placeholder="Search here..." />
+      &nbsp;
+      <button pRipple pButton class="primaryButton" label="Search"></button>
     </div>
-</p-toolbar>
-<p-card styleClass="outerCard">
+  </p-toolbar>
+  <p-card styleClass="outerCard">
     <div *ngFor="let data of documents">
-        <p-card pRipple styleClass="innerCard" (dblclick)="onClickDocument(data.id)" >
-            <h1 class="title"> {{data.title}}</h1>
-            <b class="subTitle"> Type of Document: </b><i><label>{{data.type}}</label></i><br><br>
-            <b class="subTitle"> Author By: </b> <label>{{data.authorBy}}</label><br><br>
-            <b class="subTitle">Desription: </b>  <label class="descriptipn">{{data.description}}</label>
-        </p-card>
+      <p-card
+        pRipple
+        styleClass="innerCard"
+        (dblclick)="onClickDocument(data.id)"
+      >
+        <h1 class="title">{{ data.title }}</h1>
+        <b class="subTitle"> Type of Document: </b
+        ><i
+          ><label>{{ data.type }}</label></i
+        ><br /><br />
+        <b class="subTitle"> Author By: </b> <label>{{ data.authorBy }}</label
+        ><br /><br />
+        <b class="subTitle">Desription: </b>
+        <label class="descriptipn">{{ data.description }}</label>
+      </p-card>
     </div>
-</p-card>
+  </p-card>
 
-<p-dialog [(visible)]="uploadDialog"  [style]="{ width: '50%' }" styleClass="p-fluid" [modal]="true">
+  <p-dialog
+    [(visible)]="uploadDialog"
+    [style]="{ width: '40%' }"
+    styleClass="p-fluid"
+    [modal]="true"
+  >
     <h3>Upload documents Here</h3>
-    <hr>
+    <hr />
     <ng-template pTemplate="content">
-
-    <div class="field">
-        <h6>Title:</h6>
-        <input pInputText placeholder="Enter Title Here...">
-    </div>
-    <br>
-    <div class="field" style="width: 100%;">
-        <h6>Description:</h6>
-        <input pInputText placeholder="Description"> 
-    </div>
-    <br>
-    <div class="field">
-        <h6>Upload File:</h6>
-        <p-fileUpload name="myfile[]" [customUpload]="true" (uploadHandler)="myUploader($event)"></p-fileUpload>
-    </div>
+      <input
+        class="p-inputtext-sm"
+        type="file"
+        accept="application/pdf"
+        pInputText
+        id="dos"
+        required
+        autofocus
+        (change)="selectFile($event)"
+      />
+      &nbsp;
+      <button
+        pButton
+        pRipple
+        label="Upload"
+        icon="pi pi-upload"
+        class="p-button-success"
+        (click)="uploadFile()"
+      ></button>
     </ng-template>
 
-<ng-template pTemplate="footer">
-    <button
+    <ng-template pTemplate="footer">
+      <button
         style="margin-top: 5px"
         pButton
         pRipple
         label="Cancel"
         icon="pi pi-times"
         class="p-button-text"
-    ></button>
-    <button
-        style="margin-top: 5px"
-        pButton
-        pRipple
-        label="Save"
-        icon="pi pi-check"
-        class="p-button-text"
-    ></button>
-</ng-template>
-</p-dialog>
-
+        (click)="onCancle()"
+      ></button>
+    </ng-template>
+  </p-dialog>
 </div>

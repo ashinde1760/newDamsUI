@@ -15,7 +15,10 @@ import { RouterModule } from '@angular/router';
 import { HeadersRoutingModule } from '../Components/headers/headers-routing.module';
 import {DividerModule} from 'primeng/divider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import {CascadeSelectModule} from 'primeng/cascadeselect';
+import {DropdownModule} from 'primeng/dropdown';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ToastModule} from 'primeng/toast';
 
 
 
@@ -37,7 +40,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TabViewModule,
     DividerModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CascadeSelectModule,
+    DropdownModule,
+    ConfirmDialogModule,
+    ToastModule
   ],
   exports:[
     CommonModule,
@@ -55,7 +62,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TabViewModule,
     DividerModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CascadeSelectModule,
+    DropdownModule,
+    ConfirmDialogModule,
+    ToastModule
   ]
 })
 export class SharedModulesModule { }

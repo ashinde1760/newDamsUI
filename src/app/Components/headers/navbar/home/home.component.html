@@ -4,9 +4,16 @@
             <h1>Bookmarked Sections:</h1>
             <div *ngFor="let data of bookmarks">
                 <p-card pRipple styleClass="innerCard">
-                    <h3 class="Section: "> {{data.section}}</h3>
-                    <b class="subTitle"> </b><i><label>{{data.description}}</label></i><br><br>
+                    <ng-template pTemplate="title">
+                        <div>
+                            <h3 class="Section: "> {{data.section}} <i class="pi pi-share-alt" style="cursor: pointer;" ></i></h3>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="content">
+                        <b class="subTitle"> </b><i><label>{{data.description}}</label></i>
+                    </ng-template>
                 </p-card>
+               
             </div>
         </p-card>
     </div>

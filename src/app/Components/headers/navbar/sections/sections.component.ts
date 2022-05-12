@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { DocumentUploadService } from 'src/app/Services/document-upload.service';
 import { Bookmark, Keyword } from './model/keyword';
 
@@ -6,6 +7,7 @@ import { Bookmark, Keyword } from './model/keyword';
   selector: 'app-sections',
   templateUrl: './sections.component.html',
   styleUrls: ['./sections.component.css'],
+  providers: [ConfirmationService, MessageService],
 })
 export class SectionsComponent implements OnInit {
   counter: number = 1;
@@ -23,7 +25,8 @@ export class SectionsComponent implements OnInit {
 
   addKeywordDialog: boolean = false;
   sectionDialog: boolean = false;
-
+  reviewerDialog: boolean = false;
+  raiseQueryDialog: boolean = false;
   newKeyword!: Keyword;
   keywordData: any;
   allKeywords: boolean = false;
@@ -33,9 +36,17 @@ export class SectionsComponent implements OnInit {
   bookmark1: boolean = true;
   bookmarkData!: Bookmark;
 
-  versionSelected: boolean = false;
+  selectedReviewer!: string;
+  reviewers: any = [];
 
-  constructor(private docService: DocumentUploadService) {}
+  versionSelected: boolean = false;
+  position!: string;
+
+  constructor(
+    private docService: DocumentUploadService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.version = JSON.parse(JSON.stringify(localStorage.getItem('version')));
@@ -66,18 +77,16 @@ export class SectionsComponent implements OnInit {
       }
     );
 
-    // this.docService.getBookmarksBySection(this.section).subscribe(
-    //   (data:any)=>{
-    //     console.log(data,"bookmarked data");
-    //     if(this.section===data[0].section)
-    //     {
-    //       this.bookmark=data[0].bookmark;
-    //     }
-    //   },
-    //   (error)=>{
-    //     alert("something went wrong, please try again later");
-    //   }
-    // )
+    this.docService.getReviwers().subscribe(
+      (data: any) => {
+        console.log(data, 'all reviewers');
+
+        this.reviewers = data;
+      },
+      (error) => {
+        alert("something went wrong while fetching reviewer's data");
+      }
+    );
   }
 
   onClickSection(section: string) {
@@ -91,12 +100,7 @@ export class SectionsComponent implements OnInit {
   bookmarkSection(section: string) {
     this.bookmarkData = {};
 
-    // this.bookmark = false;
-    // this.bookmark1 = true;
-
     if (this.bookmark === true) {
-      // this.newKeyword.frequency=
-
       this.docService.getKeywordById(this.id).subscribe(
         (data) => {
           this.SingleKeywordData = data;
@@ -107,8 +111,7 @@ export class SectionsComponent implements OnInit {
           alert('something went wrong while fetching keyword by ID');
         }
       );
-    }
-    else{
+    } else {
       this.docService.getKeywordById(this.id).subscribe(
         (data) => {
           this.SingleKeywordData = data;
@@ -143,18 +146,88 @@ export class SectionsComponent implements OnInit {
     this.sectionDialog = true;
   }
 
-  deleteKeyword(id: number, section: string) {
-    alert(id + ' will get deleted where section is ' + section);
-    this.docService.deleteKeyword(id, section).subscribe(
-      (data) => {
-        console.log(data);
+  deleteKeyword(position: string, id: number, section: string) {
+    // alert(id + ' will get deleted where section is ' + section);
+    // this.docService.deleteKeyword(id, section).subscribe(
+    //   (data) => {
+    //     console.log(data);
 
-        this.ngOnInit();
+    //     this.ngOnInit();
+    //   },
+    //   (error) => {
+    //     alert('something went wrong...');
+    //   }
+    // );
+
+    this.position = position;
+
+    this.confirmationService.confirm({
+      message: 'Do you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.docService.deleteKeyword(id, section).subscribe((data) => {
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Confirmed',
+            detail: 'Record deleted',
+          });
+          this.ngOnInit();
+        });
       },
-      (error) => {
-        alert('something went wrong...');
-      }
-    );
+      reject: () => {
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Cancelled',
+          detail: 'Record is not deleted',
+        });
+      },
+
+      key: 'positionDialog',
+    });
+  }
+
+
+
+  deleteEntity(position:string,id: string) {
+    // this.docService.deleteEntity(id).subscribe(
+    //   (data: any) => {
+    //     alert('entity deleted successfully...');
+    //     this.ngOnInit();
+    //   },
+    //   (error) => {
+    //     alert('something went wrong while deleting entity');
+    //   }
+    // );
+
+    this.position = position;
+
+    this.confirmationService.confirm({
+      message: 'Do you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.docService.deleteEntity(id).subscribe(
+          (data) => {
+            this.messageService.add({
+              severity: 'info',
+              summary: 'Confirmed',
+              detail: 'Record deleted',
+            });
+            this.ngOnInit();
+        });
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Cancelled',
+          detail: 'Record not deleted',
+        });
+      },
+
+      key: 'positionDialog',
+    });
+
   }
 
   addKeyword() {
@@ -167,6 +240,10 @@ export class SectionsComponent implements OnInit {
       this.addKeywordDialog = false;
     } else if (this.sectionDialog === true) {
       this.sectionDialog = false;
+    } else if (this.reviewerDialog === true) {
+      this.reviewerDialog = false;
+    } else if (this.raiseQueryDialog === true) {
+      this.raiseQueryDialog = false;
     }
   }
 
@@ -177,10 +254,21 @@ export class SectionsComponent implements OnInit {
     this.docService.addKeyword(this.newKeyword).subscribe(
       (data) => {
         console.log(data, 'added successfully');
+        this.ngOnInit();
       },
       (error) => {
         alert('something went wrong...');
       }
     );
   }
+
+  onSubmit() {
+    this.reviewerDialog = true;
+  }
+
+  raiseQuery() {
+    this.raiseQueryDialog = true;
+  }
+
+  
 }
