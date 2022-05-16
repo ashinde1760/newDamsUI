@@ -1,5 +1,6 @@
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Keyword } from '../Components/headers/navbar/sections/model/keyword';
 
@@ -11,6 +12,8 @@ export class DocumentUploadService {
 
   getDocumentDetails() {
     return this.http.get('http://localhost:3000/documents');
+    // return this.http.get(`${environment.url1}/searchall`);
+
   }
 
   addDocument(data: any) {
@@ -84,21 +87,25 @@ export class DocumentUploadService {
     return this.http.delete(`${environment.url}/entities/${id}`);
   }
 
-  upload(file: File) {
+  upload(file: File): any {
+    alert("inside service");
+    
     const formData: any = new FormData();
 
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', `${environment.url}/docs`, formData, {
-      responseType: 'json',
+    const req = new HttpRequest('POST', `${environment.url1}/uploads`, formData, {
+      
     });
 
     return this.http.request(req);
+
+    // return this.http.post(`${environment.url1}/uploading`,file);
   }
 
 
   search(keyword:string)
   {
-    return this.http.get(`${environment.url}/keywords?keyword=${keyword}`);
+    return this.http.get(`${environment.url1}/search/${keyword}`);
   }
 }

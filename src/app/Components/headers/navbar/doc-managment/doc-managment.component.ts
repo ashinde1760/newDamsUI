@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DocumentUploadService } from 'src/app/Services/document-upload.service';
@@ -23,6 +24,10 @@ export class DocManagmentComponent implements OnInit {
       (data) => {
         console.log(data);
         this.documents = data;
+
+        // console.log(data.hits.hits);
+        // this.documents = data.hits.hits;
+        // console.log(this.documents);
       },
       (error) => {
         alert('somethig went wrong, please try again later...!!');
@@ -59,16 +64,17 @@ export class DocManagmentComponent implements OnInit {
 
         this.docService.upload(this.currentFile).subscribe(
           (data: any) => {
-            this.ngOnInit();
             alert('file uploaded successfully..!!');
+            console.log("This is data"+data);
+            
           },
-          (error: any) => {
+          (error: HttpErrorResponse) => {
             alert('something went wrong while uploading file...');
-            this.currentFile = undefined;
+            console.log(error);
+            
           }
         );
       }
-      this.selectedFiles = undefined;
     }
   }
 
