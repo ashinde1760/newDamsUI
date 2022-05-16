@@ -1,5 +1,6 @@
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Keyword } from '../Components/headers/navbar/sections/model/keyword';
 
@@ -84,12 +85,12 @@ export class DocumentUploadService {
     return this.http.delete(`${environment.url}/entities/${id}`);
   }
 
-  upload(file: File) {
+  upload(file: File): Observable<HttpEvent<any>> {
     const formData: any = new FormData();
 
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', `${environment.url}/docs`, formData, {
+    const req = new HttpRequest('POST', `${environment.url1}/fileUpload`, formData, {
       responseType: 'json',
     });
 

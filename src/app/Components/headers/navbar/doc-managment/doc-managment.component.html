@@ -47,8 +47,10 @@
         class="p-inputtext-sm"
         type="file"
         multiple="multiple"
+        accept="application/pdf"
         pInputText
         id="dos"
+        name="file"
         required
         autofocus
         (change)="selectFile($event)"
@@ -60,6 +62,7 @@
         label="Upload"
         icon="pi pi-upload"
         class="p-button-success"
+        [disabled]="!selectedFiles"
         (click)="uploadFile()"
       ></button>
     </ng-template>
@@ -77,3 +80,4 @@
     </ng-template>
   </p-dialog>
 </div>
+

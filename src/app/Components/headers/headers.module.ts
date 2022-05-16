@@ -7,6 +7,7 @@ import { ViewDocumentComponent } from './navbar/view-document/view-document.comp
 import { SectionsComponent } from './navbar/sections/sections.component';
 import { SharedModulesModule } from 'src/app/shared-modules/shared-modules.module';
 import { RouterModule } from '@angular/router';
+import { BookmarksComponent } from './navbar/bookmarks/bookmarks.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { RouterModule } from '@angular/router';
     DocManagmentComponent,
     ViewDocumentComponent,
     SectionsComponent,
+    BookmarksComponent,
   ],
   imports: [
     CommonModule,
