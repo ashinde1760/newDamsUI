@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DocumentUploadService } from 'src/app/Services/document-upload.service';
+import { NewDocument } from './Document/Document';
 
 @Component({
   selector: 'app-doc-managment',
@@ -14,6 +15,10 @@ export class DocManagmentComponent implements OnInit {
   currentFile?: File;
   uploadDialog: boolean = false;
   searchKeyword!:string;
+
+  docData!:NewDocument;
+
+
   constructor(
     private docService: DocumentUploadService,
     private router: Router
@@ -24,6 +29,10 @@ export class DocManagmentComponent implements OnInit {
       (data) => {
         console.log(data);
         this.documents = data;
+
+        // console.log(data.hits.hits);
+        // this.documents = data.hits.hits;
+        // console.log(this.documents);
       },
       (error) => {
         alert('somethig went wrong, please try again later...!!');
@@ -32,6 +41,7 @@ export class DocManagmentComponent implements OnInit {
   }
 
   onUpload() {
+    this.docData={};
     this.uploadDialog = true;
   }
 
@@ -58,22 +68,19 @@ export class DocManagmentComponent implements OnInit {
       if (file) {
         this.currentFile = file;
 
-        this.docService.upload(this.currentFile).subscribe(
+        this.docService.upload(this.currentFile,this.docData).subscribe(
           (data: any) => {
-              console.log(data," after file upload");
-              
-            //this.ngOnInit();
             alert('file uploaded successfully..!!');
+            console.log("This is data"+data);
+            
           },
           (error: HttpErrorResponse) => {
-            alert('something went wrong while uploading file...'+error);
+            alert('something went wrong while uploading file...');
             console.log(error);
             
-            this.currentFile = undefined;
           }
         );
       }
-      this.selectedFiles = undefined;
     }
   }
 

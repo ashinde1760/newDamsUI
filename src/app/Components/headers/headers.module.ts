@@ -42,6 +42,10 @@ import { BookmarksComponent } from './navbar/bookmarks/bookmarks.component';
             path: 'sections',
             component: SectionsComponent,
           },
+          {
+            path:'bookmarks',
+            component:BookmarksComponent
+          }
         ],
       },
     ]),

@@ -1,20 +1,74 @@
-<div class="container">
-    <div>
-        <p-card styleClass="outerCard">
-            <h1>Bookmarked Sections:</h1>
-            <div *ngFor="let data of bookmarks">
-                <p-card pRipple styleClass="innerCard">
-                    <ng-template pTemplate="title">
-                        <div>
-                            <h3 class="Section: "> {{data.section}} <i class="pi pi-share-alt" style="cursor: pointer;" ></i></h3>
-                        </div>
-                    </ng-template>
-                    <ng-template pTemplate="content">
-                        <b class="subTitle"> </b><i><label>{{data.description}}</label></i>
-                    </ng-template>
-                </p-card>
-               
-            </div>
-        </p-card>
+
+<p-toolbar>
+    <button
+      pButton
+      class="p-button-sm primaryButton"
+      (click)="onUpload()"
+      label=" Upload Document"
+      icon="pi pi-plus"
+    ></button>
+
+    <div style="float: right; text-decoration: none">
+      <input class="inputSearch" pInputText placeholder="Search here..." [(ngModel)]="searchKeyword" />
+      &nbsp;
+      <button pRipple pButton class="primaryButton p-button-sm" label="Search" (click)="search()"></button>
     </div>
-</div>
+  </p-toolbar>
+
+
+  <div>
+    <p-dialog
+    [(visible)]="uploadDialog"
+    [style]="{ width: '40%' }"
+    styleClass="p-fluid"
+    [modal]="true"
+  >
+    <h3>Upload documents Here</h3>
+    <hr />
+    <ng-template pTemplate="content">
+      <input
+        class="p-inputtext-sm"
+        type="file"
+        multiple="multiple"
+        accept="application/pdf"
+        pInputText
+        id="dos"
+        name="file"
+        required
+        autofocus
+        (change)="selectFile($event)"
+      />
+      &nbsp;
+      <button
+        pButton
+        pRipple
+        label="Upload"
+        icon="pi pi-upload"
+        class="p-button-success"
+        [disabled]="!selectedFiles"
+        (click)="uploadFile()"
+      ></button>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+      <button
+        style="margin-top: 5px"
+        pButton
+        pRipple
+        label="Cancel"
+        icon="pi pi-times"
+        class="p-button-text"
+        (click)="onCancle()"
+      ></button>
+    </ng-template>
+  </p-dialog>
+  </div>
+
+
+  <div>
+      <p-card *ngFor="let data of searchedData">
+        <h4>
+            <span [innerHTML]="data.sourceAsMap.Content"></span>
+        </h4>        
+      </p-card>
+  </div>

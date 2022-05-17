@@ -9,9 +9,20 @@
     ></button>
 
     <div style="float: right; text-decoration: none">
-      <input class="inputSearch" pInputText placeholder="Search here..." [(ngModel)]="searchKeyword" />
+      <input
+        class="inputSearch"
+        pInputText
+        placeholder="Search here..."
+        [(ngModel)]="searchKeyword"
+      />
       &nbsp;
-      <button pRipple pButton class="primaryButton" label="Search" (click)="search()"></button>
+      <button
+        pRipple
+        pButton
+        class="primaryButton"
+        label="Search"
+        (click)="search()"
+      ></button>
     </div>
   </p-toolbar>
   <p-card styleClass="outerCard">
@@ -43,8 +54,15 @@
     <h3>Upload documents Here</h3>
     <hr />
     <ng-template pTemplate="content">
+      <div class="padding">
+        <input pInputText placeholder="Enter Type of Document" [(ngModel)]="docData.typeOfDoc" />
+      </div>
+      <div class="padding">
+        <input pInputText placeholder="Enter Auther of Document" [(ngModel)]="docData.autherOfDoc" />
+      </div>
+
       <input
-        class="p-inputtext-sm"
+        class="p-inputtext-sm padding"
         type="file"
         multiple="multiple"
         accept="application/pdf"
@@ -80,4 +98,3 @@
     </ng-template>
   </p-dialog>
 </div>
-
