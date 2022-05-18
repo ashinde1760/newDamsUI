@@ -15,7 +15,7 @@ export class DocManagmentComponent implements OnInit {
   currentFile?: File;
   uploadDialog: boolean = false;
   searchKeyword!:string;
-
+  searchedData:any=[];
   docData!:NewDocument;
 
 
@@ -25,18 +25,19 @@ export class DocManagmentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.docService.getDocumentDetails().subscribe(
-      (data) => {
-        console.log(data);
-        this.documents = data;
+    this.docService.getDocuments().subscribe(
+      (data:any) => {
+        // console.log(data);
+        // this.documents = data;
 
-        // console.log(data.hits.hits);
-        // this.documents = data.hits.hits;
-        // console.log(this.documents);
-      },
-      (error) => {
-        alert('somethig went wrong, please try again later...!!');
+        console.log(data.hits.hits);
+        this.documents = data.hits.hits;
+        console.log(this.documents);
       }
+      // },
+      // (error) => {
+      //   alert('somethig went wrong while fetching all the documents, please try again later...!!');
+      // }
     );
   }
 
@@ -61,6 +62,8 @@ export class DocManagmentComponent implements OnInit {
   }
 
   uploadFile() {
+    this.uploadDialog = false;
+
     console.log('file upload.....................');
     if (this.selectedFiles) {
       const file: File | null = this.selectedFiles.item(0);
@@ -68,7 +71,7 @@ export class DocManagmentComponent implements OnInit {
       if (file) {
         this.currentFile = file;
 
-        this.docService.upload(this.currentFile,this.docData).subscribe(
+        this.docService.upload(this.currentFile).subscribe(
           (data: any) => {
             alert('file uploaded successfully..!!');
             console.log("This is data"+data);
@@ -89,13 +92,17 @@ export class DocManagmentComponent implements OnInit {
   }
 
   search(){
-      this.docService.search(this.searchKeyword).subscribe(
-          (data:any)=>{
-            console.log(data);
-          },
-          (error:any)=>{
-              alert("something went wrong while searching keyword, please try again later...!!");
-          }
-      )
+    this.docService.search(this.searchKeyword).subscribe(
+      (data: any) => {
+        
+        this.searchedData=data.hits.hits;
+        console.log(this.searchedData);
+      },
+      (error: any) => {
+        alert(
+          'something went wrong while searching keyword, please try again later...!!'
+        );
+      }
+    );
   }
 }
