@@ -92,15 +92,15 @@ export class DocumentUploadService {
     return this.http.delete(`${environment.url}/entities/${id}`);
   }
 
-  upload(file: File,docData:NewDocument): any {
+  upload(file: File): any {
     
-    console.log(file,docData);
+    console.log(file);
     
     const formData: any = new FormData();
 
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', `${environment.url1}/uploads`, [formData,docData], {
+    const req = new HttpRequest('POST', `${environment.url1}/uploads`, formData, {
       
     });
 

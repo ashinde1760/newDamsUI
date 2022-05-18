@@ -68,7 +68,7 @@ export class DocManagmentComponent implements OnInit {
       if (file) {
         this.currentFile = file;
 
-        this.docService.upload(this.currentFile,this.docData).subscribe(
+        this.docService.upload(this.currentFile).subscribe(
           (data: any) => {
             alert('file uploaded successfully..!!');
             console.log("This is data"+data);
