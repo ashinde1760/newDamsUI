@@ -18,7 +18,7 @@ export class DocumentUploadService {
   }
 
   getDocuments() {
-    return this.http.get(`${environment.url1}/searchall`);
+    return this.http.get(`${environment.url1}/getall`);
   }
 
   addDocument(data: any) {
@@ -100,7 +100,7 @@ export class DocumentUploadService {
 
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', `${environment.url1}/uploads`, formData, {
+    const req = new HttpRequest('POST', `${environment.url1}/uploaddoc`, formData, {
       
     });
 

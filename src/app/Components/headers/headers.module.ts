@@ -8,6 +8,7 @@ import { SectionsComponent } from './navbar/sections/sections.component';
 import { SharedModulesModule } from 'src/app/shared-modules/shared-modules.module';
 import { RouterModule } from '@angular/router';
 import { BookmarksComponent } from './navbar/bookmarks/bookmarks.component';
+import { HighlighterPipe } from './navbar/home/highlighter.pipe';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { BookmarksComponent } from './navbar/bookmarks/bookmarks.component';
     ViewDocumentComponent,
     SectionsComponent,
     BookmarksComponent,
+    HighlighterPipe,
   ],
   imports: [
     CommonModule,

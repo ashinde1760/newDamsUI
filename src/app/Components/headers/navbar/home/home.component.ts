@@ -52,7 +52,30 @@ export class HomeComponent implements OnInit {
     console.log(event, 'akshay', event.target.files);
   }
 
-  uploadFile() {}
+  uploadFile() {
+    this.uploadDialog = false;
+    console.log('file upload.....................');
+    if (this.selectedFiles) {
+      const file: File | null = this.selectedFiles.item(0);
+
+      if (file) {
+        this.currentFile = file;
+
+        this.docService.upload(this.currentFile).subscribe(
+          (data: any) => {
+            alert('file uploaded successfully..!!');
+            console.log("This is data"+data);
+            
+          },
+          (error: HttpErrorResponse) => {
+            alert('something went wrong while uploading file...');
+            console.log(error);
+            
+          }
+        );
+      }
+    }
+  }
 
 
   // uploadFile() {
@@ -95,4 +118,7 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+
+
+
 }
