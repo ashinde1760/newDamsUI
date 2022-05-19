@@ -11,7 +11,6 @@
           padding: 1rem;
           font-size: 2rem;
           cursor: pointer;
-          color: white;
         "
         (click)="sideBar()"
       ></i>
@@ -25,7 +24,7 @@
       Digital Accounting Manual System
     </h1>
     <div class="p-toolbar-group-right">
-      <span style="font-size: larger;">Welcome {{user}}</span>
+      <span style="font-size: larger; font-family: Georgia;">Welcome {{user}}</span>
       <img src="assets\Images\user.png" alt="profile" />
     </div>
   </p-toolbar>
@@ -37,7 +36,7 @@
     <div *ngIf="sidebar" class="nav-pane">
       <div >
         <ul class="listItem">
-          <li class="item" (click)="onClickHome()">
+          <li class="item" (click)="onClickHome()" >
             <i class="pi pi-home"></i> <a> Home</a>
           </li>
           <li class="item" (click)="onClicDocMngmnt()">
