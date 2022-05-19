@@ -44,4 +44,21 @@ export class NavbarComponent implements OnInit {
     localStorage.removeItem("user");
     this.router.navigate(['/'])
   }
+
+
+
+
+
+
+  onClickHome(){
+    this.router.navigate(['/home'])
+  }
+
+  onClicDocMngmnt(){
+    this.router.navigate(['/docManagement'])
+  }
+  onClickBookmarks(){
+    this.router.navigate(['/bookmarks'])
+  }
+
 }

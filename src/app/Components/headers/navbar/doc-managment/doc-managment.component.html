@@ -7,8 +7,6 @@
       label=" Upload Document"
       icon="pi pi-plus"
     ></button>
-
-   
   </p-toolbar>
   <!-- <p-card styleClass="outerCard">
     <div *ngFor="let data of documents">
@@ -49,7 +47,6 @@
       <input
         class="p-inputtext-sm padding"
         type="file"
-        multiple="multiple"
         accept=".docx"
         pInputText
         id="dos"
@@ -85,17 +82,18 @@
 </div>
 
 <div>
-  <p-card *ngFor="let data of searchedData">
-   
-        <div innerHTML={{data.sourceAsMap.Content | highlight}} ></div>
+  <p-card *ngFor="let data of documents" styleClass="dataCard">
+    
+    
+    <div class="docTitle">
+      <span style="font-weight:700" [innerHTML]="data.sourceAsMap.Name | uppercase"></span> &nbsp;
+      <span>(Uploaded On:{{data.sourceAsMap.timestamp | date: "EEE, dd-MMM yyyy, h:mm:ss aa"}})</span>
+    </div>
+<hr>
+
+    <div [innerHTML]="data.sourceAsMap.Content" style="margin: 10px"></div>
   </p-card>
 </div>
 
-
-<div>
-  <p-card *ngFor="let data of documents">
-    <h4>
-        <span [innerHTML]="data.sourceAsMap.Content" ></span>
-    </h4>        
-  </p-card>
-</div>
+<!-- to display success or error msg -->
+<p-toast></p-toast>

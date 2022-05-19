@@ -68,6 +68,16 @@
     padding: 10px;
 }
 
+::ng-deep .dataCard{
+    margin: 10px;
+    background-color: #ecd790;
+}
+
+::ng-deep .docTitle{
+    display: inline-block;
+    /* flex-wrap: wrap; */
+}
+
 
   
   

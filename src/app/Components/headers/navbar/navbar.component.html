@@ -37,18 +37,18 @@
     <div *ngIf="sidebar" class="nav-pane">
       <div >
         <ul class="listItem">
-          <li class="item">
-            <i class="pi pi-home"></i> <a routerLink="/home"> Home</a>
+          <li class="item" (click)="onClickHome()">
+            <i class="pi pi-home"></i> <a> Home</a>
           </li>
-          <li class="item">
+          <li class="item" (click)="onClicDocMngmnt()">
             <i class="pi pi-book"></i
-            ><a routerLink="/docManagement"> Document Management</a>
+            ><a> Document Management</a>
           </li>
-          <li class="item">
+          <li class="item" (click)="onClickBookmarks()">
             <i class="pi pi-book"></i
-            ><a routerLink="/bookmarks"> Bookmarks</a>
+            ><a> Bookmarks</a>
           </li>
-          <li class="item"><i class="pi pi-sign-out"></i><a (click)="logout()"> Logout</a></li>
+          <li class="item" (click)="logout()"><i class="pi pi-sign-out"></i><a> Logout</a></li>
         </ul>
       </div>
     </div>

@@ -1,23 +1,26 @@
-
 <p-toolbar>
+  <div style="float: right; text-decoration: none">
+    <input
+      class="inputSearch"
+      type="search"
+      pInputText
+      placeholder="Search here..."
+      [(ngModel)]="searchKeyword"
+      (keyup.enter)="search()"
+    />
+    &nbsp;
     <button
+      pRipple
       pButton
-      class="p-button-sm primaryButton"
-      (click)="onUpload()"
-      label=" Upload Document"
-      icon="pi pi-plus"
+      class="primaryButton p-button-sm"
+      label="Search"
+      (click)="search()"
     ></button>
+  </div>
+</p-toolbar>
 
-    <div style="float: right; text-decoration: none">
-      <input class="inputSearch" type="search" pInputText placeholder="Search here..." [(ngModel)]="searchKeyword" />
-      &nbsp;
-      <button pRipple pButton  class="primaryButton p-button-sm" label="Search" (click)="search()"></button>
-    </div>
-  </p-toolbar>
-
-
-  <div>
-    <p-dialog
+<div>
+  <p-dialog
     [(visible)]="uploadDialog"
     [style]="{ width: '40%' }"
     styleClass="p-fluid"
@@ -62,12 +65,35 @@
       ></button>
     </ng-template>
   </p-dialog>
-  </div>
+</div>
 
+<!-- <div>
+  <p-card *ngFor="let data of searchedData">
+    <h3 [innerHTML]="data.sourceAsMap.Name"></h3>
+    <div
+      [innerHTML]="data.sourceAsMap.Content | highlighter: searchKeyword:'full'"
+    ></div>
+  </p-card>
+</div> -->
 
-  <div>
-      <p-card *ngFor="let data of searchedData">
-       
-            <span [innerHTML]="data.sourceAsMap.Content | highlighter:searchKeyword:'full'"></span>
-       </p-card>
-  </div>
+<div>
+  <p-card *ngFor="let data of searchedData" styleClass="dataCard">
+    <div class="docTitle">
+      <span
+        style="font-weight: 700"
+        [innerHTML]="data.sourceAsMap.Name | uppercase"
+      ></span>
+      &nbsp;
+      <span
+        >(Uploaded On:{{
+          data.sourceAsMap.timestamp | date: "EEE, dd-MMM yyyy, h:mm:ss aa"
+        }})</span
+      >
+    </div>
+    <hr />
+    <div
+      [innerHTML]="data.sourceAsMap.Content | highlighter: searchKeyword:'full'"
+      style="margin: 10px"
+    ></div>
+  </p-card>
+</div>

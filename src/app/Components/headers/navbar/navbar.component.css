@@ -66,6 +66,8 @@ ul {
     padding: 0.5rem;
     font-size: large;
     color: rgb(10, 6, 3);
+    cursor: pointer;
+
 }
 
 .item:hover{
@@ -132,3 +134,12 @@ span{
     text-align: center;
 }
 
+
+
+.menuButton{
+    text-decoration: none;
+    width: 100%;
+    background-color: #eb8c00;
+    border: 0mm;
+    color: black;
+}

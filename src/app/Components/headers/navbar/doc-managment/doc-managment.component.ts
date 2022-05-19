@@ -16,26 +16,18 @@ export class HighlightSearch implements PipeTransform {
 
 
 
-
-
-
-
-
-
-
-
-
-
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DocumentUploadService } from 'src/app/Services/document-upload.service';
 import { NewDocument } from './Document/Document';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-doc-managment',
   templateUrl: './doc-managment.component.html',
   styleUrls: ['./doc-managment.component.css'],
+  providers: [ConfirmationService, MessageService]
 })
 export class DocManagmentComponent implements OnInit {
   documents: any = [];
@@ -49,23 +41,17 @@ export class DocManagmentComponent implements OnInit {
 
   constructor(
     private docService: DocumentUploadService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
     this.docService.getDocuments().subscribe(
       (data:any) => {
-        // console.log(data);
-        // this.documents = data;
-
-        console.log(data.hits.hits);
+         console.log(data.hits.hits);
         this.documents = data.hits.hits;
         console.log(this.documents);
       }
-      // },
-      // (error) => {
-      //   alert('somethig went wrong while fetching all the documents, please try again later...!!');
-      // }
     );
   }
 
@@ -101,18 +87,35 @@ export class DocManagmentComponent implements OnInit {
 
         this.docService.upload(this.currentFile).subscribe(
           (data: any) => {
-            alert('file uploaded successfully..!!');
-            console.log("This is data"+data);
-            
+            console.log(data);
+              this.messageService.add({
+              severity: 'info',
+              summary: 'Confirmed',
+              detail: 'File Uploaded successfully',
+            });
+            this.ngOnInit();
           },
           (error: HttpErrorResponse) => {
-            alert('something went wrong while uploading file...');
+            // this.messageService.add({
+            //   severity: 'warn',
+            //   summary: 'Cancelled',
+            //   detail: 'File is not Uploaded',
+            // });
             console.log(error);
+            if(error.status===500)
+            {
+              this.messageService.add({
+                  severity: 'warn',
+                  summary: 'Cancelled',
+                  detail: 'File is already present',
+                });
+            }
             
           }
         );
       }
     }
+    this.ngOnInit();
   }
 
   onCancle() {
