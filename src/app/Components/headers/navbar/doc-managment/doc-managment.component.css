@@ -70,14 +70,22 @@
 
 ::ng-deep .dataCard{
     margin: 10px;
-    background-color: #ecd790;
+    background-color: #dedede;
 }
 
 ::ng-deep .docTitle{
     display: inline-block;
-    /* flex-wrap: wrap; */
+    font-family: ITC Charter Regular;
 }
 
+::ng-deep .content{
+    font-family: Helvetica Neue Regular;
+}
+
+
+::ng-deep .upoadToolbar{
+    background-color: white;
+}
 
   
   

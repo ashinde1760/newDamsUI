@@ -18,7 +18,7 @@
 }
 
 .nav-pane {
-  background: #eb8c00;
+  background: #d93954;
     scroll-behavior: auto;
 }
 
@@ -31,10 +31,13 @@
 
 a{
     text-decoration:none;
-    color: rgb(8, 7, 5);
+    color: white;
     cursor: pointer;
 }
 
+i{
+    color: white;
+}
 
 a:hover , i:hover
 {
@@ -67,6 +70,7 @@ ul {
     font-size: large;
     color: rgb(10, 6, 3);
     cursor: pointer;
+    font-family: Georgia;
 
 }
 
@@ -100,7 +104,9 @@ img{
     margin: 0%;
     padding: 0%;
     height: 5rem;
-    background-color:#d04a02;
+    color: black;
+    background-color:#eb8c00;
+    
 }
 
 span{
@@ -111,7 +117,7 @@ span{
 }
 
 .title1{
-    font-family: 'Helvetica Neue Bold';
+    font-family:"Georgia";
     color: white;
 }
 

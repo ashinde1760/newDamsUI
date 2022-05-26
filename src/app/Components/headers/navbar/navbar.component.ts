@@ -52,13 +52,16 @@ export class NavbarComponent implements OnInit {
 
   onClickHome(){
     this.router.navigate(['/home'])
+    this.sideBar();
   }
 
   onClicDocMngmnt(){
     this.router.navigate(['/docManagement'])
+    this.sideBar();
   }
   onClickBookmarks(){
     this.router.navigate(['/bookmarks'])
+    this.sideBar();
   }
 
 }

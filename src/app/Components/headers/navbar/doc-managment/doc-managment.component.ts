@@ -1,20 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'highlight'
+  name: 'highlight',
 })
-
 export class HighlightSearch implements PipeTransform {
-
-    transform(value: any, args: any): any {
-        if (!args) {return value;}
-        var re = new RegExp(args, 'gi'); //'gi' for case insensitive and can use 'g' if you want the search to be case sensitive.
-        return value.replace(re, "<mark>$&</mark>");
+  transform(value: any, args: any): any {
+    if (!args) {
+      return value;
     }
+    var re = new RegExp(args, 'gi'); //'gi' for case insensitive and can use 'g' if you want the search to be case sensitive.
+    return value.replace(re, '<mark>$&</mark>');
+  }
 }
-
-
-
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -27,18 +24,16 @@ import { ConfirmationService, MessageService } from 'primeng/api';
   selector: 'app-doc-managment',
   templateUrl: './doc-managment.component.html',
   styleUrls: ['./doc-managment.component.css'],
-  providers: [ConfirmationService, MessageService]
+  providers: [ConfirmationService, MessageService],
 })
 export class DocManagmentComponent implements OnInit {
   documents: any = [];
   selectedFiles?: FileList;
   currentFile?: File;
   uploadDialog: boolean = false;
-  searchKeyword!:string;
-  searchedData:any=[];
-  docData!:NewDocument;
-  uploadMessage!:string;
-
+  searchKeyword!: string;
+  searchedData: any = [];
+  docData!: NewDocument;
 
   constructor(
     private docService: DocumentUploadService,
@@ -47,17 +42,15 @@ export class DocManagmentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.docService.getDocuments().subscribe(
-      (data:any) => {
-         console.log(data.hits.hits);
-        this.documents = data.hits.hits;
-        console.log(this.documents);
-      }
-    );
+    this.docService.getDocuments().subscribe((data: any) => {
+      console.log(data.hits.hits);
+      this.documents = data.hits.hits;
+      console.log(this.documents);
+    });
   }
 
   onUpload() {
-    this.docData={};
+    this.docData = {};
     this.uploadDialog = true;
   }
 
@@ -86,10 +79,9 @@ export class DocManagmentComponent implements OnInit {
         this.currentFile = file;
 
         this.docService.upload(this.currentFile).subscribe(
-          (data: string) => {
-            this.uploadMessage=data;
-            console.log("This is the data",this.uploadMessage);
-              this.messageService.add({
+          (data: any) => {
+            console.log(data);
+            this.messageService.add({
               severity: 'info',
               summary: 'Confirmed',
               detail: "this is from docmgtcomponent.ts",
@@ -103,31 +95,27 @@ export class DocManagmentComponent implements OnInit {
             //   detail: 'File is not Uploaded',
             // });
             console.log(error);
-            if(error.status===500)
-            {
+            if (error) {
               this.messageService.add({
-                  severity: 'warn',
-                  summary: 'Cancelled',
-                  detail: 'File is already present',
-                });
+                severity: 'warn',
+                summary: 'Cancelled',
+                detail: 'File is already present',
+              });
             }
-            
           }
         );
       }
     }
-    this.ngOnInit();
   }
 
   onCancle() {
     this.uploadDialog = false;
   }
 
-  search(){
+  search() {
     this.docService.search(this.searchKeyword).subscribe(
       (data: any) => {
-        
-        this.searchedData=data.hits.hits;
+        this.searchedData = data.hits.hits;
         console.log(this.searchedData);
       },
       (error: any) => {

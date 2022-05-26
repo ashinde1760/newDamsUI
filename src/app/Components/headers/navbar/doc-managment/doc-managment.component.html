@@ -1,10 +1,11 @@
 <div class="container">
-  <p-toolbar>
+  <p-toolbar styleClass="upoadToolbar">
     <button
       pButton
       class="p-button-sm primaryButton"
       (click)="onUpload()"
       label=" Upload Document"
+      style="font-family: Arial;"
       icon="pi pi-plus"
     ></button>
   </p-toolbar>
@@ -86,12 +87,12 @@
     
     
     <div class="docTitle">
-      <span style="font-weight:700" [innerHTML]="data.sourceAsMap.Name | uppercase"></span> &nbsp;
+      <span style="font-weight:700; font-size: x-large;" [innerHTML]="data.sourceAsMap.Name | uppercase"></span> &nbsp;
       <span>(Uploaded On:{{data.sourceAsMap.timestamp | date: "EEE, dd-MMM yyyy, h:mm:ss aa"}})</span>
     </div>
 <hr>
 
-    <div [innerHTML]="data.sourceAsMap.Content" style="margin: 10px"></div>
+    <div class="content" [innerHTML]="data.sourceAsMap.Content" style="margin: 10px"></div>
   </p-card>
 </div>
 
