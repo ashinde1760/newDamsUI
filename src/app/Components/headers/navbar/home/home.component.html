@@ -49,7 +49,7 @@
         icon="pi pi-upload"
         class="p-button-success"
         [disabled]="!selectedFiles"
-        (click)="uploadFile()"
+        (click)="uploadFile()" 
       ></button>
     </ng-template>
 
@@ -81,18 +81,17 @@
     <div class="docTitle">
       <span
         style="font-weight: 700"
-        [innerHTML]="data.sourceAsMap.Name | uppercase"
+        [innerHTML]="data.Name | uppercase"
       ></span>
       &nbsp;
       <span
         >(Uploaded On:{{
-          data.sourceAsMap.timestamp | date: "EEE, dd-MMM yyyy, h:mm:ss aa"
-        }})</span
-      >
+          data.timestamp | date: "EEE, dd-MMM yyyy, h:mm:ss aa"
+        }})</span>
     </div>
     <hr />
-    <div
-      [innerHTML]="data.sourceAsMap.Content | highlighter: searchKeyword:'full'"
+    <div *ngFor="let content of data.highlightsMap.Content"
+      [innerHTML]="content"
       style="margin: 10px"
     ></div>
   </p-card>

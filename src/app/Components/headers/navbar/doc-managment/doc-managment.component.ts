@@ -37,6 +37,7 @@ export class DocManagmentComponent implements OnInit {
   searchKeyword!:string;
   searchedData:any=[];
   docData!:NewDocument;
+  uploadMessage!:string;
 
 
   constructor(
@@ -72,13 +73,12 @@ export class DocManagmentComponent implements OnInit {
 
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
-    console.log(event, 'akshay', event.target.files);
   }
 
   uploadFile() {
     this.uploadDialog = false;
 
-    console.log('file upload.....................');
+    console.log('file upload from doc mgt component.ts');
     if (this.selectedFiles) {
       const file: File | null = this.selectedFiles.item(0);
 
@@ -86,12 +86,13 @@ export class DocManagmentComponent implements OnInit {
         this.currentFile = file;
 
         this.docService.upload(this.currentFile).subscribe(
-          (data: any) => {
-            console.log(data);
+          (data: string) => {
+            this.uploadMessage=data;
+            console.log("This is the data",this.uploadMessage);
               this.messageService.add({
               severity: 'info',
               summary: 'Confirmed',
-              detail: 'File Uploaded successfully',
+              detail: "this is from docmgtcomponent.ts",
             });
             this.ngOnInit();
           },

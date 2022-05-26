@@ -94,13 +94,13 @@ export class DocumentUploadService {
 
   upload(file: File): any {
     
-    console.log(file);
+    console.log("This is file from service.ts",file);
     
     const formData: any = new FormData();
 
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', `${environment.url1}/uploaddoc`, formData, {
+    const req = new HttpRequest('POST', `${environment.url1}/saveDocByRepo`, formData, {
       
     });
 
@@ -112,6 +112,6 @@ export class DocumentUploadService {
 
   search(keyword:string)
   {
-    return this.http.get(`${environment.url1}/search/${keyword}`);
+    return this.http.get(`${environment.url1}/getDto/${keyword}`);
   }
 }
