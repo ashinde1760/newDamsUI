@@ -11,3 +11,11 @@
     display: inline-block;
     /* flex-wrap: wrap; */
 }
+
+
+::ng-deep .contentCard{
+  display: flex;
+  margin: 5px;
+  color: #dedede;
+  cursor: pointer;
+}

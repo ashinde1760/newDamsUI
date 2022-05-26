@@ -66,13 +66,12 @@ export class DocManagmentComponent implements OnInit {
 
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
-    console.log(event, 'akshay', event.target.files);
   }
 
   uploadFile() {
     this.uploadDialog = false;
 
-    console.log('file upload.....................');
+    console.log('file upload from doc mgt component.ts');
     if (this.selectedFiles) {
       const file: File | null = this.selectedFiles.item(0);
 
@@ -85,7 +84,7 @@ export class DocManagmentComponent implements OnInit {
             this.messageService.add({
               severity: 'info',
               summary: 'Confirmed',
-              detail: 'File Uploaded successfully',
+              detail: "this is from docmgtcomponent.ts",
             });
             this.ngOnInit();
           },

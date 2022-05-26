@@ -9,6 +9,7 @@ import { SharedModulesModule } from 'src/app/shared-modules/shared-modules.modul
 import { RouterModule } from '@angular/router';
 import { BookmarksComponent } from './navbar/bookmarks/bookmarks.component';
 import { HighlighterPipe } from './navbar/home/highlighter.pipe';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { HighlighterPipe } from './navbar/home/highlighter.pipe';
   imports: [
     CommonModule,
     SharedModulesModule,
+    NgxDocViewerModule  ,
     RouterModule.forChild([
       {
         path: '',

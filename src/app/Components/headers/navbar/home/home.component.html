@@ -7,7 +7,6 @@
       placeholder="Search here..."
       [(ngModel)]="searchKeyword"
       (keyup.enter)="search()"
-      ,
       styleClass="p-fluid"
     />
     &nbsp;
@@ -72,21 +71,40 @@
 <div>
   <p-card *ngFor="let data of searchedData" styleClass="dataCard">
     <div class="docTitle" style="font-family: ITC Charter Regular">
-      <span
-        style="font-weight: 700; font-size: x-large"
-        [innerHTML]="data.sourceAsMap.Name | uppercase"
-      ></span>
+      <span style="font-weight: 700" [innerHTML]="data.Name | uppercase"></span>
       &nbsp;
       <span
         >(Uploaded On:{{
-          data.sourceAsMap.timestamp | date: "EEE, dd-MMM yyyy, h:mm:ss aa"
+          data.timestamp | date: "EEE, dd-MMM yyyy, h:mm:ss aa"
         }})</span
       >
     </div>
     <hr />
-    <div
-      [innerHTML]="data.sourceAsMap.Content | highlighter: searchKeyword:'full'"
-      style="margin: 10px; font-family: Helvetica Neue Regular"
-    ></div>
+    <div *ngFor="let content of data.highlightsMap.Content">
+      <p-card class="contentCard"
+        ><span [innerHTML]="content" style="margin: 10px"></span>
+      </p-card>
+    </div>
   </p-card>
+
+
+<button pButton label="View Doc" (click)="onViewDoc()"></button>
+
+  <!-- <div *ngIf="viewDoc">
+    <ngx-doc-viewer
+      url="https://calibre-ebook.com/downloads/demos/demo.docx"
+      viewer="office"
+      style="width: 100%; height: 100vh"
+    ></ngx-doc-viewer> -->
+
+    <div *ngIf="viewDoc">
+      <ngx-doc-viewer
+        url="assets\Business requirement.docx"
+        viewer="url"
+        style="width: 100%; height: 100vh"
+      ></ngx-doc-viewer>
+  </div>
+
 </div>
+
+

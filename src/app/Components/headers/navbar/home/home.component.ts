@@ -14,6 +14,8 @@ export class HomeComponent implements OnInit {
   currentFile?: File;
   uploadDialog: boolean = false;
   searchKeyword!: string;
+  uploadMessage!:string;
+  viewDoc:boolean=false;
 
   searchedData: any = [];
   constructor(
@@ -45,7 +47,7 @@ export class HomeComponent implements OnInit {
 
   uploadFile() {
     this.uploadDialog = false;
-    console.log('file upload.....................');
+    console.log('file upload from home component');
     if (this.selectedFiles) {
       const file: File | null = this.selectedFiles.item(0);
 
@@ -73,7 +75,8 @@ export class HomeComponent implements OnInit {
   search() {
     this.docService.search(this.searchKeyword).subscribe(
       (data: any) => {
-        this.searchedData = data.hits.hits;
+        
+        this.searchedData=data;
         console.log(this.searchedData);
       },
       (error: any) => {
@@ -82,5 +85,10 @@ export class HomeComponent implements OnInit {
         );
       }
     );
+  }
+
+
+  onViewDoc(){
+    this.viewDoc=true;
   }
 }
