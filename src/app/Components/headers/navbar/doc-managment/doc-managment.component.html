@@ -5,7 +5,7 @@
       class="p-button-sm primaryButton"
       (click)="onUpload()"
       label=" Upload Document"
-      style="font-family: Arial;"
+      style="font-family: Arial"
       icon="pi pi-plus"
     ></button>
   </p-toolbar>
@@ -84,15 +84,25 @@
 
 <div>
   <p-card *ngFor="let data of documents" styleClass="dataCard">
-    
-    
     <div class="docTitle">
-      <span style="font-weight:700; font-size: x-large;" [innerHTML]="data.sourceAsMap.Name | uppercase"></span> &nbsp;
-      <span>(Uploaded On:{{data.sourceAsMap.timestamp | date: "EEE, dd-MMM yyyy, h:mm:ss aa"}})</span>
+      <span
+        style="font-weight: 700; font-size: x-large"
+        [innerHTML]="data.sourceAsMap.Name | uppercase"
+      ></span>
+      &nbsp;
+      <span
+        >(Uploaded On:{{
+          data.sourceAsMap.timestamp | date: "EEE, dd-MMM yyyy, h:mm:ss aa"
+        }})</span
+      >
     </div>
-<hr>
+    <hr />
 
-    <div class="content" [innerHTML]="data.sourceAsMap.Content" style="margin: 10px"></div>
+    <div
+      class="content"
+      [innerHTML]="data.sourceAsMap.Content"
+      style="margin: 10px"
+    ></div>
   </p-card>
 </div>
 

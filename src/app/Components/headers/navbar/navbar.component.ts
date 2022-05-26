@@ -8,28 +8,12 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   sidebar: boolean = false;
-  user!:string;
-  logUser:boolean=false;
-  constructor(private router:Router) {}
+  user!: string;
+  logUser: boolean = false;
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
-   this.user=JSON.stringify(localStorage.getItem('user'));
-  //  if(this.user==='akshay')
-  //  {
-  //     this.logUser=true;
-  //  }
-  //  else{
-  //    this.logUser=false
-  //  }
-
-  //  if(this.user==='akshay')
-  //  {
-  //     this.router.navigate(['/home'])
-  //  }
-  //  else
-  //  {
-  //    this.router.navigate(['/login'])
-  //  }
+    this.user = JSON.stringify(localStorage.getItem('user'));
   }
 
   sideBar() {
@@ -40,28 +24,22 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  logout(){
-    localStorage.removeItem("user");
-    this.router.navigate(['/'])
+  logout() {
+    localStorage.removeItem('user');
+    this.router.navigate(['/']);
   }
 
-
-
-
-
-
-  onClickHome(){
-    this.router.navigate(['/home'])
+  onClickHome() {
+    this.router.navigate(['/home']);
     this.sideBar();
   }
 
-  onClicDocMngmnt(){
-    this.router.navigate(['/docManagement'])
+  onClicDocMngmnt() {
+    this.router.navigate(['/docManagement']);
     this.sideBar();
   }
-  onClickBookmarks(){
-    this.router.navigate(['/bookmarks'])
+  onClickBookmarks() {
+    this.router.navigate(['/bookmarks']);
     this.sideBar();
   }
-
 }

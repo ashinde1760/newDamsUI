@@ -15,27 +15,18 @@ export class HomeComponent implements OnInit {
   uploadDialog: boolean = false;
   searchKeyword!: string;
 
-  searchedData:any=[];
+  searchedData: any = [];
   constructor(
     private docService: DocumentUploadService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.docService.getDocuments().subscribe(
-      (data:any) => {
-        // console.log(data);
-        // this.documents = data;
-
-        console.log(data.hits.hits);
-        this.documents = data.hits.hits;
-        console.log(this.documents);
-      }
-      // },
-      // (error) => {
-      //   alert('somethig went wrong while fetching all the documents, please try again later...!!');
-      // }
-    );
+    this.docService.getDocuments().subscribe((data: any) => {
+      console.log(data.hits.hits);
+      this.documents = data.hits.hits;
+      console.log(this.documents);
+    });
   }
 
   onUpload() {
@@ -64,41 +55,16 @@ export class HomeComponent implements OnInit {
         this.docService.upload(this.currentFile).subscribe(
           (data: any) => {
             alert('file uploaded successfully..!!');
-            console.log("This is data"+data);
-            
+            console.log('This is data' + data);
           },
           (error: HttpErrorResponse) => {
             alert('something went wrong while uploading file...');
             console.log(error);
-            
           }
         );
       }
     }
   }
-
-
-  // uploadFile() {
-  //   console.log('file upload.....................');
-  //   if (this.selectedFiles) {
-  //     const file: File | null = this.selectedFiles.item(0);
-
-  //     if (file) {
-  //       this.currentFile = file;
-
-  //       this.docService.upload(this.currentFile).subscribe(
-  //         (data: any) => {
-  //           alert('file uploaded successfully..!!');
-  //           console.log('This is data' + data);
-  //         },
-  //         (error: HttpErrorResponse) => {
-  //           alert('something went wrong while uploading file...');
-  //           console.log(error);
-  //         }
-  //       );
-  //     }
-  //   }
-  // }
 
   onCancle() {
     this.uploadDialog = false;
@@ -107,8 +73,7 @@ export class HomeComponent implements OnInit {
   search() {
     this.docService.search(this.searchKeyword).subscribe(
       (data: any) => {
-        
-        this.searchedData=data.hits.hits;
+        this.searchedData = data.hits.hits;
         console.log(this.searchedData);
       },
       (error: any) => {
@@ -118,7 +83,4 @@ export class HomeComponent implements OnInit {
       }
     );
   }
-
-
-
 }

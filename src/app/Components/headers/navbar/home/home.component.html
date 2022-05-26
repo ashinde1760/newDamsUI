@@ -7,6 +7,7 @@
       placeholder="Search here..."
       [(ngModel)]="searchKeyword"
       (keyup.enter)="search()"
+      ,
       styleClass="p-fluid"
     />
     &nbsp;
@@ -68,18 +69,9 @@
   </p-dialog>
 </div>
 
-<!-- <div>
-  <p-card *ngFor="let data of searchedData">
-    <h3 [innerHTML]="data.sourceAsMap.Name"></h3>
-    <div
-      [innerHTML]="data.sourceAsMap.Content | highlighter: searchKeyword:'full'"
-    ></div>
-  </p-card>
-</div> -->
-
 <div>
   <p-card *ngFor="let data of searchedData" styleClass="dataCard">
-    <div class="docTitle" style="font-family: ITC Charter Regular;">
+    <div class="docTitle" style="font-family: ITC Charter Regular">
       <span
         style="font-weight: 700; font-size: x-large"
         [innerHTML]="data.sourceAsMap.Name | uppercase"
@@ -94,7 +86,7 @@
     <hr />
     <div
       [innerHTML]="data.sourceAsMap.Content | highlighter: searchKeyword:'full'"
-      style="margin: 10px; font-family: Helvetica Neue Regular;"
+      style="margin: 10px; font-family: Helvetica Neue Regular"
     ></div>
   </p-card>
 </div>
