@@ -65,6 +65,8 @@ export class DocManagmentComponent implements OnInit {
   }
 
   selectFile(event: any): void {
+    console.log(event.target.files);
+    
     this.selectedFiles = event.target.files;
   }
 
@@ -77,29 +79,30 @@ export class DocManagmentComponent implements OnInit {
 
       if (file) {
         this.currentFile = file;
-
         this.docService.upload(this.currentFile).subscribe(
           (data: any) => {
             console.log(data);
+            if (data.status === 201){
             this.messageService.add({
               severity: 'info',
               summary: 'Confirmed',
-              detail: "this is from docmgtcomponent.ts",
+              detail: 'File Uploaded successfully, refresh page to see document',
             });
-            this.ngOnInit();
+          }
           },
           (error: HttpErrorResponse) => {
-            // this.messageService.add({
-            //   severity: 'warn',
-            //   summary: 'Cancelled',
-            //   detail: 'File is not Uploaded',
-            // });
-            console.log(error);
-            if (error) {
+            if (error.status === 304) {
               this.messageService.add({
                 severity: 'warn',
                 summary: 'Cancelled',
-                detail: 'File is already present',
+                detail: 'File is already exist',
+              });
+            }
+            else{
+              this.messageService.add({
+                severity: 'warn',
+                summary: 'Cancelled',
+                detail: 'Somthing went wrong while uploading file',
               });
             }
           }
