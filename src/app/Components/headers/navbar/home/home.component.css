@@ -14,7 +14,7 @@
 
 
 ::ng-deep .contentCard{
-  display: flex;
+  display: block;
   margin: 5px;
   color: #dedede;
   cursor: pointer;

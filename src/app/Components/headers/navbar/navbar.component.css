@@ -92,6 +92,17 @@ ul {
     }
 }
 
+@media screen and (max-width: 754px) {
+    .title1 {
+        font-size:medium;
+    }
+
+
+    .userInfo{
+        font-size:medium;
+    }
+}
+
 
 img{
     width: 40px;

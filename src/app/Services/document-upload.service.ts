@@ -18,7 +18,7 @@ export class DocumentUploadService {
   }
 
   getDocuments() {
-    return this.http.get(`${environment.url1}/getall`);
+    return this.http.get(`${environment.url1}/getByRepo`);
   }
 
   addDocument(data: any) {
@@ -112,6 +112,6 @@ export class DocumentUploadService {
 
   search(keyword:string)
   {
-    return this.http.get(`${environment.url1}/getDto/${keyword}`);
+    return this.http.get(`${environment.url1}/getHighlightedValue/${keyword}`);
   }
 }

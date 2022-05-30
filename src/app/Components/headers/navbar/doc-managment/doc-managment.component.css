@@ -70,8 +70,15 @@
 
 ::ng-deep .dataCard{
     margin: 10px;
-    background-color: #dedede;
+    display: block;
 }
+
+::ng-deep .contentData{
+    word-wrap: break-word;
+    display: block;
+    font-family: Helvetica;
+}
+
 
 ::ng-deep .docTitle{
     display: inline-block;
@@ -88,4 +95,6 @@
 }
 
   
-  
+
+
+ 

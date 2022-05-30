@@ -43,7 +43,7 @@ export class DocManagmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.docService.getDocuments().subscribe((data: any) => {
-      console.log(data.hits.hits);
+      console.log(data);
       this.documents = data.hits.hits;
       console.log(this.documents);
     });
