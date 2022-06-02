@@ -2,9 +2,18 @@
   <p-toolbar styleClass="upoadToolbar">
     <button
       pButton
-      class="p-button-sm primaryButton"
+      class="p-button-sm buttons"
       (click)="onUpload()"
       label=" Upload Document"
+      style="font-family: Arial"
+      icon="pi pi-plus"
+    ></button>
+
+    <button
+      pButton
+      class="p-button-sm buttons"
+      (click)="onClickCreateNew()"
+      label=" Create New Document"
       style="font-family: Arial"
       icon="pi pi-plus"
     ></button>
@@ -62,7 +71,7 @@
         pRipple
         label="Upload"
         icon="pi pi-upload"
-        class="p-button-success"
+        class="p-button-success buttons"
         [disabled]="!selectedFiles"
         (click)="uploadFile()"
       ></button>
@@ -75,7 +84,7 @@
         pRipple
         label="Cancel"
         icon="pi pi-times"
-        class="p-button-text"
+        class="p-button-text buttons"
         (click)="onCancle()"
       ></button>
     </ng-template>
@@ -83,7 +92,7 @@
 </div>
 
 <div>
-  <p-card *ngFor="let data of documents" styleClass="dataCard">
+  <!-- <p-card *ngFor="let data of documents" styleClass="dataCard">
     <div class="docTitle">
       <span
         style="font-weight: 700; font-size: x-large"
@@ -96,18 +105,97 @@
         }})</span
       >
     </div>
-    <hr />
+    <hr /> -->
 
-
-    <!-- <div
+  <!-- <div
       class="content"
       [innerHTML]="data.sourceAsMap.Content"
       style="margin: 10px; white-space: pre"
     ></div> -->
 
-    <pre class="contentData"> {{data.sourceAsMap.Content}}</pre>
-  </p-card>
+  <!-- <pre class="contentData"> {{data.sourceAsMap.Content}}</pre>
+  </p-card> -->
 </div>
 
 <!-- to display success or error msg -->
 <p-toast></p-toast>
+
+<div>
+  <p-table
+    #dt
+    [value]="documents"
+    [rows]="5"
+    [paginator]="true"
+    responsiveLayout="scroll"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name Of Document</th>
+        <th>Timestamp</th>
+        <th>Action</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>{{ product.sourceAsMap.Name | uppercase}}</td>
+        <td>{{ product.sourceAsMap.timestamp | date: "EEE, dd-MMM yyyy" }}</td>
+        <td>
+          <button
+            pButton
+            type="button"
+            label="VIEW"
+            class="p-button-sm buttons"
+            icon="pi pi-check"
+            (click)="onClickView(product.sourceAsMap.Name)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <div>
+    <p-dialog
+      [(visible)]="createNewDocument"
+      [style]="{ width: '80%' }"
+      [modal]="true"
+      styleClass="p-fluid"
+    >
+      <ng-template pTemplate="content">
+        <h3>Create New Document</h3>
+        <hr />
+        <div>
+          <h5>Document Name</h5>
+          <input [(ngModel)]="newSampleDocData.docName" pInputText placeholder="Enter Document Name" />
+        </div>
+        <div>
+          <h5>Document Content</h5>
+          <p-editor
+            [(ngModel)]="newSampleDocData.docContent"
+            [style]="{ height: '220px' }"
+          ></p-editor>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+        <button
+          style="margin-top: 5px"
+          pButton
+          pRipple
+          label="Cancel"
+          icon="pi pi-times"
+          class="p-button-text"
+          (click)="onCancle()"
+        ></button>
+        <button
+          style="margin-top: 5px"
+          pButton
+          pRipple
+          label="Save"
+          icon="pi pi-check"
+          class="p-button-text"
+          (click)="saveData()"
+        ></button>
+      </ng-template>
+    </p-dialog>
+  </div>
+</div>

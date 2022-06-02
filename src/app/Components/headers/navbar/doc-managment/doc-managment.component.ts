@@ -17,7 +17,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DocumentUploadService } from 'src/app/Services/document-upload.service';
-import { NewDocument } from './Document/Document';
+import { NewDocument, NewSampleDoc } from './Document/Document';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
@@ -34,6 +34,14 @@ export class DocManagmentComponent implements OnInit {
   searchKeyword!: string;
   searchedData: any = [];
   docData!: NewDocument;
+  
+  
+  createNewDocument:boolean=false;
+  cols!: any[];
+  newDocData!:string;
+  newSampleDocData!:NewSampleDoc;
+
+
 
   constructor(
     private docService: DocumentUploadService,
@@ -47,6 +55,11 @@ export class DocManagmentComponent implements OnInit {
       this.documents = data.hits.hits;
       console.log(this.documents);
     });
+
+    this.cols = [
+      { field: 'documents.sourceAsMap.Name', header: 'Document Name' },
+      { field: 'documents.sourceAsMap.timestamp', header: 'Timestamp' },
+    ];
   }
 
   onUpload() {
@@ -66,7 +79,7 @@ export class DocManagmentComponent implements OnInit {
 
   selectFile(event: any): void {
     console.log(event.target.files);
-    
+
     this.selectedFiles = event.target.files;
   }
 
@@ -82,13 +95,14 @@ export class DocManagmentComponent implements OnInit {
         this.docService.upload(this.currentFile).subscribe(
           (data: any) => {
             console.log(data);
-            if (data.status === 201){
-            this.messageService.add({
-              severity: 'info',
-              summary: 'Confirmed',
-              detail: 'File Uploaded successfully, refresh page to see document',
-            });
-          }
+            if (data.status === 201) {
+              this.messageService.add({
+                severity: 'info',
+                summary: 'Confirmed',
+                detail:
+                  'File Uploaded successfully, refresh page to see document',
+              });
+            }
           },
           (error: HttpErrorResponse) => {
             if (error.status === 304) {
@@ -97,8 +111,7 @@ export class DocManagmentComponent implements OnInit {
                 summary: 'Cancelled',
                 detail: 'File is already exist',
               });
-            }
-            else{
+            } else {
               this.messageService.add({
                 severity: 'warn',
                 summary: 'Cancelled',
@@ -113,6 +126,7 @@ export class DocManagmentComponent implements OnInit {
 
   onCancle() {
     this.uploadDialog = false;
+    this.createNewDocument=false;
   }
 
   search() {
@@ -127,5 +141,46 @@ export class DocManagmentComponent implements OnInit {
         );
       }
     );
+  }
+
+  onClickView(docName: string) {
+    console.log(docName);
+    localStorage.setItem('docName', JSON.stringify(docName));
+    this.router.navigate(['/viewDoc']);
+  }
+
+  onClickCreateNew() {
+    this.newSampleDocData={};
+    this.createNewDocument=true;
+  }
+
+  saveData(){
+    this.docService.createNewDoc(this.newSampleDocData).subscribe(
+      (data:any)=>{
+        if (data.status === 201) {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Confirmed',
+            detail:
+              'New doc created successfuly',
+          });
+        }        
+      },
+      (error:HttpErrorResponse)=>{
+        if (error.status === 304) {
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Cancelled',
+            detail: 'File is already exist',
+          });
+        } else {
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Cancelled',
+            detail: 'Somthing went wrong while creating new file',
+          });
+        }
+      }
+    )
   }
 }

@@ -19,6 +19,9 @@ import {CascadeSelectModule} from 'primeng/cascadeselect';
 import {DropdownModule} from 'primeng/dropdown';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ToastModule} from 'primeng/toast';
+import {EditorModule} from 'primeng/editor';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+
 
 
 
@@ -44,7 +47,9 @@ import {ToastModule} from 'primeng/toast';
     CascadeSelectModule,
     DropdownModule,
     ConfirmDialogModule,
-    ToastModule
+    ToastModule,
+    EditorModule,
+    InputTextareaModule
   ],
   exports:[
     CommonModule,
@@ -66,7 +71,9 @@ import {ToastModule} from 'primeng/toast';
     CascadeSelectModule,
     DropdownModule,
     ConfirmDialogModule,
-    ToastModule
+    ToastModule,
+    EditorModule,
+    InputTextareaModule
   ]
 })
 export class SharedModulesModule { }

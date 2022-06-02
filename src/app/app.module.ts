@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HeadersModule } from './Components/headers/headers.module';
 import {ButtonModule} from 'primeng/button';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {EditorModule} from 'primeng/editor';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     AppRoutingModule,
     HeadersModule,
     ButtonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    EditorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

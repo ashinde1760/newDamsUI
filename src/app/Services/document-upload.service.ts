@@ -2,7 +2,7 @@ import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { NewDocument } from '../Components/headers/navbar/doc-managment/Document/Document';
+import { NewDocument, NewSampleDoc } from '../Components/headers/navbar/doc-managment/Document/Document';
 import { Keyword } from '../Components/headers/navbar/sections/model/keyword';
 
 @Injectable({
@@ -25,13 +25,13 @@ export class DocumentUploadService {
     return this.http.post('http://localhost:3000/documents', data);
   }
 
-  getDocById(id: string) {
-    return this.http.get(`http://localhost:3000/documents/${id}`);
+  getDocByName(docName: string) {
+    return this.http.get(`${environment.url1 + '/getHighlightedDoc'}/${docName}`);
   }
 
   getVersions(data: any) {
     return this.http.get<any>(
-      `${environment.url + '/versions'}?document=${data.title}`
+      `${environment.url + '/versions'}?document=${"Proposal for CIT Project"}`
     );
   }
 
@@ -113,5 +113,13 @@ export class DocumentUploadService {
   search(keyword:string)
   {
     return this.http.get(`${environment.url1}/getHighlightedValue/${keyword}`);
+  }
+
+
+  createNewDoc(newDocData:NewSampleDoc)
+  {
+    console.log(newDocData);
+    
+    return this.http.post(`${environment.url1 + '/newDoc'}`,newDocData);
   }
 }

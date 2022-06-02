@@ -19,3 +19,14 @@
   color: #dedede;
   cursor: pointer;
 }
+
+
+::ng-deep .seachButton{
+  background-color: #d93954;
+  border-color: white;
+}
+
+.seachButton:hover{
+  background-color: #d30628;
+border-color: white;
+}

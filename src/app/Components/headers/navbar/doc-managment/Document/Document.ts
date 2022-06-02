@@ -3,3 +3,11 @@ export interface NewDocument{
     autherOfDoc?:string;
     currentFile?: File;
 }
+
+
+
+export interface NewSampleDoc{
+    id?:string;
+    docName?:string;
+    docContent?:string;
+}

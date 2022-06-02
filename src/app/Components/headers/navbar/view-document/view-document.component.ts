@@ -9,7 +9,7 @@ import { DocumentUploadService } from 'src/app/Services/document-upload.service'
 })
 export class ViewDocumentComponent implements OnInit {
   documentData: any;
-  docId!: string;
+  docName!: string;
   versions: any;
   docVersion!:string;
   sections:any=[];
@@ -29,14 +29,14 @@ export class ViewDocumentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.docId =JSON.parse(localStorage.getItem("documentID") || '{}');
-      console.log(this.docId);
+      this.docName =JSON.parse(localStorage.getItem("docName") || '{}');
+      console.log(this.docName);
       
 
-      this.docService.getDocById(this.docId).subscribe(
-          (data) => {
-              this.documentData = data;
-              console.log(data);
+      this.docService.getDocByName(this.docName).subscribe(
+          (data:any) => {              
+              this.documentData = data.hits.hits[0];
+                console.log(this.documentData);
               this.getVersions(this.documentData);
           },
           (error) => {

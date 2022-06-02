@@ -10,6 +10,8 @@ import { RouterModule } from '@angular/router';
 import { BookmarksComponent } from './navbar/bookmarks/bookmarks.component';
 import { HighlighterPipe } from './navbar/home/highlighter.pipe';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { TestComponent } from './navbar/test/test.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -20,11 +22,13 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
     SectionsComponent,
     BookmarksComponent,
     HighlighterPipe,
+    TestComponent,
   ],
   imports: [
     CommonModule,
     SharedModulesModule,
     NgxDocViewerModule  ,
+    PdfViewerModule,
     RouterModule.forChild([
       {
         path: '',
@@ -49,6 +53,10 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
           {
             path:'bookmarks',
             component:BookmarksComponent
+          },
+          {
+            path:'test',
+            component:TestComponent
           }
         ],
       },
