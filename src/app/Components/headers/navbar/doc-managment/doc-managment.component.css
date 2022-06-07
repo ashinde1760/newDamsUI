@@ -37,9 +37,13 @@
 }
 
 
-@media only screen and (max-width: 490px) {
+@media only screen and (max-width: 950px) {
     button{
         margin: 4px;
+    }
+    .pagination{
+        font-size: small;
+        width: min-content;
     }
   }
 

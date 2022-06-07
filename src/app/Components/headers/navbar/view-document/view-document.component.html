@@ -5,7 +5,12 @@
 <div class="container">
   <p-card>
     <ng-template pTemplate="title">
-      {{ documentData.sourceAsMap.Name }} &nbsp; <i>({{ documentData.sourceAsMap.timestamp | date:"EEE, dd-MMM yyyy"}})</i>
+      {{ documentData.sourceAsMap.Name }} &nbsp;
+      <i
+        >({{
+          documentData.sourceAsMap.timestamp | date: "EEE, dd-MMM yyyy"
+        }})</i
+      >
     </ng-template>
     <ng-template pTemplate="content">
       <div>
@@ -13,60 +18,101 @@
       </div>
     </ng-template>
   </p-card>
-
 </div>
-  <br><br>
-  <div class="grid innercard">
-    <div class="col-6">
-      <p-table [value]="versions" responsiveLayout="scroll" styleClass="table">
-        <ng-template pTemplate="header">
-          <tr>
-            <th>Version</th>
-            <th>Action</th>
-            <th>Download</th>
-            <th></th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-version>
-          <tr>
-            <td
-              (click)="onClickVesrion(version.version)"
-              style="cursor: pointer"
-            >
-              <a>{{ version.version }}</a>
-            </td>
-            <td><p-inputSwitch class="inputSwitch"></p-inputSwitch></td>
-            <td><i style="cursor: pointer" class="pi pi-download"></i></td>
-            <td>
-              <button
-                class="primaryButton"
-                pButton
-                label="Approve"
-                icon="pi pi-check"
-              ></button>
-            </td>
-            <!-- <td><p-selectButton [options]="stateOptions" [(ngModel)]="version.status" optionLabel="label" optionValue="value"></p-selectButton></td> -->
-          </tr>
-        </ng-template>
-      </p-table>
-    </div>
-    <div class="col-6">
-      <p-table class="css-serial" [value]="sections" responsiveLayout="scroll">
-        <ng-template pTemplate="header">
-          <tr>
-            <th>Sr. No</th>
-            <th>Sections</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-section>
-          <tr>
-            <td></td>
-            <td (click)="onClickSection(section.section)" class="section">
-              <a>{{ section.section }}</a>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </div>
-  </div>
+<br /><br />
+<div class="grid innercard" *ngIf="'innerWidth=950px'">
+  <div class="col-6">
+    <!-- <p-table [value]="versions" responsiveLayout="scroll" styleClass="table">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Version</th>
+          <th>Action</th>
+          <th>Download</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-version>
+        <tr>
+          <td (click)="onClickVesrion(version.version)" style="cursor: pointer">
+            <a>{{ version.version }}</a>
+          </td>
+          <td><p-inputSwitch class="inputSwitch"></p-inputSwitch></td>
+          <td><i style="cursor: pointer" class="pi pi-download"></i></td>
+          <td>
+            <button
+              class="primaryButton"
+              pButton
+              label="Approve"
+              icon="pi pi-check"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table> -->
 
+    <p-table
+      #dt
+      [value]="versions"
+      [rows]="5"
+      [paginator]="true"
+      [rowHover]="true"
+      dataKey="id"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+    >
+      <ng-template pTemplate="caption">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          <h3 class="p-m-0">All Versions</h3>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr style="color: coral">
+          <th>Version</th>
+          <th>Action</th>
+          <th>Download</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-version>
+        <tr>
+          <td (click)="onClickVesrion(version.version)" style="cursor: pointer">
+            <a>{{ version.version }}</a>
+          </td>
+          <td><p-inputSwitch class="inputSwitch"></p-inputSwitch></td>
+          <td><i style="cursor: pointer" class="pi pi-download"></i></td>
+          <td>
+            <button
+              class="primaryButton"
+              pButton
+              label="Approve"
+              icon="pi pi-check"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between pagination">
+          In total there are {{ versions ? versions.length : 0 }} Documents.
+        </div>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="col-6">
+    <p-table class="css-serial" [value]="sections" responsiveLayout="scroll">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Sr. No</th>
+          <th>Sections</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-section>
+        <tr>
+          <td></td>
+          <td (click)="onClickSection(section.section)" class="section">
+            <a>{{ section.section }}</a>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

@@ -18,25 +18,6 @@
       icon="pi pi-plus"
     ></button>
   </p-toolbar>
-  <!-- <p-card styleClass="outerCard">
-    <div *ngFor="let data of documents">
-      <p-card
-        pRipple
-        styleClass="innerCard"
-        (dblclick)="onClickDocument(data.id)"
-      >
-        <h1 class="title">{{ data.title }}</h1>
-        <b class="subTitle"> Type of Document: </b
-        ><i
-          ><label>{{ data.type }}</label></i
-        ><br /><br />
-        <b class="subTitle"> Author By: </b> <label>{{ data.authorBy }}</label
-        ><br /><br />
-        <b class="subTitle">Desription: </b>
-        <label class="descriptipn">{{ data.description }}</label>
-      </p-card>
-    </div>
-  </p-card> -->
 
   <p-dialog
     [(visible)]="uploadDialog"
@@ -47,13 +28,6 @@
     <h3>Upload documents Here</h3>
     <hr />
     <ng-template pTemplate="content">
-      <!-- <div class="padding">
-        <input pInputText placeholder="Enter Type of Document" [(ngModel)]="docData.typeOfDoc" />
-      </div>
-      <div class="padding">
-        <input pInputText placeholder="Enter Auther of Document" [(ngModel)]="docData.autherOfDoc" />
-      </div> -->
-
       <input
         class="p-inputtext-sm padding"
         type="file"
@@ -91,68 +65,66 @@
   </p-dialog>
 </div>
 
-<div>
-  <!-- <p-card *ngFor="let data of documents" styleClass="dataCard">
-    <div class="docTitle">
-      <span
-        style="font-weight: 700; font-size: x-large"
-        [innerHTML]="data.sourceAsMap.Name | uppercase"
-      ></span>
-      &nbsp;
-      <span
-        >(Uploaded On:{{
-          data.sourceAsMap.timestamp | date: "EEE, dd-MMM yyyy, h:mm:ss aa"
-        }})</span
-      >
-    </div>
-    <hr /> -->
-
-  <!-- <div
-      class="content"
-      [innerHTML]="data.sourceAsMap.Content"
-      style="margin: 10px; white-space: pre"
-    ></div> -->
-
-  <!-- <pre class="contentData"> {{data.sourceAsMap.Content}}</pre>
-  </p-card> -->
-</div>
-
 <!-- to display success or error msg -->
 <p-toast></p-toast>
 
-<div>
-  <p-table
-    #dt
-    [value]="documents"
-    [rows]="5"
-    [paginator]="true"
-    responsiveLayout="scroll"
-  >
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Name Of Document</th>
-        <th>Timestamp</th>
-        <th>Action</th>
-      </tr>
-    </ng-template>
+<p-table
+  #dt
+  [value]="documents"
+  [rows]="5"
+  [paginator]="true"
+  [rowHover]="true"
+  dataKey="id"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [showCurrentPageReport]="true"
+>
+  <ng-template pTemplate="caption">
+    <div class="p-d-flex p-ai-center p-jc-between">
+      <h3 class="p-m-0">All Documents</h3>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr style="color: coral;">
+      <th>Name Of Document</th>
+      <th>Timestamp</th>
+      <th>Action</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product>
+    <tr>
+      <td style="font-weight:500;">{{ product.sourceAsMap.Name | uppercase }}</td>
+      <td>{{ product.sourceAsMap.timestamp | date: "EEE, dd-MMM yyyy" }}</td>
+      <td>
+        <button
+          pButton
+          type="button"
+          label="VIEW"
+          class="p-button-sm buttons"
+          icon="pi pi-check"
+          (click)="onClickView(product.sourceAsMap.Name)"
+        ></button>
+      </td>
+      <td>
+        <button
+          pButton
+          type="button"
+          label="Update Document"
+          class="p-button-sm buttons"
+          icon="pi pi-check"
+          (click)="onClickUpdate(product.sourceAsMap.id)"
+        ></button>
+      </td>
 
-    <ng-template pTemplate="body" let-product>
-      <tr>
-        <td>{{ product.sourceAsMap.Name | uppercase}}</td>
-        <td>{{ product.sourceAsMap.timestamp | date: "EEE, dd-MMM yyyy" }}</td>
-        <td>
-          <button
-            pButton
-            type="button"
-            label="VIEW"
-            class="p-button-sm buttons"
-            icon="pi pi-check"
-            (click)="onClickView(product.sourceAsMap.Name)"
-          ></button>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    <div class="p-d-flex p-ai-center p-jc-between pagination">
+      In total there are {{ documents ? documents.length : 0 }} Documents.
+    </div>
+  </ng-template>
+</p-table>
+
+
   <div>
     <p-dialog
       [(visible)]="createNewDocument"
@@ -165,7 +137,11 @@
         <hr />
         <div>
           <h5>Document Name</h5>
-          <input [(ngModel)]="newSampleDocData.docName" pInputText placeholder="Enter Document Name" />
+          <input
+            [(ngModel)]="newSampleDocData.docName"
+            pInputText
+            placeholder="Enter Document Name"
+          />
         </div>
         <div>
           <h5>Document Content</h5>
@@ -198,4 +174,51 @@
       </ng-template>
     </p-dialog>
   </div>
-</div>
+
+
+
+  <!-- for updating doc -->
+  <p-dialog
+    [(visible)]="updateDocDialog"
+    [style]="{ width: '40%' }"
+    styleClass="p-fluid"
+    [modal]="true"
+  >
+    <h3>Update documents Here</h3>
+    <hr />
+    <ng-template pTemplate="content">
+      <input
+        class="p-inputtext-sm padding"
+        type="file"
+        accept=".docx"
+        pInputText
+        id="dos"
+        name="file"
+        required
+        autofocus
+        (change)="selectFile1($event)"
+      />
+      &nbsp;
+      <button
+        pButton
+        pRipple
+        label="Upload"
+        icon="pi pi-upload"
+        class="p-button-success buttons"
+        [disabled]="!selectedFiles"
+        (click)="updateFile()"
+      ></button>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+      <button
+        style="margin-top: 5px"
+        pButton
+        pRipple
+        label="Cancel"
+        icon="pi pi-times"
+        class="p-button-text buttons"
+        (click)="onCancle()"
+      ></button>
+    </ng-template>
+  </p-dialog>

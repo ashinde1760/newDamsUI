@@ -80,9 +80,16 @@ ul {
 }
 
 
-@media screen and (max-width: 490px) {
-    .title {
-        font-size: small;
+@media screen and (max-width: 400px) {
+    .toolbar{
+        display: flex;
+        flex-wrap: wrap;
+        height: 100%;
+        width: fit-content;
+    }
+
+    .title1,.userInfo{
+        display: none;
     }
 }
 
@@ -114,7 +121,7 @@ img{
     flex-wrap: wrap;
     margin: 0%;
     padding: 0%;
-    height: 5rem;
+    height: 12vh;
     color: black;
     background-color:#eb8c00;
     
@@ -130,6 +137,7 @@ span{
 .title1{
     font-family:"Georgia";
     color: white;
+    font-size: x-large;
 }
 
 .pages{

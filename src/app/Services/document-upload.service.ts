@@ -122,4 +122,19 @@ export class DocumentUploadService {
     
     return this.http.post(`${environment.url1 + '/newDoc'}`,newDocData);
   }
+
+  updateDocument(id:string, file: File)
+  {
+    console.log(id,"id of same doc");
+    
+    const formData: any = new FormData();
+
+    formData.append('file', file);
+
+    const req = new HttpRequest('POST', `${environment.url1}/versiontest/${id}`, formData, {
+      
+    });
+
+    return this.http.request(req);
+  }
 }

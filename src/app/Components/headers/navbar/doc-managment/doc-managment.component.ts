@@ -19,6 +19,8 @@ import { Router } from '@angular/router';
 import { DocumentUploadService } from 'src/app/Services/document-upload.service';
 import { NewDocument, NewSampleDoc } from './Document/Document';
 import { ConfirmationService, MessageService } from 'primeng/api';
+//for creating new doc
+import * as docx from 'docx';
 
 @Component({
   selector: 'app-doc-managment',
@@ -34,14 +36,14 @@ export class DocManagmentComponent implements OnInit {
   searchKeyword!: string;
   searchedData: any = [];
   docData!: NewDocument;
-  
-  
-  createNewDocument:boolean=false;
+
+  createNewDocument: boolean = false;
   cols!: any[];
-  newDocData!:string;
-  newSampleDocData!:NewSampleDoc;
+  newDocData!: string;
+  newSampleDocData!: NewSampleDoc;
 
-
+  updateDocDialog:boolean=false;
+  docId!:string;
 
   constructor(
     private docService: DocumentUploadService,
@@ -126,7 +128,8 @@ export class DocManagmentComponent implements OnInit {
 
   onCancle() {
     this.uploadDialog = false;
-    this.createNewDocument=false;
+    this.createNewDocument = false;
+    this.updateDocDialog=false;
   }
 
   search() {
@@ -150,23 +153,22 @@ export class DocManagmentComponent implements OnInit {
   }
 
   onClickCreateNew() {
-    this.newSampleDocData={};
-    this.createNewDocument=true;
+    this.newSampleDocData = {};
+    this.createNewDocument = true;
   }
 
-  saveData(){
+  saveData() {
     this.docService.createNewDoc(this.newSampleDocData).subscribe(
-      (data:any)=>{
+      (data: any) => {
         if (data.status === 201) {
           this.messageService.add({
             severity: 'success',
             summary: 'Confirmed',
-            detail:
-              'New doc created successfuly',
+            detail: 'New doc created successfuly',
           });
-        }        
+        }
       },
-      (error:HttpErrorResponse)=>{
+      (error: HttpErrorResponse) => {
         if (error.status === 304) {
           this.messageService.add({
             severity: 'warn',
@@ -181,6 +183,79 @@ export class DocManagmentComponent implements OnInit {
           });
         }
       }
-    )
+    );
+  }
+
+  //for creating new doc file
+  // name = 'Angular';
+  // onClickCreateNew1() :void{
+  //   const documentCreator = new DocumentCreator();
+  //   const doc = documentCreator.create([
+  //     experiences,
+  //     education,
+  //     skills,
+  //     achievements
+  //   ]);
+
+  //   Packer.toBlob(doc).then(blob => {
+  //     console.log(blob);
+  //     saveAs(blob, "example.docx");
+  //     console.log("Document created successfully");
+  //   });
+  // }
+
+
+  onClickUpdate(id:string)
+  {
+    this.docId=id;
+    this.updateDocDialog=true;
+  }
+
+  selectFile1(event: any): void {
+    console.log(event.target.files);
+
+    this.selectedFiles = event.target.files;
+  }
+
+
+  updateFile() {
+    this.uploadDialog = false;
+
+    console.log('file upload from doc mgt component.ts');
+    if (this.selectedFiles) {
+      const file: File | null = this.selectedFiles.item(0);
+
+      if (file) {
+        this.currentFile = file;
+        this.docService.updateDocument(this.docId,this.currentFile).subscribe(
+          (data: any) => {
+            console.log(data);
+            if (data.status === 201) {
+              this.messageService.add({
+                severity: 'info',
+                summary: 'Confirmed',
+                detail:
+                  'File Updated successfully, refresh page to see document',
+              });
+            }
+          },
+          (error: HttpErrorResponse) => {
+            if (error.status === 304) {
+              this.messageService.add({
+                severity: 'warn',
+                summary: 'Cancelled',
+                detail: 'File is already exist',
+              });
+            } else {
+              this.messageService.add({
+                severity: 'warn',
+                summary: 'Cancelled',
+                detail: 'Somthing went wrong while updating file',
+              });
+            }
+          }
+        );
+      }
+    }
   }
 }

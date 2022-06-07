@@ -13,6 +13,9 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { TestComponent } from './navbar/test/test.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
+
+
+
 @NgModule({
   declarations: [
     NavbarComponent,
