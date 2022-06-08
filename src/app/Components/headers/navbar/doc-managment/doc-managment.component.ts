@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+// For highlighting keywords
 @Pipe({
   name: 'highlight',
 })
@@ -42,8 +43,8 @@ export class DocManagmentComponent implements OnInit {
   newDocData!: string;
   newSampleDocData!: NewSampleDoc;
 
-  updateDocDialog:boolean=false;
-  docId!:string;
+  updateDocDialog: boolean = false;
+  docId!: string;
 
   constructor(
     private docService: DocumentUploadService,
@@ -52,43 +53,28 @@ export class DocManagmentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // to fetch all documents
     this.docService.getDocuments().subscribe((data: any) => {
       console.log(data);
       this.documents = data.hits.hits;
       console.log(this.documents);
     });
-
-    this.cols = [
-      { field: 'documents.sourceAsMap.Name', header: 'Document Name' },
-      { field: 'documents.sourceAsMap.timestamp', header: 'Timestamp' },
-    ];
   }
 
+  //It will open dialog box to upload new document
   onUpload() {
     this.docData = {};
     this.uploadDialog = true;
   }
 
-  myUploader(event: any) {
-    console.log(event);
-    this.uploadDialog = true;
-  }
-
-  onClickDocument(id: string) {
-    localStorage.setItem('documentID', id);
-    this.router.navigate(['/viewDoc']);
-  }
-
+  //Gets called after uploading a file
   selectFile(event: any): void {
-    console.log(event.target.files);
-
     this.selectedFiles = event.target.files;
   }
 
+  // It will upload a document
   uploadFile() {
     this.uploadDialog = false;
-
-    console.log('file upload from doc mgt component.ts');
     if (this.selectedFiles) {
       const file: File | null = this.selectedFiles.item(0);
 
@@ -99,7 +85,7 @@ export class DocManagmentComponent implements OnInit {
             console.log(data);
             if (data.status === 201) {
               this.messageService.add({
-                severity: 'info',
+                severity: 'success',
                 summary: 'Confirmed',
                 detail:
                   'File Uploaded successfully, refresh page to see document',
@@ -126,37 +112,27 @@ export class DocManagmentComponent implements OnInit {
     }
   }
 
+  //  This is for cancling dialog box
   onCancle() {
     this.uploadDialog = false;
     this.createNewDocument = false;
-    this.updateDocDialog=false;
+    this.updateDocDialog = false;
   }
 
-  search() {
-    this.docService.search(this.searchKeyword).subscribe(
-      (data: any) => {
-        this.searchedData = data.hits.hits;
-        console.log(this.searchedData);
-      },
-      (error: any) => {
-        alert(
-          'something went wrong while searching keyword, please try again later...!!'
-        );
-      }
-    );
-  }
-
+  // It gets call by clicking on view button to view perticular document
   onClickView(docName: string) {
     console.log(docName);
     localStorage.setItem('docName', JSON.stringify(docName));
     this.router.navigate(['/viewDoc']);
   }
 
+  // It will open dialog box to create new document
   onClickCreateNew() {
     this.newSampleDocData = {};
     this.createNewDocument = true;
   }
 
+  // This gets called after clicking on save button while creating new document
   saveData() {
     this.docService.createNewDoc(this.newSampleDocData).subscribe(
       (data: any) => {
@@ -186,48 +162,28 @@ export class DocManagmentComponent implements OnInit {
     );
   }
 
-  //for creating new doc file
-  // name = 'Angular';
-  // onClickCreateNew1() :void{
-  //   const documentCreator = new DocumentCreator();
-  //   const doc = documentCreator.create([
-  //     experiences,
-  //     education,
-  //     skills,
-  //     achievements
-  //   ]);
-
-  //   Packer.toBlob(doc).then(blob => {
-  //     console.log(blob);
-  //     saveAs(blob, "example.docx");
-  //     console.log("Document created successfully");
-  //   });
-  // }
-
-
-  onClickUpdate(id:string)
-  {
-    this.docId=id;
-    this.updateDocDialog=true;
+  // It will open a dialog box to update a document
+  onClickUpdate(id: string) {
+    this.docId = id;
+    this.updateDocDialog = true;
   }
 
+  // To store updated file
   selectFile1(event: any): void {
     console.log(event.target.files);
 
     this.selectedFiles = event.target.files;
   }
 
-
+  // for updating a file
   updateFile() {
-    this.uploadDialog = false;
-
-    console.log('file upload from doc mgt component.ts');
+    this.updateDocDialog = false;
     if (this.selectedFiles) {
       const file: File | null = this.selectedFiles.item(0);
 
       if (file) {
         this.currentFile = file;
-        this.docService.updateDocument(this.docId,this.currentFile).subscribe(
+        this.docService.updateDocument(this.docId, this.currentFile).subscribe(
           (data: any) => {
             console.log(data);
             if (data.status === 201) {
@@ -240,19 +196,11 @@ export class DocManagmentComponent implements OnInit {
             }
           },
           (error: HttpErrorResponse) => {
-            if (error.status === 304) {
-              this.messageService.add({
-                severity: 'warn',
-                summary: 'Cancelled',
-                detail: 'File is already exist',
-              });
-            } else {
-              this.messageService.add({
-                severity: 'warn',
-                summary: 'Cancelled',
-                detail: 'Somthing went wrong while updating file',
-              });
-            }
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Cancelled',
+              detail: 'Somthing went wrong while updating file',
+            });
           }
         );
       }

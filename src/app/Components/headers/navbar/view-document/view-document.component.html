@@ -1,27 +1,25 @@
-<div class="title">
-  {{ documentData.title }}
-</div>
-<hr />
+
 <div class="container">
-  <p-card>
+  <p-card class="docData">
     <ng-template pTemplate="title">
-      {{ documentData.sourceAsMap.Name }} &nbsp;
+      {{ documentData1.name }} &nbsp;
       <i
         >({{
-          documentData.sourceAsMap.timestamp | date: "EEE, dd-MMM yyyy"
+          documentData1.timestamp | date: "EEE, dd-MMM yyyy"
         }})</i
       >
     </ng-template>
+    <hr>
     <ng-template pTemplate="content">
       <div>
-        <pre>{{ documentData.sourceAsMap.Content }}</pre>
+        <pre>{{ documentData1.content }}</pre>
       </div>
     </ng-template>
   </p-card>
 </div>
 <br /><br />
 <div class="grid innercard" *ngIf="'innerWidth=950px'">
-  <div class="col-6">
+  <div class="col-12">
     <!-- <p-table [value]="versions" responsiveLayout="scroll" styleClass="table">
       <ng-template pTemplate="header">
         <tr>
@@ -52,7 +50,7 @@
 
     <p-table
       #dt
-      [value]="versions"
+      [value]="documentData"
       [rows]="5"
       [paginator]="true"
       [rowHover]="true"
@@ -76,15 +74,16 @@
       <ng-template pTemplate="body" let-version>
         <tr>
           <td (click)="onClickVesrion(version.version)" style="cursor: pointer">
-            <a>{{ version.version }}</a>
+            <a>V1.{{ version.version }}</a>
           </td>
           <td><p-inputSwitch class="inputSwitch"></p-inputSwitch></td>
-          <td><i style="cursor: pointer" class="pi pi-download"></i></td>
+          <td><i style="cursor: pointer" class="pi pi-download" (click)="downloadDoc(version.id)"></i></td>
           <td>
             <button
-              class="primaryButton"
+            type="button"
+              class="p-button-sm viewButton"
               pButton
-              label="Approve"
+              label="View Document"
               icon="pi pi-check"
             ></button>
           </td>
@@ -97,7 +96,7 @@
       </ng-template>
     </p-table>
   </div>
-  <div class="col-6">
+  <!-- <div class="col-6">
     <p-table class="css-serial" [value]="sections" responsiveLayout="scroll">
       <ng-template pTemplate="header">
         <tr>
@@ -114,5 +113,5 @@
         </tr>
       </ng-template>
     </p-table>
-  </div>
+  </div> -->
 </div>

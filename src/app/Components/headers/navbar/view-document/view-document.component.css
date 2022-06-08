@@ -6,6 +6,10 @@
     color: #3700B3
 }
 
+.docData{
+    font-family:Georgia;
+}
+
 .desc{
     margin: 10px;
     font-size: x-large;
@@ -71,4 +75,15 @@ a{
 pre{
     display: flex;
     flex-wrap: wrap;
+}
+
+::ng-deep .viewButton{
+    background-color: #d93954;
+    border-color: white;
+}
+
+
+::ng-deep .viewButton:hover{
+    background-color: #f0032b;
+    border-color: #d93954;
 }

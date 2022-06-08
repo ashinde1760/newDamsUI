@@ -26,7 +26,7 @@ export class DocumentUploadService {
   }
 
   getDocByName(docName: string) {
-    return this.http.get(`${environment.url1 + '/getHighlightedDoc'}/${docName}`);
+    return this.http.get(`${environment.url1 + '/getDocByName'}/${docName}`);
   }
 
   getVersions(data: any) {
@@ -136,5 +136,15 @@ export class DocumentUploadService {
     });
 
     return this.http.request(req);
+  }
+
+
+
+  download(docId: string){
+    return this.http.get(`${environment.url1}/download/${docId}`, {
+      reportProgress: true,
+      // observe: 'events',
+      responseType: 'blob'
+    });
   }
 }

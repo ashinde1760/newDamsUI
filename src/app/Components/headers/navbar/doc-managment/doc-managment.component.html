@@ -1,4 +1,6 @@
 <div class="container">
+
+  <!-- for upload and create new doc -->
   <p-toolbar styleClass="upoadToolbar">
     <button
       pButton
@@ -19,6 +21,7 @@
     ></button>
   </p-toolbar>
 
+  <!-- For uploading new doc -->
   <p-dialog
     [(visible)]="uploadDialog"
     [style]="{ width: '40%' }"
@@ -68,6 +71,8 @@
 <!-- to display success or error msg -->
 <p-toast></p-toast>
 
+
+<!-- To display uploaded documents -->
 <p-table
   #dt
   [value]="documents"
@@ -84,15 +89,18 @@
     </div>
   </ng-template>
   <ng-template pTemplate="header">
-    <tr style="color: coral;">
+    <tr style="color: coral">
       <th>Name Of Document</th>
       <th>Timestamp</th>
       <th>Action</th>
+      <th></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-product>
     <tr>
-      <td style="font-weight:500;">{{ product.sourceAsMap.Name | uppercase }}</td>
+      <td style="font-weight: 500">
+        {{ product.sourceAsMap.Name | uppercase }}
+      </td>
       <td>{{ product.sourceAsMap.timestamp | date: "EEE, dd-MMM yyyy" }}</td>
       <td>
         <button
@@ -114,7 +122,6 @@
           (click)="onClickUpdate(product.sourceAsMap.id)"
         ></button>
       </td>
-
     </tr>
   </ng-template>
   <ng-template pTemplate="summary">
@@ -125,89 +132,32 @@
 </p-table>
 
 
-  <div>
-    <p-dialog
-      [(visible)]="createNewDocument"
-      [style]="{ width: '80%' }"
-      [modal]="true"
-      styleClass="p-fluid"
-    >
-      <ng-template pTemplate="content">
-        <h3>Create New Document</h3>
-        <hr />
-        <div>
-          <h5>Document Name</h5>
-          <input
-            [(ngModel)]="newSampleDocData.docName"
-            pInputText
-            placeholder="Enter Document Name"
-          />
-        </div>
-        <div>
-          <h5>Document Content</h5>
-          <p-editor
-            [(ngModel)]="newSampleDocData.docContent"
-            [style]="{ height: '220px' }"
-          ></p-editor>
-        </div>
-      </ng-template>
-
-      <ng-template pTemplate="footer">
-        <button
-          style="margin-top: 5px"
-          pButton
-          pRipple
-          label="Cancel"
-          icon="pi pi-times"
-          class="p-button-text"
-          (click)="onCancle()"
-        ></button>
-        <button
-          style="margin-top: 5px"
-          pButton
-          pRipple
-          label="Save"
-          icon="pi pi-check"
-          class="p-button-text"
-          (click)="saveData()"
-        ></button>
-      </ng-template>
-    </p-dialog>
-  </div>
-
-
-
-  <!-- for updating doc -->
+<!-- for creating new document -->
+<div>
   <p-dialog
-    [(visible)]="updateDocDialog"
-    [style]="{ width: '40%' }"
-    styleClass="p-fluid"
+    [(visible)]="createNewDocument"
+    [style]="{ width: '80%' }"
     [modal]="true"
+    styleClass="p-fluid"
   >
-    <h3>Update documents Here</h3>
-    <hr />
     <ng-template pTemplate="content">
-      <input
-        class="p-inputtext-sm padding"
-        type="file"
-        accept=".docx"
-        pInputText
-        id="dos"
-        name="file"
-        required
-        autofocus
-        (change)="selectFile1($event)"
-      />
-      &nbsp;
-      <button
-        pButton
-        pRipple
-        label="Upload"
-        icon="pi pi-upload"
-        class="p-button-success buttons"
-        [disabled]="!selectedFiles"
-        (click)="updateFile()"
-      ></button>
+      <h3>Create New Document</h3>
+      <hr />
+      <div>
+        <h5>Document Name</h5>
+        <input
+          [(ngModel)]="newSampleDocData.docName"
+          pInputText
+          placeholder="Enter Document Name"
+        />
+      </div>
+      <div>
+        <h5>Document Content</h5>
+        <p-editor
+          [(ngModel)]="newSampleDocData.docContent"
+          [style]="{ height: '220px' }"
+        ></p-editor>
+      </div>
     </ng-template>
 
     <ng-template pTemplate="footer">
@@ -217,8 +167,65 @@
         pRipple
         label="Cancel"
         icon="pi pi-times"
-        class="p-button-text buttons"
+        class="p-button-text"
         (click)="onCancle()"
+      ></button>
+      <button
+        style="margin-top: 5px"
+        pButton
+        pRipple
+        label="Save"
+        icon="pi pi-check"
+        class="p-button-text"
+        (click)="saveData()"
       ></button>
     </ng-template>
   </p-dialog>
+</div>
+
+
+<!-- for updating document -->
+<p-dialog
+  [(visible)]="updateDocDialog"
+  [style]="{ width: '40%' }"
+  styleClass="p-fluid"
+  [modal]="true"
+>
+  <h3>Update documents Here</h3>
+  <hr />
+  <ng-template pTemplate="content">
+    <input
+      class="p-inputtext-sm padding"
+      type="file"
+      accept=".docx"
+      pInputText
+      id="dos"
+      name="file"
+      required
+      autofocus
+      (change)="selectFile1($event)"
+    />
+    &nbsp;
+    <button
+      pButton
+      pRipple
+      label="Upload"
+      icon="pi pi-upload"
+      class="p-button-success buttons"
+      [disabled]="!selectedFiles"
+      (click)="updateFile()"
+    ></button>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      style="margin-top: 5px"
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text buttons"
+      (click)="onCancle()"
+    ></button>
+  </ng-template>
+</p-dialog>

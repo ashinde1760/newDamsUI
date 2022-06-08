@@ -1,6 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DocumentUploadService } from 'src/app/Services/document-upload.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-view-document',
@@ -8,9 +10,10 @@ import { DocumentUploadService } from 'src/app/Services/document-upload.service'
   styleUrls: ['./view-document.component.css'],
 })
 export class ViewDocumentComponent implements OnInit {
-  documentData: any;
+  documentData: any=[];
+  documentData1: any;
   docName!: string;
-  versions: any;
+  versions: any=[];
   docVersion!: string;
   sections: any = [];
   checked: boolean = true;
@@ -27,32 +30,31 @@ export class ViewDocumentComponent implements OnInit {
   }
   public innerWidth: any;
   ngOnInit(): void {
-
-  
-
-  // @HostListener('window:resize', ['$event'])
-  // onResize(event: any) {
-  //   this.innerWidth = window.innerWidth;
-  // }
-
-  
+    this.documentData1={};
     this.docName = JSON.parse(localStorage.getItem('docName') || '{}');
     console.log(this.docName);
 
     this.docService.getDocByName(this.docName).subscribe(
       (data: any) => {
-        this.documentData = data.hits.hits[0];
+        console.log(data);
+        
+        this.documentData = data;
+        this.documentData1 = data[0];
+
+        // console.log(this.documentData);
+        // this.getVersions(this.documentData);
+
         console.log(this.documentData);
-        this.getVersions(this.documentData);
+        
+
+
+
       },
       (error) => {
         alert('something went wrong...!!');
       }
     );
   }
-
-
-  
 
   getVersions(data: any) {
     this.docService.getVersions(data).subscribe(
@@ -86,5 +88,15 @@ export class ViewDocumentComponent implements OnInit {
   onClickSection(section: string) {
     localStorage.setItem('section', section);
     this.router.navigate(['/sections']);
+  }
+
+  downloadDoc(docId:string)
+  {
+    this.docService.download(docId).subscribe((event) => {
+      saveAs(event, docId);
+    });
+    (error: HttpErrorResponse) => {
+      console.log(error);
+    };
   }
 }
