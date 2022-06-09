@@ -92,7 +92,7 @@ export class ViewDocumentComponent implements OnInit {
 
   downloadDoc(docId:string)
   {
-    this.docService.download(docId).subscribe((event) => {
+    this.docService.download(docId).subscribe((event:any) => {
       saveAs(event, docId);
     });
     (error: HttpErrorResponse) => {

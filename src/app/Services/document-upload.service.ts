@@ -100,7 +100,7 @@ export class DocumentUploadService {
 
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', `${environment.url1}/saveDocByRepo`, formData, {
+    const req = new HttpRequest('POST', `${environment.url1}/saveFile`, formData, {
       
     });
 
@@ -131,7 +131,7 @@ export class DocumentUploadService {
 
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', `${environment.url1}/versiontest/${id}`, formData, {
+    const req = new HttpRequest('POST', `${environment.url1}/updateDoc/${id}`, formData, {
       
     });
 
@@ -141,7 +141,8 @@ export class DocumentUploadService {
 
 
   download(docId: string){
-    return this.http.get(`${environment.url1}/download/${docId}`, {
+    console.log("got the id in service ",docId);
+    return this.http.get(`${environment.url1}/downloadFile/${docId}`, {
       reportProgress: true,
       // observe: 'events',
       responseType: 'blob'

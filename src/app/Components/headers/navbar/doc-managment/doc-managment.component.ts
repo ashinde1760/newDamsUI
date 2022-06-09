@@ -121,7 +121,7 @@ export class DocManagmentComponent implements OnInit {
 
   // It gets call by clicking on view button to view perticular document
   onClickView(docName: string) {
-    console.log(docName);
+    console.log(docName," Name from docmgt components");
     localStorage.setItem('docName', JSON.stringify(docName));
     this.router.navigate(['/viewDoc']);
   }
@@ -177,6 +177,8 @@ export class DocManagmentComponent implements OnInit {
 
   // for updating a file
   updateFile() {
+    console.log("inside ts updateFile");
+    
     this.updateDocDialog = false;
     if (this.selectedFiles) {
       const file: File | null = this.selectedFiles.item(0);
@@ -186,7 +188,7 @@ export class DocManagmentComponent implements OnInit {
         this.docService.updateDocument(this.docId, this.currentFile).subscribe(
           (data: any) => {
             console.log(data);
-            if (data.status === 201) {
+            if (data.status === 200) {
               this.messageService.add({
                 severity: 'info',
                 summary: 'Confirmed',
