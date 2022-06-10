@@ -164,6 +164,8 @@ export class DocManagmentComponent implements OnInit {
 
   // It will open a dialog box to update a document
   onClickUpdate(id: string) {
+    console.log("this is product.id ",id);
+    
     this.docId = id;
     this.updateDocDialog = true;
   }
