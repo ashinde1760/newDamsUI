@@ -70,13 +70,24 @@ export class DocumentUploadService {
     return this.http.get(`${environment.url}/keywords/${id}`);
   }
 
+  addBookmarks(id:string) {
+    return this.http.post(`${environment.url1 + '/setbookmark/'}${id}`,id);
+  }
+
+
   updateBookmark(id: string, data: any) {
     return this.http.put(`${environment.url}/keywords/${id}`, data);
   }
 
-  getBookmarks() {
-    return this.http.get(`${environment.url + '/keywords'}?bookmark=${true}`);
+  updateBookmark1(id: string) {
+    return this.http.put(`${environment.url}/keywords/${id}`,id);
   }
+  
+  getBookmarks() {
+    return this.http.get(`${environment.url1 + '/getbookmark'}`);
+  }
+
+
 
   getBookmarksBySection(section: string) {
     return this.http.get(
@@ -148,4 +159,7 @@ export class DocumentUploadService {
       responseType: 'blob'
     });
   }
+
+
+
 }

@@ -1,7 +1,30 @@
+import { Pipe, PipeTransform } from '@angular/core';
+
+// For highlighting keywords
+@Pipe({
+  name: 'highlight',
+})
+export class HighlightSearch implements PipeTransform {
+  transform(value: any, args: any): any {
+    if (!args) {
+      return value;
+    }
+    var re = new RegExp(args, 'gi'); //'gi' for case insensitive and can use 'g' if you want the search to be case sensitive.
+    return value.replace(re, '<mark>$&</mark>');
+  }
+}
+
+
+
+
+
+
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DocumentUploadService } from 'src/app/Services/document-upload.service';
+import { saveAs } from 'file-saver';
+
 
 @Component({
   selector: 'app-home',
@@ -91,4 +114,37 @@ export class HomeComponent implements OnInit {
   onViewDoc(){
     this.viewDoc=true;
   }
+
+  downloadDoc(docId: string) {
+    this.docService.download(docId).subscribe((event: any) => {
+      saveAs(event, docId);
+    });
+    (error: HttpErrorResponse) => {
+      console.log(error);
+    };
+  }
+
+  searchedDoc:boolean=false;
+  fileData!:string;
+  fileName!:string;
+  viewSearchedDoc(data:any)
+  {
+    this.fileData=data.Content;
+    this.fileName=data.Name.split('.').slice(0, -1).join('.');
+    this.searchedDoc=true;
+  }
+
+  bookmark: boolean = false;
+  bookmark1: boolean = true;
+  bookmarkSection() {
+
+      if(this.bookmark==true)
+      {
+        this.bookmark=false;
+      }
+      else{
+        this.bookmark=true;
+      }
+  }
+
 }

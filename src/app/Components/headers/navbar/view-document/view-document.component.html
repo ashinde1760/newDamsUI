@@ -1,54 +1,48 @@
-
 <div class="container">
-  <p-card class="docData">
-    <ng-template pTemplate="title">
-      {{ documentData1.name }} &nbsp;
+  <p-toolbar>
+    <div class="p-toolbar-group-left">
+      <h2 style="margin-bottom: 10px">{{ versionDocName }}</h2>
+    </div>
+    <div class="p-toolbar-group-right">
       <i
-        >({{
-          documentData1.timestamp | date: "EEE, dd-MMM yyyy"
-        }})</i
-      >
-    </ng-template>
-    <hr>
-    <ng-template pTemplate="content">
-      <div>
-        <pre>{{ documentData1.content }}</pre>
-      </div>
-    </ng-template>
+        *ngIf="bookmark"
+        (click)="bookmarkSection(documentData1.id)"
+        class="pi pi-bookmark-fill"
+        style="cursor: pointer bookamrk"
+      ></i>
+
+      <i
+        *ngIf="!bookmark"
+        (click)="bookmarkSection(documentData1.id)"
+        class="pi pi-bookmark"
+        style="cursor: pointer bookamrk"
+      ></i>
+
+      <i class="pi pi-share-alt"></i>
+      <i
+        class="pi pi-download"
+        (click)="downloadDoc(documentData1.id)"
+      ></i>
+    </div>
+  </p-toolbar>
+
+  <p-card class="docData">
+    <button pButton class="p-button-sm buttons" label="Keywords"></button>
+    &nbsp;
+    <button
+      pButton
+      class="p-button-sm buttons"
+      label="Versions"
+      (click)="onClickVesrion1()"
+    ></button>
+    <br />
   </p-card>
 </div>
 <br /><br />
-<div class="grid innercard" *ngIf="'innerWidth=950px'">
-  <div class="col-12">
-    <!-- <p-table [value]="versions" responsiveLayout="scroll" styleClass="table">
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Version</th>
-          <th>Action</th>
-          <th>Download</th>
-          <th></th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-version>
-        <tr>
-          <td (click)="onClickVesrion(version.version)" style="cursor: pointer">
-            <a>{{ version.version }}</a>
-          </td>
-          <td><p-inputSwitch class="inputSwitch"></p-inputSwitch></td>
-          <td><i style="cursor: pointer" class="pi pi-download"></i></td>
-          <td>
-            <button
-              class="primaryButton"
-              pButton
-              label="Approve"
-              icon="pi pi-check"
-            ></button>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table> -->
-
+<div class="innercard">
+  <div>
     <p-table
+      *ngIf="version"
       #dt
       [value]="documentData"
       [rows]="5"
@@ -66,60 +60,74 @@
       <ng-template pTemplate="header">
         <tr style="color: coral">
           <th>Version</th>
-          <th>Action</th>
           <th>Download</th>
+          <th>Timestamp</th>
           <th></th>
+          <th>Action</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-version>
         <tr>
-          <td (click)="onClickVesrion(version.version)" style="cursor: pointer">
+          <td style="cursor: pointer">
             <a>V1.{{ version.version }}</a>
           </td>
-          <td><p-inputSwitch class="inputSwitch"></p-inputSwitch></td>
-          <td><i style="cursor: pointer" class="pi pi-download" (click)="downloadDoc(version.id)"></i></td>
+          <td>
+            <i
+              style="cursor: pointer"
+              class="pi pi-download"
+              (click)="downloadDoc(version.id)"
+            ></i>
+          </td>
+          <td>
+            {{ version.timestamp | date: "EEE, dd-MMM yyyy" }}
+          </td>
           <td>
             <button
-            type="button"
-              class="p-button-sm viewButton"
+              type="button"
+              class="p-button-sm viewButton buttons"
               pButton
               label="View Document"
               icon="pi pi-check"
+              (click)="onClickViewDoc(version)"
             ></button>
           </td>
+          <td><p-inputSwitch class="inputSwitch"></p-inputSwitch></td>
         </tr>
       </ng-template>
       <ng-template pTemplate="summary">
         <div class="p-d-flex p-ai-center p-jc-between pagination">
-          In total there are {{ versions ? versions.length : 0 }} Documents.
+          In total there are
+          {{ documentData ? documentData.length : 0 }} Documents.
         </div>
       </ng-template>
     </p-table>
   </div>
-  <!-- <div class="col-6">
-    <p-table class="css-serial" [value]="sections" responsiveLayout="scroll">
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Sr. No</th>
-          <th>Sections</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-section>
-        <tr>
-          <td></td>
-          <td (click)="onClickSection(section.section)" class="section">
-            <a>{{ section.section }}</a>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div> -->
-  <div *ngFor="let document of documentData">
-  <ngx-doc-viewer
-  url="document.fileUri"
-  viewer="mammoth"
-  style="width: 100%; height: 100vh"
->
-</ngx-doc-viewer>
+
+  <!-- Document Description -->
+  <p-card *ngIf="docView" class="docData">
+    <!-- <ngx-doc-viewer
+      url="assets\Documents\Document.pdf"
+      viewer="pdf"
+      style="width: 100%; height: 100%"
+    ></ngx-doc-viewer> -->
+
+    <!-- <iframe style="width: 100%; height: 100%" src="https://docs.google.com/a/localhost:8443/viewer?url=http://localhost:8443/EVALUATING THE IDEA.docx&embedded=true" frameborder="0">
+    </iframe> -->
+    <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=assets\Documents\Document.pdf' width='100%' height='100%'>
+    </iframe>
+    <!-- <ngx-doc-viewer
+    url="http://localhost:8443/INTRODUCTION%20TO%20THE%20BUSINESS%20DEVELOPMENT%20GUIDE.docx"
+    viewer="google"
+    style="width: 100%; height: 100%"
+  ></ngx-doc-viewer> -->
+
+    <!-- <ejs-documenteditorcontainer
+      serviceUrl="serviceUrl"
+      [enableSpellCheck]="true"
+      style="width: 100%; height: 100%;"
+    ></ejs-documenteditorcontainer> -->
+  </p-card>
 </div>
-</div>
+
+<p-toast></p-toast>
+

@@ -83,10 +83,44 @@
     <div *ngFor="let content of data.highlightsMap.Content">
       <p-card class="contentCard">
         <span [innerHTML]="content" style="margin: 10px"> </span
-        ><a href="">show more...</a>
+        ><a (click)="viewSearchedDoc(data)">show more...</a>
       </p-card>
     </div>
   </p-card>
+
+  <p-dialog
+    [(visible)]="searchedDoc"
+    [style]="{ width: '80%' }"
+    styleClass="p-fluid"
+    [modal]="true"
+  >
+  <div>
+    <span style="font-size: larger; font-weight: bold;">{{fileName}}</span>
+    <i
+        *ngIf="bookmark"
+        (click)="bookmarkSection()"
+        class="pi pi-bookmark-fill"
+        style="cursor: pointer bookamrk"
+      ></i>
+
+      <i
+        *ngIf="!bookmark"
+        (click)="bookmarkSection()"
+        class="pi pi-bookmark"
+        style="cursor: pointer bookamrk"
+      ></i>
+
+      <i class="pi pi-share-alt"></i>
+      <i
+        class="pi pi-download"
+        (click)="downloadDoc('13423563-b6c6-49b6-bb1f-2eb7e6250470')"
+      ></i>
+    </div>
+  <hr style="width: 100%;">
+      <pre>
+        {{ fileData }}
+      </pre>
+  </p-dialog>
 
   <!-- <button pButton label="View Doc" (click)="onViewDoc()"></button> -->
 

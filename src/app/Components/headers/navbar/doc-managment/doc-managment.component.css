@@ -108,4 +108,7 @@
     background-color: #cc0728;
     border-color: #d93954;
   }
- 
+  ::ng-deep .uploadButton{
+    float: right;
+    width: fit-content;
+}
