@@ -48,6 +48,7 @@
       <th>Version</th>
       <th>Timestamp</th>
       <th>Action</th>
+      <th></th>
 
     </tr>
   </ng-template>
@@ -63,6 +64,16 @@
         <i class="pi pi-share-alt icon"></i>
         <i class="pi pi-trash icon" (click)="cancleBookmark(product.id)"></i>  
       </td>
+      <td>
+        <button
+          type="button"
+          class="p-button-sm viewButton buttons"
+          pButton
+          label="View Document"
+          icon="pi pi-check"
+          (click)="onClickViewDoc(product)"
+        ></button>
+      </td>
       
     </tr>
   </ng-template>
@@ -77,4 +88,46 @@
 <!-- to display success or error msg -->
 <p-toast></p-toast>
 
+
+<!-- Document Description -->
+<p-dialog
+[(visible)]="docView"
+[style]="{ width: '80%' }"
+styleClass="p-fluid"
+[modal]="true"
+class="docData"
+>
+<div>
+  <div>
+    <span style="font-size: larger; font-weight: bold;">{{versionDocName}}</span>
+    <!-- <i
+        *ngIf="versionDocData.bookmarked"
+        (click)="bookmarkSection(versionDocData.id)"
+        class="pi pi-bookmark-fill viewIcon"
+        style="cursor: pointer bookamrk"
+      ></i>
+
+      <i
+        *ngIf="!versionDocData.bookmarked"
+        (click)="bookmarkSection(versionDocData.id)"
+        class="pi pi-bookmark viewIcon"
+        style="cursor: pointer bookamrk"
+      ></i>
+
+
+      <i class="pi pi-share-alt viewIcon"></i>
+      <i
+        class="pi pi-download viewIcon"
+        (click)="downloadDoc(versionDocData.id)"
+      ></i> -->
+    </div>
+  <hr style="width: 100%;">
+  <pre>
+    {{ versionDocData.content }}
+  </pre>
+
+  <!-- <textarea style="height: 50vh;">{{ versionDocData.content }}</textarea> -->
+
+</div>
+</p-dialog>
 </div>

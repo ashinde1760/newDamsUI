@@ -71,6 +71,8 @@ export class DocumentUploadService {
   }
 
   addBookmarks(id:string) {
+    console.log(id);
+    
     return this.http.post(`${environment.url1 + '/setbookmark/'}${id}`,id);
   }
 

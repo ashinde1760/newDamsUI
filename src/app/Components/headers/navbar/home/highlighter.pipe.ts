@@ -4,16 +4,9 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'highlighter',
 })
 export class HighlighterPipe implements PipeTransform {
-  transform(value: any, args: any, type: string): unknown {
-    if (!args) return value;
-    if (type === 'partial') {
-      const re = new RegExp('\\b(' + args + '\\b)', 'igm');
-      value = value.replace(re, '<span class="highlighted-text">$1</span>');
-    } else {
-      const re = new RegExp(args, 'igm');
-      value = value.replace(re, '<span class="highlighted-text">$&</span>');
-    }
-
-    return value;
-  }
+transform(value: any, args: any): any {
+  if (!args) {return value;}
+  var re = new RegExp(args, 'gi'); //'gi' for case insensitive and can use 'g' if you want the search to be case sensitive.
+  return value.replace(re, "<mark>$&</mark>");
+}
 }

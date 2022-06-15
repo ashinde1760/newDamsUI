@@ -127,9 +127,11 @@ export class HomeComponent implements OnInit {
   searchedDoc:boolean=false;
   fileData!:string;
   fileName!:string;
+  docId!:string;
   viewSearchedDoc(data:any)
   {
     this.fileData=data.Content;
+    this.docId=data.id;
     this.fileName=data.Name.split('.').slice(0, -1).join('.');
     this.searchedDoc=true;
   }

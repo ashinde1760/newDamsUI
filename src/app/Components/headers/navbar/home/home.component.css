@@ -40,10 +40,12 @@ i{
   float: right;
   margin: 10px;
   color: #d93954;
+  cursor: pointer;
 }
 
 pre{
   word-wrap: break-word;
   inline-size: 100%; 
   overflow: scroll;
+  font-family:Georgia;
 }

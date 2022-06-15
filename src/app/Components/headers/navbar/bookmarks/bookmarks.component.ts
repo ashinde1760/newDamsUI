@@ -9,32 +9,31 @@ import { saveAs } from 'file-saver';
   templateUrl: './bookmarks.component.html',
   styleUrls: ['./bookmarks.component.css'],
   providers: [ConfirmationService, MessageService],
-
 })
 export class BookmarksComponent implements OnInit {
+  bookmarks: any = [];
 
-  bookmarks:any=[];
-
-
-  constructor(private service: DocumentUploadService,private messageService: MessageService) { }
+  constructor(
+    private service: DocumentUploadService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
+    this.versionDocData={}
     this.service.getBookmarks().subscribe(
-      (data)=>{
-        this.bookmarks=data;
-        console.log(data,"bookmarked data");
+      (data) => {
+        this.bookmarks = data;
+        console.log(data, 'bookmarked data');
       },
-      (error)=>{
-        alert("something went wrong, please try again later");
+      (error) => {
+        alert('something went wrong, please try again later');
       }
-    )
-
-    
+    );
   }
 
-  download(id:string){
+  download(id: string) {
     this.service.download(id).subscribe(
-      (event:any)=>{
+      (event: any) => {
         saveAs(event, id);
         // if(data.status===200)
         // {
@@ -46,13 +45,29 @@ export class BookmarksComponent implements OnInit {
         //   });
         // }
       },
-      (error:HttpErrorResponse)=>{
-
-      }
-    )
+      (error: HttpErrorResponse) => {}
+    );
   }
 
-  cancleBookmark(id:string){
+  cancleBookmark(id: string) {
+    this.service.addBookmarks(id).subscribe(
+      (data: any) => {
+        this.ngOnInit();
+        
+      },
+      (error: any) => {}
+    );
+  }
 
+  docView: boolean = false;
+  versionDocName!:string;
+  versionDocData!:any;
+  onClickViewDoc(data:any) {
+
+    console.log(data,"anemoi");
+    this.versionDocData=data;
+    this.versionDocName=data.docName.split('.').slice(0, -1).join('.')
+    this.docView = true;
+    // this.openTemplate();
   }
 }

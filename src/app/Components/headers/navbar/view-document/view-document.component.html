@@ -3,7 +3,8 @@
     <div class="p-toolbar-group-left">
       <h2 style="margin-bottom: 10px">{{ versionDocName }}</h2>
     </div>
-    <div class="p-toolbar-group-right">
+
+    <!-- <div class="p-toolbar-group-right">
       <i
         *ngIf="bookmark"
         (click)="bookmarkSection(documentData1.id)"
@@ -19,30 +20,27 @@
       ></i>
 
       <i class="pi pi-share-alt"></i>
-      <i
-        class="pi pi-download"
-        (click)="downloadDoc(documentData1.id)"
-      ></i>
-    </div>
+      <i class="pi pi-download" (click)="downloadDoc(documentData1.id)"></i>
+    </div> -->
   </p-toolbar>
 
   <p-card class="docData">
     <button pButton class="p-button-sm buttons" label="Keywords"></button>
     &nbsp;
-    <button
+    <!-- <button
       pButton
       class="p-button-sm buttons"
       label="Versions"
       (click)="onClickVesrion1()"
-    ></button>
+    ></button> -->
     <br />
   </p-card>
 </div>
 <br /><br />
 <div class="innercard">
   <div>
+    <!-- *ngIf="version" -->
     <p-table
-      *ngIf="version"
       #dt
       [value]="documentData"
       [rows]="5"
@@ -63,7 +61,7 @@
           <th>Download</th>
           <th>Timestamp</th>
           <th></th>
-          <th>Action</th>
+          <!-- <th>Action</th> -->
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-version>
@@ -91,7 +89,6 @@
               (click)="onClickViewDoc(version)"
             ></button>
           </td>
-          <td><p-inputSwitch class="inputSwitch"></p-inputSwitch></td>
         </tr>
       </ng-template>
       <ng-template pTemplate="summary">
@@ -104,30 +101,46 @@
   </div>
 
   <!-- Document Description -->
-  <p-card *ngIf="docView" class="docData">
-    <!-- <ngx-doc-viewer
-      url="assets\Documents\Document.pdf"
-      viewer="pdf"
-      style="width: 100%; height: 100%"
-    ></ngx-doc-viewer> -->
+  <p-dialog
+    [(visible)]="docView"
+    [style]="{ width: '80%' }"
+    styleClass="p-fluid"
+    [modal]="true"
+    class="docData"
+  >
+    <div>
+      <div>
+        <span style="font-size: larger; font-weight: bold;">{{versionDocName}}</span>
+        <i
+            *ngIf="versionDocData.bookmarked"
+            (click)="bookmarkSection(versionDocData.id)"
+            class="pi pi-bookmark-fill viewIcon"
+            style="cursor: pointer bookamrk"
+          ></i>
+    
+          <i
+            *ngIf="!versionDocData.bookmarked"
+            (click)="bookmarkSection(versionDocData.id)"
+            class="pi pi-bookmark viewIcon"
+            style="cursor: pointer bookamrk"
+          ></i>
 
-    <!-- <iframe style="width: 100%; height: 100%" src="https://docs.google.com/a/localhost:8443/viewer?url=http://localhost:8443/EVALUATING THE IDEA.docx&embedded=true" frameborder="0">
-    </iframe> -->
-    <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=assets\Documents\Document.pdf' width='100%' height='100%'>
-    </iframe>
-    <!-- <ngx-doc-viewer
-    url="http://localhost:8443/INTRODUCTION%20TO%20THE%20BUSINESS%20DEVELOPMENT%20GUIDE.docx"
-    viewer="google"
-    style="width: 100%; height: 100%"
-  ></ngx-doc-viewer> -->
+    
+          <i class="pi pi-share-alt viewIcon"></i>
+          <i
+            class="pi pi-download viewIcon"
+            (click)="downloadDoc(versionDocData.id)"
+          ></i>
+        </div>
+      <hr style="width: 100%;">
+      <pre>
+        {{ versionDocData.content }}
+      </pre>
 
-    <!-- <ejs-documenteditorcontainer
-      serviceUrl="serviceUrl"
-      [enableSpellCheck]="true"
-      style="width: 100%; height: 100%;"
-    ></ejs-documenteditorcontainer> -->
-  </p-card>
+      <!-- <textarea style="height: 50vh;">{{ versionDocData.content }}</textarea> -->
+
+    </div>
+  </p-dialog>
 </div>
 
 <p-toast></p-toast>
-

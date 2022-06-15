@@ -95,7 +95,7 @@
     [modal]="true"
   >
   <div>
-    <span style="font-size: larger; font-weight: bold;">{{fileName}}</span>
+    <span style="font-size: larger; font-weight: bold;" >{{fileName}}</span>
     <i
         *ngIf="bookmark"
         (click)="bookmarkSection()"
@@ -113,12 +113,12 @@
       <i class="pi pi-share-alt"></i>
       <i
         class="pi pi-download"
-        (click)="downloadDoc('13423563-b6c6-49b6-bb1f-2eb7e6250470')"
+        (click)="downloadDoc(docId)"
       ></i>
     </div>
   <hr style="width: 100%;">
-      <pre>
-        {{ fileData }}
+      <pre [innerHTML]="fileData | highlighter:searchKeyword">
+        <!-- {{ fileData }} -->
       </pre>
   </p-dialog>
 

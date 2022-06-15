@@ -40,6 +40,7 @@ export class ViewDocumentComponent implements OnInit {
   }
   public innerWidth: any;
   ngOnInit(): void {
+    this.versionDocData={};
     this.documentData1 = {};
     this.docName = JSON.parse(localStorage.getItem('docName') || '{}');
     console.log(this.docName);
@@ -102,9 +103,10 @@ export class ViewDocumentComponent implements OnInit {
   fileUrl!: string;
   docView: boolean = false;
   versionDocName!:string;
-  versionDocData:any;
+  versionDocData!:any;
   onClickViewDoc(data:any) {
-    console.log(data);
+
+    console.log(data,"anemoi");
     this.fileUrl=this.serviceLink;
     this.versionDocData=data;
     this.versionDocName=data.docName.split('.').slice(0, -1).join('.')
@@ -114,77 +116,86 @@ export class ViewDocumentComponent implements OnInit {
 
 
 
+  // bookmark: boolean = false;
+  // bookmark1: boolean = true;
+  // bookmarkSection(id:string,docName:string) {
 
 
+  //   this.docService.getDocByName(docName).subscribe(
+  //     (data:any)=>{
+  //       if(data.bookmarked)
+  //       {
+  //         this.bookmark=false;
+  //         this.docService.addBookmarks(id).subscribe(
+  //           (data:any)=>{
+  //             this.ngOnInit();
+  //           },
+  //           (error:HttpErrorResponse)=>{
 
+  //           }
+  //         )
+  //       }
+  //       else
+  //       {
+  //         this.bookmark=true;
+  //         this.docService.addBookmarks(id).subscribe(
+  //           (data:any)=>{
+  //             this.ngOnInit();
+  //           },
+  //           (error:HttpErrorResponse)=>{
 
-
-
-  // openTemplate(): void {
-  //   var uploadDocument = new FormData();
-  //   uploadDocument.append('DocumentName', "https://calibre-ebook.com/downloads/demos/demo.docx");
-  //   var loadDocumentUrl = this.serviceLink + 'LoadDocument';
-  //   var httpRequest = new XMLHttpRequest();
-  //   httpRequest.open('POST', loadDocumentUrl, true);
-  //   var dataContext = this;
-  //   httpRequest.onreadystatechange = function () {
-  //     if (httpRequest.readyState === 4) {
-  //       if (httpRequest.status === 200 || httpRequest.status === 304) {
-  //         //Opens the SFDT for the specified file received from the web API.
-  //         dataContext.container.documentEditor.open(httpRequest.responseText);
+  //           }
+  //         )
   //       }
   //     }
-  //   };
-  //   //Sends the request with template file name to web API. 
-  //   httpRequest.send(uploadDocument);
-  // }
+  //   )
+
 
   bookmark: boolean = false;
   bookmark1: boolean = true;
   bookmarkSection(id:string) {
 
 
-      if(this.bookmark==true)
-      {
-        this.bookmark=false;
+      // if(this.bookmark==true)
+      // {
+      //   this.bookmark=false;
         // alert("Not bookmarked");
         this.docService.addBookmarks(id).subscribe(
           (data:any)=>{
-            if (data.status === 200) {
-              this.messageService.add({
-                severity: 'success',
-                summary: 'success',
-                detail:
-                  'Document bookmarked removed',
-              });
-            }
+            // if (data.status === 200) {
+              // window.location.reload();            
+              console.log(data);
+              
+            // }
           },
           (error:HttpErrorResponse)=>{
             console.log(error);
-            
+            // window.location.reload();            
           }
         )
-      }
-      else{
-        this.bookmark=true;
-        // alert("bookmarked");
-        this.docService.addBookmarks(id).subscribe(
-          (data:any)=>{
-            if (data.status === 200) {
-              this.messageService.add({
-                severity: 'success',
-                summary: 'success',
-                detail:
-                  'Document bookmarked successfully',
-              });
-            }
-          },
-          (error:HttpErrorResponse)=>{
-            console.log(error);
-            
           }
-        )
-      }
-  }
+        
+      // }
+      // else{
+      //   this.bookmark=true;
+      //   // alert("bookmarked");
+      //   this.docService.addBookmarks(id).subscribe(
+      //     (data:any)=>{
+      //       if (data.status === 200) {
+      //         this.messageService.add({
+      //           severity: 'success',
+      //           summary: 'success',
+      //           detail:
+      //             'Document bookmarked successfully',
+      //         });
+      //       }
+      //     },
+      //     (error:HttpErrorResponse)=>{
+      //       console.log(error);
+            
+      //     }
+      //   )
+      // }
+  
 
 }

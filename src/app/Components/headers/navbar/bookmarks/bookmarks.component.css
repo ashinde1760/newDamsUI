@@ -13,4 +13,19 @@
     cursor: pointer;
 }
 
+pre{
+    word-wrap: normal;
+    inline-size: 100%; 
+    overflow: scroll;
+    font-family:Georgia;
+  }
 
+  ::ng-deep .buttons{
+    background-color: #d93954;
+    border-color: white;
+  }
+
+  .buttons:hover{
+    background-color: #cc0728;
+    border-color: #d93954;
+  }

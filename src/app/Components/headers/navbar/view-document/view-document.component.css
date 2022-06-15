@@ -17,9 +17,7 @@
     color: #3700B3
 }
 
-.docData{
-    font-family:Georgia;
-}
+
 
 .desc{
     margin: 10px;
@@ -84,9 +82,11 @@ a{
 }
 
 pre{
-    display: flex;
-    flex-wrap: wrap;
-}
+    word-wrap: normal;
+    inline-size: 100%; 
+    overflow: scroll;
+    font-family:Georgia;
+  }
 
 ::ng-deep .viewButton{
     background-color: #d93954;
@@ -112,6 +112,13 @@ pre{
     float: right;
 }
 
-i{
-    margin: 0px 10px;
-}
+.viewIcon{
+    float: right;
+    margin: 10px;
+    color: #d93954;
+    cursor: pointer;
+  }
+
+/* .docData{
+    margin-top: 20px;
+} */
