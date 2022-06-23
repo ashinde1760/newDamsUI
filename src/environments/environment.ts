@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   url:"http://localhost:3000",
-  url1:"https://damsbackend.azurewebsites.net"
+  url1:"http://localhost:8443"
 };
 
 /*

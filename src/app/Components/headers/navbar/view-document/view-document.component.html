@@ -12,9 +12,10 @@
   </p-card>
 </div>
 <br /><br />
-<div class="innercard">
-  <div>
-    <!-- *ngIf="version" -->
+
+<!-- Versions and Sections -->
+<div class="grid">
+  <div class="col-6">
     <p-table
       #dt
       [value]="documentData"
@@ -35,6 +36,7 @@
           <th>Version</th>
           <th>Download</th>
           <th>Timestamp</th>
+          <th></th>
           <th></th>
           <!-- <th>Action</th> -->
         </tr>
@@ -64,6 +66,16 @@
               (click)="onClickViewDoc(version)"
             ></button>
           </td>
+          <td>
+            <button
+              type="button"
+              class="p-button-sm viewButton buttons"
+              pButton
+              label="View Section"
+              icon="pi pi-check"
+              (click)="onClickViewSection(version.id)"
+            ></button>
+          </td>
         </tr>
       </ng-template>
       <ng-template pTemplate="summary">
@@ -75,6 +87,74 @@
     </p-table>
   </div>
 
+
+  <!-- All sections can view here -->
+  <div class="col-6">
+    <div *ngIf="sectionView">
+      <p-table
+        #dt
+        [value]="sectionData"
+        [rows]="5"
+        [paginator]="true"
+        [rowHover]="true"
+        dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true"
+      >
+        <ng-template pTemplate="caption">
+          <div class="p-d-flex p-ai-center p-jc-between">
+            <h3 class="p-m-0">All Sections</h3>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr style="color: coral">
+            <th>Version</th>
+            <th>Download</th>
+            <th>Timestamp</th>
+            <th></th>
+            <!-- <th>Action</th> -->
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-version>
+          <tr>
+            <td style="cursor: pointer">
+              <a>V1.{{ version.version }}</a>
+            </td>
+            <td>
+              <i
+                style="cursor: pointer"
+                class="pi pi-download"
+                (click)="downloadSec(version.id)"
+              ></i>
+            </td>
+            <td>
+              {{ version.timestamp | date: "EEE, dd-MMM yyyy" }}
+            </td>
+            <td>
+              <button
+                type="button"
+                class="p-button-sm viewButton buttons"
+                pButton
+                label="View"
+                icon="pi pi-check"
+                (click)="onClickViewSec(version)"
+              ></button>
+            </td></tr
+        ></ng-template>
+
+        <ng-template pTemplate="summary">
+          <div class="p-d-flex p-ai-center p-jc-between pagination">
+            In total there are
+            {{ documentData ? documentData.length : 0 }} Documents.
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+
+</div>
+
+<div>
   <!-- Document Description -->
   <p-dialog
     [(visible)]="docView"
@@ -85,37 +165,65 @@
   >
     <div>
       <div>
-        <span style="font-size: larger; font-weight: bold;">{{versionDocName}}</span>
+        <span style="font-size: larger; font-weight: bold">{{
+          versionDocName
+        }}</span>
         <i
-            *ngIf="versionDocData.bookmarked"
-            (click)="bookmarkSection(versionDocData.id)"
-            class="pi pi-bookmark-fill viewIcon"
-            style="cursor: pointer bookamrk"
-          ></i>
-    
-          <i
-            *ngIf="!versionDocData.bookmarked"
-            (click)="bookmarkSection(versionDocData.id)"
-            class="pi pi-bookmark viewIcon"
-            style="cursor: pointer bookamrk"
-          ></i>
+          *ngIf="versionDocData.bookmarked"
+          (click)="bookmarkSection(versionDocData.id)"
+          class="pi pi-bookmark-fill viewIcon"
+          style="cursor: pointer bookamrk"
+        ></i>
 
-    
-          <i class="pi pi-share-alt viewIcon"></i>
-          <i
-            class="pi pi-download viewIcon"
-            (click)="downloadDoc(versionDocData.id)"
-          ></i>
-        </div>
-      <hr style="width: 100%;">
+        <i
+          *ngIf="!versionDocData.bookmarked"
+          (click)="bookmarkSection(versionDocData.id)"
+          class="pi pi-bookmark viewIcon"
+          style="cursor: pointer bookamrk"
+        ></i>
+
+        <i class="pi pi-share-alt viewIcon"></i>
+        <i
+          class="pi pi-download viewIcon"
+          (click)="downloadDoc(versionDocData.id)"
+        ></i>
+      </div>
+      <hr style="width: 100%" />
       <pre>
         {{ versionDocData.content }}
       </pre>
+    </div>
+  </p-dialog>
+
+  <!-- Section description -->
+  <p-dialog
+    [(visible)]="secView"
+    [style]="{ width: '80%' }"
+    styleClass="p-fluid"
+    [modal]="true"
+    class="docData"
+  >
+    <div>
+      <div>
+        <span style="font-size: larger; font-weight: bold">{{
+          versionSecName
+        }}</span>
+
+        <i
+          class="pi pi-download viewIcon"
+          (click)="downloadDoc(versionSecData.id)"
+        ></i>
+      </div>
+      <hr style="width: 100%" />
+      <pre>
+        {{ versionSecData.content }}
+      </pre>
 
       <!-- <textarea style="height: 50vh;">{{ versionDocData.content }}</textarea> -->
-
     </div>
   </p-dialog>
 </div>
 
+
+<!-- Alert Messages -->
 <p-toast></p-toast>

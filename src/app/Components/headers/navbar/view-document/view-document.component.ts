@@ -11,7 +11,6 @@ import { ConfirmationService, MessageService } from 'primeng/api';
   templateUrl: './view-document.component.html',
   styleUrls: ['./view-document.component.css'],
   providers: [ConfirmationService, MessageService],
-
 })
 export class ViewDocumentComponent implements OnInit {
   documentData: any = [];
@@ -23,8 +22,8 @@ export class ViewDocumentComponent implements OnInit {
   checked: boolean = true;
   stateOptions: any[];
 
-  version:boolean=false;
-  serviceLink="http://localhost:8443/Business Devlopment guide.docx";
+  version: boolean = false;
+  serviceLink = 'http://localhost:8443/Business Devlopment guide.docx';
   container: any;
   constructor(
     private docService: DocumentUploadService,
@@ -35,12 +34,11 @@ export class ViewDocumentComponent implements OnInit {
       { label: 'Inactive', value: 'Inactive' },
       { label: 'Active', value: 'Active' },
     ];
-
-    
   }
   public innerWidth: any;
   ngOnInit(): void {
-    this.versionDocData={};
+    this.versionDocData = {};
+    this.versionSecData = {};
     this.documentData1 = {};
     this.docName = JSON.parse(localStorage.getItem('docName') || '{}');
     console.log(this.docName);
@@ -50,11 +48,14 @@ export class ViewDocumentComponent implements OnInit {
         console.log(data);
 
         this.documentData = data;
-        this.documentData1 = data[data.length-1];
-        console.log(this.documentData1,"akshay");
-        this.bookmark=this.documentData1.bookmarked;
-        
-        this.versionDocName=this.documentData1.docName.split('.').slice(0, -1).join('.')
+        this.documentData1 = data[data.length - 1];
+        console.log(this.documentData1, 'akshay');
+        this.bookmark = this.documentData1.bookmarked;
+
+        this.versionDocName = this.documentData1.docName
+          .split('.')
+          .slice(0, -1)
+          .join('.');
         // console.log(this.documentData);
         // this.getVersions(this.documentData);
 
@@ -79,7 +80,7 @@ export class ViewDocumentComponent implements OnInit {
   }
 
   onClickVesrion1() {
-    this.version=true;
+    this.version = true;
   }
 
   versionActivation() {
@@ -91,6 +92,8 @@ export class ViewDocumentComponent implements OnInit {
     this.router.navigate(['/sections']);
   }
 
+
+  // To download document
   downloadDoc(docId: string) {
     this.docService.download(docId).subscribe((event: any) => {
       saveAs(event, docId);
@@ -100,102 +103,71 @@ export class ViewDocumentComponent implements OnInit {
     };
   }
 
+
+  // To view document
   fileUrl!: string;
   docView: boolean = false;
-  versionDocName!:string;
-  versionDocData!:any;
-  onClickViewDoc(data:any) {
-
-    console.log(data,"anemoi");
-    this.fileUrl=this.serviceLink;
-    this.versionDocData=data;
-    this.versionDocName=data.docName.split('.').slice(0, -1).join('.')
+  versionDocName!: string;
+  versionDocData!: any;
+  onClickViewDoc(data: any) {
+    console.log(data, 'anemoi');
+    this.fileUrl = this.serviceLink;
+    this.versionDocData = data;
+    this.versionDocName = data.docName.split('.').slice(0, -1).join('.');
     this.docView = true;
-    // this.openTemplate();
+  }
+
+  // To bookmark doc
+  bookmark: boolean = false;
+  bookmark1: boolean = true;
+  bookmarkSection(id: string) {
+    this.docService.addBookmarks(id).subscribe(
+      (data: any) => {
+        console.log(data);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
+  }
+
+
+  // To get sections
+  sectionData: any;
+  sectionView: boolean = false;
+  onClickViewSection(id: string) {
+    this.docService.getSections(id).subscribe(
+      (data: any) => {
+        this.sectionData = data;
+        console.log(data);
+        this.sectionView = true;
+      },
+      (error: HttpErrorResponse) => {
+        alert('something went wrong');
+      }
+    );
   }
 
 
 
-  // bookmark: boolean = false;
-  // bookmark1: boolean = true;
-  // bookmarkSection(id:string,docName:string) {
+  // To view sections
+  secView: boolean = false;
+  versionSecName!: string;
+  versionSecData!: any;
+  onClickViewSec(data: any) {
+    this.versionSecData = data;
+    this.versionSecName = data.docName.split('.').slice(0, -1).join('.');
+    this.secView = true;
+    alert(this.secView)
+    // this.openTemplate();
+  }
 
-
-  //   this.docService.getDocByName(docName).subscribe(
-  //     (data:any)=>{
-  //       if(data.bookmarked)
-  //       {
-  //         this.bookmark=false;
-  //         this.docService.addBookmarks(id).subscribe(
-  //           (data:any)=>{
-  //             this.ngOnInit();
-  //           },
-  //           (error:HttpErrorResponse)=>{
-
-  //           }
-  //         )
-  //       }
-  //       else
-  //       {
-  //         this.bookmark=true;
-  //         this.docService.addBookmarks(id).subscribe(
-  //           (data:any)=>{
-  //             this.ngOnInit();
-  //           },
-  //           (error:HttpErrorResponse)=>{
-
-  //           }
-  //         )
-  //       }
-  //     }
-  //   )
-
-
-  bookmark: boolean = false;
-  bookmark1: boolean = true;
-  bookmarkSection(id:string) {
-
-
-      // if(this.bookmark==true)
-      // {
-      //   this.bookmark=false;
-        // alert("Not bookmarked");
-        this.docService.addBookmarks(id).subscribe(
-          (data:any)=>{
-            // if (data.status === 200) {
-              // window.location.reload();            
-              console.log(data);
-              
-            // }
-          },
-          (error:HttpErrorResponse)=>{
-            console.log(error);
-            // window.location.reload();            
-          }
-        )
-          }
-        
-      // }
-      // else{
-      //   this.bookmark=true;
-      //   // alert("bookmarked");
-      //   this.docService.addBookmarks(id).subscribe(
-      //     (data:any)=>{
-      //       if (data.status === 200) {
-      //         this.messageService.add({
-      //           severity: 'success',
-      //           summary: 'success',
-      //           detail:
-      //             'Document bookmarked successfully',
-      //         });
-      //       }
-      //     },
-      //     (error:HttpErrorResponse)=>{
-      //       console.log(error);
-            
-      //     }
-      //   )
-      // }
-  
-
+  downloadSec(docId: string) {
+    this.docService.downloadSec(docId).subscribe((event: any) => {
+      saveAs(event, docId);
+    });
+    (error: HttpErrorResponse) => {
+      console.log(error);
+    };
+  }
 }

@@ -35,9 +35,9 @@ export class DocumentUploadService {
     );
   }
 
-  getSections(version: string) {
-    return this.http.get(`${environment.url + '/sections'}?version=${version}`);
-  }
+  // getSections(version: string) {
+  //   return this.http.get(`${environment.url + '/sections'}?version=${version}`);
+  // }
 
   getKeywords(section: string) {
     return this.http.get(`${environment.url + '/keywords'}?section=${section}`);
@@ -162,6 +162,29 @@ export class DocumentUploadService {
     });
   }
 
+
+  getSections(id:string)
+  {
+    return this.http.get(`${environment.url1}/getAllSections/${id}`);
+  }
+
+  downloadSection(secId:string)
+  {
+    return this.http.get(`${environment.url1}/downloadFile/${secId}`, {
+      reportProgress: true,
+      // observe: 'events',
+      responseType: 'blob'
+    });
+  }
+
+  downloadSec(docId: string){
+    console.log("got the id in service ",docId);
+    return this.http.get(`${environment.url1}/downloadSec/${docId}`, {
+      reportProgress: true,
+      // observe: 'events',
+      responseType: 'blob'
+    });
+  }
 
 
 }
