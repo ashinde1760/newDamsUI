@@ -1,13 +1,13 @@
 <div class="container">
-  <div>
+  <!-- <div>
     <p-card styleClass="outerCard">
-      <h1>Bookmarked Sections:</h1>
+      <h1 style="font-weight: bold;">Bookmarked:</h1>
       <div *ngFor="let data of bookmarks">
         <p-card pRipple styleClass="innerCard">
           <ng-template pTemplate="title">
             <div>
               <h3 class="Section:">
-                {{ data.section }}
+                {{ data.docName }} ({{data.timestamp}})
                 <i class="pi pi-share-alt" style="cursor: pointer"></i>
               </h3>
             </div>
@@ -21,5 +21,113 @@
         </p-card>
       </div>
     </p-card>
-  </div>
+  </div> -->
+
+
+
+
+<!-- To display uploaded documents -->
+<p-table
+  #dt
+  [value]="bookmarks"
+  [rows]="5"
+  [paginator]="true"
+  [rowHover]="true"
+  dataKey="id"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [showCurrentPageReport]="true"
+>
+  <ng-template pTemplate="caption">
+    <div class="p-d-flex p-ai-center p-jc-between">
+      <h3 class="p-m-0">All Bookmarks</h3>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr style="color: coral">
+      <th>Name Of Document</th>
+      <th>Version</th>
+      <th>Timestamp</th>
+      <th>Action</th>
+      <th></th>
+
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product>
+    <tr>
+      <td style="font-weight: 500">
+        {{ product.docName | uppercase }}
+      </td>
+      <td>V1.{{product.version}}</td>
+      <td>{{ product.timestamp | date: "EEE, dd-MMM yyyy" }}</td>
+      <td >
+        <i class="pi pi-download icon" (click)="download(product.id)"></i>
+        <i class="pi pi-share-alt icon"></i>
+        <i class="pi pi-trash icon" (click)="cancleBookmark(product.id)"></i>  
+      </td>
+      <td>
+        <button
+          type="button"
+          class="p-button-sm viewButton buttons"
+          pButton
+          label="View Document"
+          icon="pi pi-check"
+          (click)="onClickViewDoc(product)"
+        ></button>
+      </td>
+      
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    <div class="p-d-flex p-ai-center p-jc-between pagination">
+      In total there are {{ bookmarks ? bookmarks.length : 0 }} Documents Bookmarked.
+    </div>
+  </ng-template>
+</p-table>
+
+
+<!-- to display success or error msg -->
+<p-toast></p-toast>
+
+
+<!-- Document Description -->
+<p-dialog
+[(visible)]="docView"
+[style]="{ width: '80%' }"
+styleClass="p-fluid"
+[modal]="true"
+class="docData"
+>
+<div>
+  <div>
+    <span style="font-size: larger; font-weight: bold;">{{versionDocName}}</span>
+    <!-- <i
+        *ngIf="versionDocData.bookmarked"
+        (click)="bookmarkSection(versionDocData.id)"
+        class="pi pi-bookmark-fill viewIcon"
+        style="cursor: pointer bookamrk"
+      ></i>
+
+      <i
+        *ngIf="!versionDocData.bookmarked"
+        (click)="bookmarkSection(versionDocData.id)"
+        class="pi pi-bookmark viewIcon"
+        style="cursor: pointer bookamrk"
+      ></i>
+
+
+      <i class="pi pi-share-alt viewIcon"></i>
+      <i
+        class="pi pi-download viewIcon"
+        (click)="downloadDoc(versionDocData.id)"
+      ></i> -->
+    </div>
+  <hr style="width: 100%;">
+  <pre>
+    {{ versionDocData.content }}
+  </pre>
+
+  <!-- <textarea style="height: 50vh;">{{ versionDocData.content }}</textarea> -->
+
+</div>
+</p-dialog>
 </div>

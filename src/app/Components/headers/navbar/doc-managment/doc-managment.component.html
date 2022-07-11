@@ -23,48 +23,36 @@
 
   <!-- For uploading new doc -->
   <p-dialog
-    [(visible)]="uploadDialog"
-    [style]="{ width: '40%' }"
-    styleClass="p-fluid"
-    [modal]="true"
-  >
-    <h3>Upload documents Here</h3>
-    <hr />
-    <ng-template pTemplate="content">
-      <input
-        class="p-inputtext-sm padding"
-        type="file"
-        pInputText
-        id="dos"
-        name="file"
-        required
-        autofocus
-        (change)="selectFile($event)"
-      />
-      &nbsp;
-      <button
-        pButton
-        pRipple
-        label="Upload"
-        icon="pi pi-upload"
-        class="p-button-success buttons"
-        [disabled]="!selectedFiles"
-        (click)="uploadFile()"
-      ></button>
-    </ng-template>
-
-    <ng-template pTemplate="footer">
-      <button
-        style="margin-top: 5px"
-        pButton
-        pRipple
-        label="Cancel"
-        icon="pi pi-times"
-        class="p-button-text buttons"
-        (click)="onCancle()"
-      ></button>
-    </ng-template>
-  </p-dialog>
+  [(visible)]="uploadDialog"
+  [style]="{ width: '40%', height:'40vh' }"
+  [modal]="true"
+>
+<div style="margin-top:10px">
+    <input
+    style="width: 100%"
+      class="p-inputtext-sm"
+      type="file"
+      accept=".docx"
+      pInputText
+      id="dos"
+      name="file"
+      required
+      autofocus
+      (change)="selectFile($event)"
+    />
+  </div>
+  <div style="margin-top: 40px;">
+    <button
+      pButton
+      pRipple
+      label="Upload"
+      icon="pi pi-upload"
+      class="p-button buttons uploadButton"
+      [disabled]="!selectedFiles"
+      (click)="uploadFile()"
+    ></button>
+  </div>
+</p-dialog>
 </div>
 
 <!-- to display success or error msg -->
@@ -105,7 +93,7 @@
         <button
           pButton
           type="button"
-          label="VIEW"
+          label="VIEW VERSIONS"
           class="p-button-sm buttons"
           icon="pi pi-check"
           (click)="onClickView(product.sourceAsMap.Name)"
@@ -187,12 +175,9 @@
 <p-dialog
   [(visible)]="updateDocDialog"
   [style]="{ width: '40%' }"
-  styleClass="p-fluid"
   [modal]="true"
 >
-  <h3>Update documents Here</h3>
-  <hr />
-  <ng-template pTemplate="content">
+    <div style="margin-top: 10px;">
     <input
       class="p-inputtext-sm padding"
       type="file"
@@ -202,29 +187,19 @@
       name="file"
       required
       autofocus
+      style="width: 100%;"
       (change)="selectFile1($event)"
     />
-    &nbsp;
+  </div>
+<div style="margin-top: 40px">
     <button
-      pButton
-      pRipple
-      label="Upload"
-      icon="pi pi-upload"
-      class="p-button-success buttons"
-      [disabled]="!selectedFiles"
-      (click)="updateFile()"
-    ></button>
-  </ng-template>
-
-  <ng-template pTemplate="footer">
-    <button
-      style="margin-top: 5px"
-      pButton
-      pRipple
-      label="Cancel"
-      icon="pi pi-times"
-      class="p-button-text buttons"
-      (click)="onCancle()"
-    ></button>
-  </ng-template>
+    pButton
+    pRipple
+    label="Upload"
+    icon="pi pi-upload"
+    class="p-button buttons uploadButton"
+    [disabled]="!selectedFiles"
+    (click)="updateFile()"
+  ></button>
+</div>
 </p-dialog>

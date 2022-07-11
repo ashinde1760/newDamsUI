@@ -12,6 +12,7 @@ import { HighlighterPipe } from './navbar/home/highlighter.pipe';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { TestComponent } from './navbar/test/test.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { DocumentEditorContainerAllModule } from '@syncfusion/ej2-angular-documenteditor';
 
 
 
@@ -32,6 +33,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     SharedModulesModule,
     NgxDocViewerModule  ,
     PdfViewerModule,
+    DocumentEditorContainerAllModule,
     RouterModule.forChild([
       {
         path: '',

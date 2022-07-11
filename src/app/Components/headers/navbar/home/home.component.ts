@@ -1,7 +1,16 @@
+
+
+
+
+
+
+
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DocumentUploadService } from 'src/app/Services/document-upload.service';
+import { saveAs } from 'file-saver';
+
 
 @Component({
   selector: 'app-home',
@@ -16,6 +25,7 @@ export class HomeComponent implements OnInit {
   searchKeyword!: string;
   uploadMessage!:string;
   viewDoc:boolean=false;
+  allKeyWords: any = [];
 
   searchedData: any = [];
   constructor(
@@ -24,11 +34,20 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    //akshay
     this.docService.getDocuments().subscribe((data: any) => {
       console.log(data.hits.hits);
       this.documents = data.hits.hits;
       console.log(this.documents);
     });
+//Tasdiq
+ this.docService.getAllApprovedKeywords().subscribe((keyWordsData: any) => {
+  this.allKeyWords = keyWordsData;
+  console.log("Got the data ",this.allKeyWords);
+ });
+
+
+
   }
 
   onUpload() {
@@ -72,6 +91,10 @@ export class HomeComponent implements OnInit {
     this.uploadDialog = false;
   }
 
+keywordSearch(keyword: string){
+  this.searchKeyword = keyword;
+  this.search();
+}
   search() {
     this.docService.search(this.searchKeyword).subscribe(
       (data: any) => {
@@ -91,4 +114,39 @@ export class HomeComponent implements OnInit {
   onViewDoc(){
     this.viewDoc=true;
   }
+
+  downloadDoc(docId: string) {
+    this.docService.download(docId).subscribe((event: any) => {
+      saveAs(event, docId);
+    });
+    (error: HttpErrorResponse) => {
+      console.log(error);
+    };
+  }
+
+  searchedDoc:boolean=false;
+  fileData!:string;
+  fileName!:string;
+  docId!:string;
+  viewSearchedDoc(data:any)
+  {
+    this.fileData=data.Content;
+    this.docId=data.id;
+    this.fileName=data.Name.split('.').slice(0, -1).join('.');
+    this.searchedDoc=true;
+  }
+
+  bookmark: boolean = false;
+  bookmark1: boolean = true;
+  bookmarkSection() {
+
+      if(this.bookmark==true)
+      {
+        this.bookmark=false;
+      }
+      else{
+        this.bookmark=true;
+      }
+  }
+
 }

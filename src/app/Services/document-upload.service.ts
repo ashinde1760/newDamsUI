@@ -11,6 +11,14 @@ import { Keyword } from '../Components/headers/navbar/sections/model/keyword';
 export class DocumentUploadService {
   constructor(private http: HttpClient) {}
 
+  getAllApprovedKeywords(){
+    return this.http.get(`${environment.url1}/approvedkeywords`);
+  }
+
+  getDocTerms(id: string) {
+    return this.http.get(`${environment.url1}/getTermVector/${id}`);
+  }
+
   getDocumentDetails() {
     return this.http.get('http://localhost:3000/documents');
     // return this.http.get(`${environment.url1}/searchall`);
@@ -35,9 +43,9 @@ export class DocumentUploadService {
     );
   }
 
-  getSections(version: string) {
-    return this.http.get(`${environment.url + '/sections'}?version=${version}`);
-  }
+  // getSections(version: string) {
+  //   return this.http.get(`${environment.url + '/sections'}?version=${version}`);
+  // }
 
   getKeywords(section: string) {
     return this.http.get(`${environment.url + '/keywords'}?section=${section}`);
@@ -70,13 +78,26 @@ export class DocumentUploadService {
     return this.http.get(`${environment.url}/keywords/${id}`);
   }
 
+  addBookmarks(id:string) {
+    console.log(id);
+    
+    return this.http.post(`${environment.url1 + '/setbookmark/'}${id}`,id);
+  }
+
+
   updateBookmark(id: string, data: any) {
     return this.http.put(`${environment.url}/keywords/${id}`, data);
   }
 
-  getBookmarks() {
-    return this.http.get(`${environment.url + '/keywords'}?bookmark=${true}`);
+  updateBookmark1(id: string) {
+    return this.http.put(`${environment.url}/keywords/${id}`,id);
   }
+  
+  getBookmarks() {
+    return this.http.get(`${environment.url1 + '/getbookmark'}`);
+  }
+
+
 
   getBookmarksBySection(section: string) {
     return this.http.get(
@@ -148,4 +169,30 @@ export class DocumentUploadService {
       responseType: 'blob'
     });
   }
+
+
+  getSections(id:string)
+  {
+    return this.http.get(`${environment.url1}/getAllSections/${id}`);
+  }
+
+  downloadSection(secId:string)
+  {
+    return this.http.get(`${environment.url1}/downloadFile/${secId}`, {
+      reportProgress: true,
+      // observe: 'events',
+      responseType: 'blob'
+    });
+  }
+
+  downloadSec(docId: string){
+    console.log("got the id in service ",docId);
+    return this.http.get(`${environment.url1}/downloadSec/${docId}`, {
+      reportProgress: true,
+      // observe: 'events',
+      responseType: 'blob'
+    });
+  }
+
+
 }

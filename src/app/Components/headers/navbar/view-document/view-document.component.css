@@ -1,3 +1,14 @@
+/* @import '../node_modules/@syncfusion/ej2-base/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-buttons/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-inputs/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-popups/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-lists/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-navigations/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-dropdowns/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-angular-documenteditor/styles/material.css'; */
+
+
 .title{
     font-size: xx-large;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -6,9 +17,7 @@
     color: #3700B3
 }
 
-.docData{
-    font-family:Georgia;
-}
+
 
 .desc{
     margin: 10px;
@@ -73,17 +82,43 @@ a{
 }
 
 pre{
-    display: flex;
-    flex-wrap: wrap;
-}
+    word-wrap: normal;
+    inline-size: 100%; 
+    overflow: scroll;
+    font-family:Georgia;
+  }
 
 ::ng-deep .viewButton{
     background-color: #d93954;
     border-color: white;
 }
 
+::ng-deep .buttons{
+    background-color: #f0032b;
+    border-color: #d93954;
+}
+
+.buttons:hover{
+    background-color: #f0032b;
+    border-color: #d93954;
+}
 
 ::ng-deep .viewButton:hover{
     background-color: #f0032b;
     border-color: #d93954;
 }
+
+.bookamrk{
+    float: right;
+}
+
+.viewIcon{
+    float: right;
+    margin: 10px;
+    color: #d93954;
+    cursor: pointer;
+  }
+
+/* .docData{
+    margin-top: 20px;
+} */

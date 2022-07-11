@@ -1,19 +1,3 @@
-import { Pipe, PipeTransform } from '@angular/core';
-
-// For highlighting keywords
-@Pipe({
-  name: 'highlight',
-})
-export class HighlightSearch implements PipeTransform {
-  transform(value: any, args: any): any {
-    if (!args) {
-      return value;
-    }
-    var re = new RegExp(args, 'gi'); //'gi' for case insensitive and can use 'g' if you want the search to be case sensitive.
-    return value.replace(re, '<mark>$&</mark>');
-  }
-}
-
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -22,6 +6,8 @@ import { NewDocument, NewSampleDoc } from './Document/Document';
 import { ConfirmationService, MessageService } from 'primeng/api';
 //for creating new doc
 import * as docx from 'docx';
+import { log } from 'console';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-doc-managment',
@@ -37,6 +23,7 @@ export class DocManagmentComponent implements OnInit {
   searchKeyword!: string;
   searchedData: any = [];
   docData!: NewDocument;
+  docId!: string;
 
   createNewDocument: boolean = false;
   cols!: any[];
@@ -44,7 +31,6 @@ export class DocManagmentComponent implements OnInit {
   newSampleDocData!: NewSampleDoc;
 
   updateDocDialog: boolean = false;
-  docId!: string;
 
   constructor(
     private docService: DocumentUploadService,
@@ -83,12 +69,17 @@ export class DocManagmentComponent implements OnInit {
         this.docService.upload(this.currentFile).subscribe(
           (data: any) => {
             console.log(data);
-            if (data.status === 201) {
+            if (data.status === 200) {
               this.messageService.add({
                 severity: 'success',
                 summary: 'Confirmed',
                 detail:
                   'File Uploaded successfully, refresh page to see document',
+              });
+              console.log('This is data docid ', data.body);
+              this.docId = data.body;
+              this.docService.getDocTerms(this.docId).subscribe((data: any) => {
+                console.log("These are all tyhe terms of currently uploaded file ",data);
               });
             }
           },
@@ -121,7 +112,7 @@ export class DocManagmentComponent implements OnInit {
 
   // It gets call by clicking on view button to view perticular document
   onClickView(docName: string) {
-    console.log(docName," Name from docmgt components");
+    console.log(docName, ' Name from docmgt components');
     localStorage.setItem('docName', JSON.stringify(docName));
     this.router.navigate(['/viewDoc']);
   }
@@ -164,8 +155,8 @@ export class DocManagmentComponent implements OnInit {
 
   // It will open a dialog box to update a document
   onClickUpdate(id: string) {
-    console.log("this is product.id ",id);
-    
+    console.log('this is product.id ', id);
+
     this.docId = id;
     this.updateDocDialog = true;
   }
@@ -179,8 +170,8 @@ export class DocManagmentComponent implements OnInit {
 
   // for updating a file
   updateFile() {
-    console.log("inside ts updateFile");
-    
+    console.log('inside ts updateFile');
+
     this.updateDocDialog = false;
     if (this.selectedFiles) {
       const file: File | null = this.selectedFiles.item(0);

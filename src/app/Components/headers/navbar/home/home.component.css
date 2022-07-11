@@ -30,3 +30,35 @@
   background-color: #d30628;
 border-color: white;
 }
+
+.inputSearch{
+  width: 100%;
+}
+a{
+  text-decoration: underline;
+  color: blue;
+}
+
+i{
+  float: right;
+  margin: 10px;
+  color: #d93954;
+  cursor: pointer;
+}
+
+pre{
+  word-wrap: break-word;
+  inline-size: 100%; 
+  overflow: scroll;
+  font-family:Georgia;
+}
+
+.keywords{
+ margin: 2px;
+}
+.keywordsContainer{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
