@@ -78,9 +78,9 @@ export class DocManagmentComponent implements OnInit {
               });
               console.log('This is data docid ', data.body);
               this.docId = data.body;
-              this.docService.getDocTerms(this.docId).subscribe((data: any) => {
-                console.log("These are all tyhe terms of currently uploaded file ",data);
-              });
+              // this.docService.getDocTerms(this.docId).subscribe((data: any) => {
+              //   console.log("These are all tyhe terms of currently uploaded file ",data);
+              // });
             }
           },
           (error: HttpErrorResponse) => {
