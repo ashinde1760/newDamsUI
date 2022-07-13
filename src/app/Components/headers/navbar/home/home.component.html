@@ -21,7 +21,7 @@
 
   <div class="keywordsContainer">
   <div *ngFor="let kwd of allKeyWords" class="keywords">
-    <button pButton type="button" class="p-button-raised p-button-rounded p-button-secondary" (click)="keywordSearch(kwd.term)">{{kwd.term}}</button>
+    <button pButton type="button" class="p-button-raised p-button-sm p-button-secondary" (click)="keywordSearch(kwd.term)" (contextmenu)="onRightClick($event,kwd.id)" >{{kwd.term}}</button>
   </div>
 </div>
 
@@ -152,3 +152,11 @@
   style="width: 100%; height: 100vh"
 >
 </ngx-doc-viewer>
+
+
+<p-toast></p-toast>
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+

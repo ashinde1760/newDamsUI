@@ -5,17 +5,18 @@
     </div>
   </p-toolbar>
 
-  <p-card class="docData">
+  <!-- <p-card class="docData">
     <button pButton class="p-button-sm buttons" label="Keywords"></button>
     &nbsp;
     <br />
-  </p-card>
+  </p-card> -->
 </div>
 <br /><br />
 
 <!-- Versions and Sections -->
 <div class="grid">
   <div class="col-6">
+
     <p-table
       #dt
       [value]="documentData"
@@ -35,10 +36,10 @@
         <tr style="color: coral">
           <th>Version</th>
           <th>Download</th>
-          <th>Timestamp</th>
+          <th>Tomestamp</th>
           <th></th>
           <th></th>
-          <!-- <th>Action</th> -->
+          <th></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-version>
@@ -61,7 +62,7 @@
               type="button"
               class="p-button-sm viewButton buttons"
               pButton
-              label="View Document"
+              label="View"
               icon="pi pi-check"
               (click)="onClickViewDoc(version)"
             ></button>
@@ -71,9 +72,19 @@
               type="button"
               class="p-button-sm viewButton buttons"
               pButton
-              label="View Section"
+              label="Section"
               icon="pi pi-check"
               (click)="onClickViewSection(version.id)"
+            ></button>
+          </td>
+          <td>
+            <button
+              type="button"
+              class="p-button-sm viewButton buttons"
+              pButton
+              label="Keywords"
+              icon="pi pi-check"
+              (click)="onClickViewKeywords(version.id)"
             ></button>
           </td>
         </tr>
@@ -81,12 +92,11 @@
       <ng-template pTemplate="summary">
         <div class="p-d-flex p-ai-center p-jc-between pagination">
           In total there are
-          {{ documentData ? documentData.length : 0 }} Documents.
+          {{ documentData ? documentData.length : 0 }} Versions.
         </div>
       </ng-template>
     </p-table>
   </div>
-
 
   <!-- All sections can view here -->
   <div class="col-6">
@@ -150,9 +160,52 @@
         </ng-template>
       </p-table>
     </div>
-  </div>
 
+    <!-- view all keywords -->
+  <div *ngIf="keywordsView">
+    <p-table
+      #dt
+      [value]="keywordsData"
+      [rows]="5"
+      [paginator]="true"
+      [rowHover]="true"
+      dataKey="id"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+    >
+      <ng-template pTemplate="caption">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          <h3 class="p-m-0">All Keywords</h3>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr style="color: coral">
+          <th>Keyword</th>
+          <th>Action</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-keyword>
+        <tr>
+          <td style="cursor: pointer">
+            <a>{{ keyword.term }} </a>
+          </td>
+          <td>
+            <button pButton class="p-button-sm buttons" label="Aprrove" (click)="onClickApprove(keyword.term)"></button>
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between pagination">
+          In total there are
+          {{ keywordsData ? keywordsData.length : 0 }} keywords.
+        </div>
+      </ng-template>
+    </p-table>
+  </div>
 </div>
+</div>
+
 
 <div>
   <!-- Document Description -->
@@ -223,7 +276,6 @@
     </div>
   </p-dialog>
 </div>
-
 
 <!-- Alert Messages -->
 <p-toast></p-toast>

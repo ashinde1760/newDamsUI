@@ -92,7 +92,6 @@ export class ViewDocumentComponent implements OnInit {
     this.router.navigate(['/sections']);
   }
 
-
   // To download document
   downloadDoc(docId: string) {
     this.docService.download(docId).subscribe((event: any) => {
@@ -102,7 +101,6 @@ export class ViewDocumentComponent implements OnInit {
       console.log(error);
     };
   }
-
 
   // To view document
   fileUrl!: string;
@@ -131,7 +129,6 @@ export class ViewDocumentComponent implements OnInit {
     );
   }
 
-
   // To get sections
   sectionData: any;
   sectionView: boolean = false;
@@ -140,6 +137,7 @@ export class ViewDocumentComponent implements OnInit {
       (data: any) => {
         this.sectionData = data;
         console.log(data);
+        this.keywordsView = false;
         this.sectionView = true;
       },
       (error: HttpErrorResponse) => {
@@ -147,8 +145,6 @@ export class ViewDocumentComponent implements OnInit {
       }
     );
   }
-
-
 
   // To view sections
   secView: boolean = false;
@@ -158,7 +154,7 @@ export class ViewDocumentComponent implements OnInit {
     this.versionSecData = data;
     this.versionSecName = data.docName.split('.').slice(0, -1).join('.');
     this.secView = true;
-    alert(this.secView)
+    alert(this.secView);
     // this.openTemplate();
   }
 
@@ -170,4 +166,52 @@ export class ViewDocumentComponent implements OnInit {
       console.log(error);
     };
   }
+
+  // To get sections
+  keywordsData: any;
+  keywordsView: boolean = false;
+  onClickViewKeywords(id: string) {
+    this.docService.getKeywords(id).subscribe(
+      (data: any) => {
+        this.keywordsData = data;
+        console.log(data);
+        this.sectionView = false;
+        this.keywordsView = true;
+      },
+      (error: HttpErrorResponse) => {
+        alert('something went wrong');
+      }
+    );
+  }
+
+  // on click approve button
+  onClickApprove(keyword: string) {
+    this.docService.approvedKeyword(keyword).subscribe(
+      (data: any) => {
+        if (data === "OK") {          
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Confirmed',
+            detail: 'Keyword added successfully',
+          });
+        }
+        else if(data == "NOT_MODIFIED"){
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Warning',
+            detail: 'keyword already exists'
+          })
+          
+        }
+      },
+      (error: HttpErrorResponse) => {
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Cancelled',
+          detail: 'Some error occured'
+        })
+      }
+    );
+  }
+
 }

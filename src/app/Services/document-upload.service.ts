@@ -12,7 +12,7 @@ export class DocumentUploadService {
   constructor(private http: HttpClient) {}
 
   getAllApprovedKeywords(){
-    return this.http.get(`${environment.url1}/approvedkeywords`);
+    return this.http.get(`${environment.url1}/getallapprovedkeywords`);
   }
 
   getDocTerms(id: string) {
@@ -47,8 +47,13 @@ export class DocumentUploadService {
   //   return this.http.get(`${environment.url + '/sections'}?version=${version}`);
   // }
 
-  getKeywords(section: string) {
-    return this.http.get(`${environment.url + '/keywords'}?section=${section}`);
+  getKeywords(id: string) {
+    return this.http.get(`${environment.url1 + '/gettermsbydocid'}/${id}`);
+  }
+
+
+  approvedKeyword(keyword: string) {
+    return this.http.post(`${environment.url1 + '/saveapprovedkeywords'}/${keyword}`,keyword);
   }
 
   getEntities(section: string) {
@@ -64,9 +69,9 @@ export class DocumentUploadService {
     );
   }
 
-  deleteKeyword(id: number, section: string) {
+  deleteKeyword(id: string) {
     return this.http.delete<any>(
-      `${environment.url}/keywords/${id}?section=${section}`
+      `${environment.url1}/deleteKeywords/${id}`
     );
   }
 

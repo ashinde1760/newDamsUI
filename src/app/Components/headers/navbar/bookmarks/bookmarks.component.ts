@@ -15,11 +15,12 @@ export class BookmarksComponent implements OnInit {
 
   constructor(
     private service: DocumentUploadService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit(): void {
-    this.versionDocData={}
+    this.versionDocData = {};
     this.service.getBookmarks().subscribe(
       (data) => {
         this.bookmarks = data;
@@ -35,38 +36,46 @@ export class BookmarksComponent implements OnInit {
     this.service.download(id).subscribe(
       (event: any) => {
         saveAs(event, id);
-        // if(data.status===200)
-        // {
-        //   this.messageService.add({
-        //     severity: 'success',
-        //     summary: 'Confirmed',
-        //     detail:
-        //       'File Uploaded successfully, refresh page to see document',
-        //   });
-        // }
       },
       (error: HttpErrorResponse) => {}
     );
   }
 
   cancleBookmark(id: string) {
-    this.service.addBookmarks(id).subscribe(
-      (data: any) => {
-        this.ngOnInit();
-        
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to Delete Keyword?',
+      accept: () => {
+        this.service.addBookmarks(id).subscribe(
+          (data: any) => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Deleted',
+              detail: 'bookmark deleted successfully',
+            });
+            this.ngOnInit();
+          },
+          (error: HttpErrorResponse) => {
+            alert(error);
+          }
+        );
       },
-      (error: any) => {}
-    );
+      reject: () => {
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Cancelled',
+          detail: 'bookmark not deleted',
+        });
+      },
+    });
   }
 
   docView: boolean = false;
-  versionDocName!:string;
-  versionDocData!:any;
-  onClickViewDoc(data:any) {
-
-    console.log(data,"anemoi");
-    this.versionDocData=data;
-    this.versionDocName=data.docName.split('.').slice(0, -1).join('.')
+  versionDocName!: string;
+  versionDocData!: any;
+  onClickViewDoc(data: any) {
+    console.log(data, 'anemoi');
+    this.versionDocData = data;
+    this.versionDocName = data.docName.split('.').slice(0, -1).join('.');
     this.docView = true;
     // this.openTemplate();
   }

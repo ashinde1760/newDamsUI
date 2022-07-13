@@ -132,7 +132,7 @@ export class SectionsComponent implements OnInit {
   }
 
   // this is to delete keyword
-  deleteKeyword(position: string, id: number, section: string) {
+  deleteKeyword(position: string, id: string, section: string) {
     this.position = position;
 
     this.confirmationService.confirm({
@@ -140,7 +140,7 @@ export class SectionsComponent implements OnInit {
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
-        this.docService.deleteKeyword(id, section).subscribe((data) => {
+        this.docService.deleteKeyword(id).subscribe((data) => {
           this.messageService.add({
             severity: 'info',
             summary: 'Confirmed',
