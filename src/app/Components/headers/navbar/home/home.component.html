@@ -21,7 +21,7 @@
 
   <div class="keywordsContainer">
   <div *ngFor="let kwd of allKeyWords" class="keywords">
-    <button pButton type="button" class="p-button-raised p-button-rounded p-button-secondary" (click)="keywordSearch(kwd.keyword)">{{kwd.keyword}}</button>
+    <button pButton type="button" class="p-button-raised p-button-rounded p-button-secondary" (click)="keywordSearch(kwd.term)">{{kwd.term}}</button>
   </div>
 </div>
 
