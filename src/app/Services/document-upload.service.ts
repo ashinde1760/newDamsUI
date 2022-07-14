@@ -12,7 +12,7 @@ export class DocumentUploadService {
   constructor(private http: HttpClient) {}
 
   getAllApprovedKeywords(){
-    return this.http.get(`${environment.url1}/approvedkeywords`);
+    return this.http.get(`${environment.url1}/getallapprovedkeywords`);
   }
 
   getDocTerms(id: string) {
